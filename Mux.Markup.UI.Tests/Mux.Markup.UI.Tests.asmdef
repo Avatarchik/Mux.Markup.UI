@@ -1,0 +1,13 @@
+{
+    "name": "Mux.Markup.UI.Tests",
+    "references": [
+        "Mux.Markup",
+        "Mux.Markup.UI"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

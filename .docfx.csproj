@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <AssemblyName>Mux.Markup.UI</AssemblyName>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Mux.Markup\.docfx.csproj" />
+        <Reference Include="Xamarin.Forms.Core">
+            <HintPath>..\Installation\Plugins\Xamarin.Forms.Core.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+</Project>

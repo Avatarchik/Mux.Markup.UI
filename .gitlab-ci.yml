@@ -1,0 +1,27 @@
+sqlite:
+    artifacts:
+        paths:
+            - .artifacts/SQLitePCLRaw.core.dll
+    cache:
+        paths:
+            - .sqlitepclraw.core.1.1.11.nupkg
+    script:
+        - '[ -f .sqlitepclraw.core.1.1.11.nupkg ] || curl -Lo .sqlitepclraw.core.1.1.11.nupkg https://www.nuget.org/api/v2/package/SQLitePCLRaw.core/1.1.11'
+        - unzip -j .sqlitepclraw.core.1.1.11.nupkg lib/net45/SQLitePCLRaw.core.dll -d .artifacts
+    stage: build
+    tags:
+        - mac
+
+format:
+    cache:
+        paths:
+            - .CodeFormatter_v1.0.0-alpha7.zip
+    dependencies:
+        - sqlite
+    script:
+        - '[ -f .CodeFormatter_v1.0.0-alpha7.zip ] || curl -Lo .CodeFormatter_v1.0.0-alpha7.zip https://github.com/dotnet/codeformatter/releases/download/v1.0.0-alpha7/CodeFormatter.zip'
+        - unzip .CodeFormatter_v1.0.0-alpha7.zip -d .artifacts
+        - mono .artifacts/CodeFormatter.exe .CodeFormatter.rsp
+        - git diff --exit-code
+    tags:
+        - mac
