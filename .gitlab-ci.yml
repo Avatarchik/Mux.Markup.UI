@@ -25,3 +25,9 @@ format:
         - git diff --exit-code
     tags:
         - mac
+
+integration:
+    stage: deploy
+    script: $INTEGRATE
+    only:
+        - master
