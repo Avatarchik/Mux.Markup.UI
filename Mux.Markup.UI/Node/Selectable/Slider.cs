@@ -150,7 +150,7 @@ namespace Mux.Markup
                         slider._builtinHandleSlideArea.transform.SetParent(slider.Component.transform, false);
                         slider._builtinHandleSlideArea.layer = slider.Component.gameObject.layer;
                         slider.HandleRect.gameObject.layer = slider._builtinHandleSlideArea.layer;
-                        slider.Component.fillRect = slider.HandleRect;
+                        slider.Component.handleRect = slider.HandleRect;
                     }
                 }
                 else
@@ -165,7 +165,7 @@ namespace Mux.Markup
                     if (slider.Component != null)
                     {
                         slider._builtinHandleSlideArea.transform.SetParent(null);
-                        slider.Component.fillRect = slider.HandleRect;
+                        slider.Component.handleRect = slider.HandleRect;
                     }
                 }
             }, boxedSlider);
