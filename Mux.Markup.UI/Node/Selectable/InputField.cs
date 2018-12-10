@@ -156,6 +156,7 @@ namespace Mux.Markup
                         inputField._builtinText.layer = component.gameObject.layer;
                         inputField._builtinText.transform.SetParent(component.gameObject.transform, false);
                         component.textComponent = newValue;
+                        component.ForceLabelUpdate();
                     }
                 }
                 else
@@ -167,6 +168,7 @@ namespace Mux.Markup
                         inputField._builtinText.layer = component.gameObject.layer;
                         inputField._builtinText.transform.SetParent(component.gameObject.transform, false);
                         component.textComponent = newValue;
+                        component.ForceLabelUpdate();
                     }
                 }
             }, boxedNewValue);
