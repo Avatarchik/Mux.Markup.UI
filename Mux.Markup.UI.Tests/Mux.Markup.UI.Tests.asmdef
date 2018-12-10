@@ -1,6 +1,7 @@
 {
     "name": "Mux.Markup.UI.Tests",
     "references": [
+        "Mux",
         "Mux.Markup",
         "Mux.Markup.UI"
     ],
