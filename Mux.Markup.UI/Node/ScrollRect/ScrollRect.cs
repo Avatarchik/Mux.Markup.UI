@@ -8,7 +8,7 @@ namespace Mux.Markup
     public class ScrollRect : Object<UnityEngine.UI.ScrollRect>
     {
         [StructLayout(LayoutKind.Auto)]
-        private struct BuiltinScrollbarPrefabs
+        private readonly struct BuiltinScrollbarPrefabs
         {
             public readonly UnityEngine.ResourceRequest horizontal;
             public readonly UnityEngine.ResourceRequest vertical;

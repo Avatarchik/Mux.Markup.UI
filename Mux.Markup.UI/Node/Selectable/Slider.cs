@@ -8,7 +8,7 @@ namespace Mux.Markup
     public class Slider : Selectable<UnityEngine.UI.Slider>
     {
         [StructLayout(LayoutKind.Auto)]
-        private struct BuiltinPrefabs
+        private readonly struct BuiltinPrefabs
         {
             public readonly UnityEngine.ResourceRequest fillArea;
             public readonly UnityEngine.ResourceRequest handleSlideArea;
