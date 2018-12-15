@@ -122,6 +122,42 @@ namespace Mux.Markup.Extras
 
     /// <summary>A <see cref="UIMeshItem" /> that represents a quad.</summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddUIVertexQuad" />
+    /// <example>
+    /// <code language="lang-xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mue:UIMesh>
+    ///         <!--
+    ///             You have to wrap items with mue:UIMesh.Items only when you
+    ///             compile the interpreter with IL2CPP.
+    ///             It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///         -->
+    ///         <mue:UIMesh.Items>
+    ///             <mue:UIVertexQuad>
+    ///                 <!-- Wrapping with mue:UIVertexQuad.Verts for the same reason -->
+    ///                 <mue:UIVertexQuad.Verts>
+    ///                     <m:UIVertex Color="{m:Color R=0, G=0, B=0}" Position="{m:Vector3 X=-0.5, Y=-0.5, Z=0}" />
+    ///                     <m:UIVertex Color="{m:Color R=0, G=0, B=1}" Position="{m:Vector3 X=-0.5, Y=0.5, Z=0}" />
+    ///                     <m:UIVertex Color="{m:Color R=0, G=1, B=0}" Position="{m:Vector3 X=0.5, Y=0.5, Z=0}" />
+    ///                     <m:UIVertex Color="{m:Color R=1, G=0, B=0}" Position="{m:Vector3 X=0.5, Y=-0.5, Z=0}" />
+    ///                 </mue:UIVertexQuad.Verts>
+    ///             </mue:UIVertexQuad>
+    ///         </mue:UIMesh.Items>
+    ///     </mue:UIMesh>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     [ContentProperty("Verts")]
     public class UIVertexQuad : UIMeshItemWithCollection
     {
@@ -171,6 +207,45 @@ namespace Mux.Markup.Extras
     /// <see cref="T:UnityEngine.UIVertex" /> and corresponding indices.
     /// </summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddUIVertexStream" />
+    /// <example>
+    /// <code language="lang-xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mue:UIMesh>
+    ///         <!--
+    ///             You have to wrap items with mue:UIMesh.Items only when you
+    ///             compile the interpreter with IL2CPP.
+    ///             It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///         -->
+    ///         <mue:UIMesh.Items>
+    ///             <mue:UIVertexStream>
+    ///                 <mue:UIVertexStream.Verts>
+    ///                     <m:UIVertex Color="{m:Color R=0, G=0, B=1}" Position="{m:Vector3 X=-0.5, Y=-0.5, Z=0}" />
+    ///                     <m:UIVertex Color="{m:Color R=0, G=1, B=0}" Position="{m:Vector3 X=0, Y=0.5, Z=0}" />
+    ///                     <m:UIVertex Color="{m:Color R=1, G=0, B=0}" Position="{m:Vector3 X=0.5, Y=-0.5, Z=0}" />
+    ///                 </mue:UIVertexStream.Verts>
+    ///                 <mue:UIVertexStream.Indices>
+    ///                     <x:Int32>0</x:Int32>
+    ///                     <x:Int32>1</x:Int32>
+    ///                     <x:Int32>2</x:Int32>
+    ///                 </mue:UIVertexStream.Indices>
+    ///             </mue:UIVertexStream>
+    ///         </mue:UIMesh.Items>
+    ///     </mue:UIMesh>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class UIVertexStream : UIMeshItemWithCollection
     {
         /// <summary>Backing store for <see cref="Verts" />.</summary>
@@ -231,6 +306,41 @@ namespace Mux.Markup.Extras
 
     /// <summary>A <see cref="UIMeshItem" /> that represents a list of triangles.</summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddUIVertexTriangleStream" />
+    /// <example>
+    /// <code language="lang-xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mue:UIMesh>
+    ///         <!--
+    ///             You only have to wrap items with mue:UIMesh.Items
+    ///             when you compile the interpreter with IL2CPP.
+    ///             It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///         -->
+    ///         <mue:UIMesh.Items>
+    ///             <mue:UIVertexTriangleStream>
+    ///                 <!-- Wrapping with mue:UIVertexTriangleStream.Verts for the same reason -->
+    ///                 <mue:UIVertexTriangleStream.Verts>
+    ///                     <m:UIVertex Color="{m:Color R=0, G=0, B=1}" Position="{m:Vector3 X=-0.5, Y=-0.5, Z=0}" />
+    ///                     <m:UIVertex Color="{m:Color R=0, G=1, B=0}" Position="{m:Vector3 X=0, Y=0.5, Z=0}" />
+    ///                     <m:UIVertex Color="{m:Color R=1, G=0, B=0}" Position="{m:Vector3 X=0.5, Y=-0.5, Z=0}" />
+    ///                 </mue:UIVertexTriangleStream.Verts>
+    ///             </mue:UIVertexTriangleStream>
+    ///         </mue:UIMesh.Items>
+    ///     </mue:UIMesh>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     [ContentProperty("Verts")]
     public class UIVertexTriangleStream : UIMeshItemWithCollection
     {
@@ -269,6 +379,37 @@ namespace Mux.Markup.Extras
 
     /// <summary>A <see cref="UIMeshItem" /> that represents a triangle.</summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddTriangle" />
+    /// <example>
+    /// <code language="lang-xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mue:UIMesh>
+    ///         <!--
+    ///             You only have to wrap items with mue:UIMesh.Items
+    ///             when you compile the interpreter with IL2CPP.
+    ///             It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///         -->
+    ///         <mue:UIMesh.Items>
+    ///             <mue:Triangle Indices="{m:Vector3Int X=0, Y=1, Z=2}" />
+    ///             <mue:Vert Value="{m:UIVertex Color={m:Color R=0, G=0, B=1}, Position={m:Vector3 X=-0.5, Y=-0.5, Z=0}}" />
+    ///             <mue:Vert Value="{m:UIVertex Color={m:Color R=0, G=1, B=0}, Position={m:Vector3 X=0, Y=0.5, Z=0}}" />
+    ///             <mue:Vert Value="{m:UIVertex Color={m:Color R=1, G=0, B=0}, Position={m:Vector3 X=0.5, Y=-0.5, Z=0}}" />
+    ///         </mue:UIMesh.Items>
+    ///     </mue:UIMesh>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     [ContentProperty("Indices")]
     public class Triangle : UIMeshItem
     {
@@ -309,6 +450,37 @@ namespace Mux.Markup.Extras
 
     /// <summary>A <see cref="UIMeshItem" /> that represents a single vertex.</summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddVert" />
+    /// <example>
+    /// <code language="lang-xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mue:UIMesh>
+    ///         <!--
+    ///             You only have to wrap items with mue:UIMesh.Items
+    ///             when you compile the interpreter with IL2CPP.
+    ///             It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///         -->
+    ///         <mue:UIMesh.Items>
+    ///             <mue:Triangle Indices="{m:Vector3Int X=0, Y=1, Z=2}" />
+    ///             <mue:Vert Value="{m:UIVertex Color={m:Color R=0, G=0, B=1}, Position={m:Vector3 X=-0.5, Y=-0.5, Z=0}}" />
+    ///             <mue:Vert Value="{m:UIVertex Color={m:Color R=0, G=1, B=0}, Position={m:Vector3 X=0, Y=0.5, Z=0}}" />
+    ///             <mue:Vert Value="{m:UIVertex Color={m:Color R=1, G=0, B=0}, Position={m:Vector3 X=0.5, Y=-0.5, Z=0}}" />
+    ///         </mue:UIMesh.Items>
+    ///     </mue:UIMesh>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     [ContentProperty("Value")]
     public class Vert : UIMeshItem
     {

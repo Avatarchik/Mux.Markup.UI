@@ -7,6 +7,44 @@ namespace Mux.Markup.Extras
     /// <summary>
     /// A class that allows creating or modifying meshes with XAML and data binding.
     /// </summary>
+    /// <example>
+    /// <code language="lang-xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mue:UIMesh>
+    ///         <!--
+    ///             You have to wrap items with mue:UIMesh.Items only when you
+    ///             compile the interpreter with IL2CPP.
+    ///             It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///         -->
+    ///         <mue:UIMesh.Items>
+    ///             <mue:UIVertexTriangleStream>
+    ///                 <!--
+    ///                     Wrapping with mue:UIVertexTriangleStream.Verts
+    ///                     for the same reason
+    ///                 -->
+    ///                 <mue:UIVertexTriangleStream.Verts>
+    ///                     <m:UIVertex Position="{m:Vector3 X=-0.5, Y=-0.5, Z=0}" />
+    ///                     <m:UIVertex Position="{m:Vector3 X=0, Y=0.5, Z=0}" />
+    ///                     <m:UIVertex Position="{m:Vector3 X=0.5, Y=-0.5, Z=0}" />
+    ///                 </mue:UIVertexTriangleStream.Verts>
+    ///             </mue:UIVertexTriangleStream>
+    ///         </mue:UIMesh.Items>
+    ///     </mue:UIMesh>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     [ContentProperty("Items")]
     public class UIMesh : Graphic<MuxUIMesh>
     {

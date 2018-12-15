@@ -8,6 +8,48 @@ namespace Mux.Markup.Extras
     /// <summary>
     /// A component that represents a group of <see cref="Picker{T}">Pickers</see>.
     /// </summary>
+    /// <example>
+    /// <code language="lang-xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:system="clr-namespace:System;assembly=mscorlib"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mue:PickerGroup x:Name="group" x:TypeArguments="system:Byte" />
+    ///     <mu:VerticalLayoutGroup />
+    ///     <m:RectTransform>
+    ///         <!--
+    ///             You have to give property name "Name" to x:Reference
+    ///             only when you compile the interpreter with IL2CPP.
+    ///             It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///         -->
+    ///         <mue:Picker
+    ///             x:TypeArguments="system:Byte"
+    ///             PickerGroup="{x:Reference Name=group}"
+    ///             Value="0" />
+    ///     </m:RectTransform>
+    ///     <m:RectTransform>
+    ///         <mue:Picker
+    ///             x:TypeArguments="system:Byte"
+    ///             PickerGroup="{x:Reference Name=group}"
+    ///             Value="1" />
+    ///     </m:RectTransform>
+    ///     <m:RectTransform>
+    ///         <!-- Specifying "Path" property name for the same reason -->
+    ///         <mu:Text Content="{Binding Path=Value, Source={x:Reference Name=group}}" />
+    ///     </m:RectTransform>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class PickerGroup<T> : ToggleGroup
     {
         /// <summary>Backing store for the <see cref="Value" /> property.</summary>
@@ -34,6 +76,48 @@ namespace Mux.Markup.Extras
     }
 
     /// <summary>An component that represents a value to pick.</summary>
+    /// <example>
+    /// <code language="lang-xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:system="clr-namespace:System;assembly=mscorlib"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mue:PickerGroup x:Name="group" x:TypeArguments="system:Byte" />
+    ///     <mu:VerticalLayoutGroup />
+    ///     <m:RectTransform>
+    ///         <!--
+    ///             You have to give property name "Name" to x:Reference
+    ///             only when you compile the interpreter with IL2CPP.
+    ///             It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///         -->
+    ///         <mue:Picker
+    ///             x:TypeArguments="system:Byte"
+    ///             PickerGroup="{x:Reference Name=group}"
+    ///             Value="0" />
+    ///     </m:RectTransform>
+    ///     <m:RectTransform>
+    ///         <mue:Picker
+    ///             x:TypeArguments="system:Byte"
+    ///             PickerGroup="{x:Reference Name=group}"
+    ///             Value="1" />
+    ///     </m:RectTransform>
+    ///     <m:RectTransform>
+    ///         <!-- Specifying "Path" property name for the same reason -->
+    ///         <mu:Text Content="{Binding Path=Value, Source={x:Reference Name=group}}" />
+    ///     </m:RectTransform>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class Picker<T> : Toggle
     {
         /// <summary>Backing store for the <see cref="PickerGroup" /> property.</summary>
