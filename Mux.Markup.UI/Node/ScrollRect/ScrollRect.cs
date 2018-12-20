@@ -5,6 +5,53 @@ using Xamarin.Forms;
 namespace Mux.Markup
 {
     /// <summary>An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.ScrollRect" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <m:RectTransform x:Name="viewport">
+    ///         <mu:RectMask2D />
+    ///         <m:RectTransform x:Name="content" X="{m:Sized SizeDelta=999}" Y="{m:Sized SizeDelta=999}">
+    ///             <mue:UIMesh>
+    ///                 <mue:UIMesh.Items>
+    ///                     <mue:UIVertexTriangleStream>
+    ///                         <mue:UIVertexTriangleStream.Verts>
+    ///                             <m:UIVertex Color="{m:Color R=0, G=0, B=1}" Position="{m:Vector3 X=-0.5, Y=-0.5, Z=0}" />
+    ///                             <m:UIVertex Color="{m:Color R=0, G=1, B=0}" Position="{m:Vector3 X=0, Y=0.5, Z=0}" />
+    ///                             <m:UIVertex Color="{m:Color R=1, G=0, B=0}" Position="{m:Vector3 X=0.5, Y=-0.5, Z=0}" />
+    ///                         </mue:UIVertexTriangleStream.Verts>
+    ///                     </mue:UIVertexTriangleStream>
+    ///                 </mue:UIMesh.Items>
+    ///             </mue:UIMesh>
+    ///         </m:RectTransform>
+    ///     </m:RectTransform>
+    ///     <m:RectTransform X="{m:Stretch}" Y="{m:Sized Anchor=0, Pivot=0, SizeDelta=15}">
+    ///         <mu:Scrollbar x:Name="horizontalScrollbar" Direction="LeftToRight" />
+    ///     </m:RectTransform>
+    ///     <m:RectTransform X="{m:Sized Anchor=1, Pivot=1, SizeDelta=15}" Y="{m:Stretch}">
+    ///         <mu:Scrollbar x:Name="verticalScrollbar" Direction="BottomToTop" />
+    ///     </m:RectTransform>
+    ///     <mu:ScrollRect
+    ///         HorizontalScrollbar="{Binding Path=Component, Source={x:Reference Name=horizontalScrollbar}}"
+    ///         HorizontalScrollbarSpacing="15"
+    ///         VerticalScrollbar="{Binding Path=Component, Source={x:Reference Name=verticalScrollbar}}"
+    ///         VerticalScrollbarSpacing="15"
+    ///         Viewport="{Binding Path=Component, Source={x:Reference Name=viewport}}"
+    ///         Content="{Binding Path=Component, Source={x:Reference Name=content}}" />
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class ScrollRect : Object<UnityEngine.UI.ScrollRect>
     {
         [StructLayout(LayoutKind.Auto)]

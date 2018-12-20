@@ -3,6 +3,27 @@
 namespace Mux.Markup
 {
     /// <summary>A <see cref="LayoutGroup{T}" /> that represents <see cref="T:UnityEngine.UI.GridLayoutGroup" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:GridLayoutGroup Constraint="{mu:FixedColumnCount Count=2}" />
+    ///     <m:RectTransform><mu:Image Color="{m:Color R=0, G=0, B=1}" /></m:RectTransform>
+    ///     <m:RectTransform><mu:Image Color="{m:Color R=0, G=1, B=0}" /></m:RectTransform>
+    ///     <m:RectTransform><mu:Image Color="{m:Color R=1, G=0, B=0}" /></m:RectTransform>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class GridLayoutGroup : LayoutGroup<UnityEngine.UI.GridLayoutGroup>
     {
         /// <summary>Backing store for the <see cref="CellSize" /> property.</summary>
