@@ -3,6 +3,24 @@ using Xamarin.Forms;
 namespace Mux.Markup
 {
     /// <summary>A <see cref="Graphic{T}" /> that represents <see cref="T:UnityEngine.UI.Text" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:Text />
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class Text : Graphic<UnityEngine.UI.Text>
     {
         /// <summary>Backing store for the <see cref="Content" /> property.</summary>

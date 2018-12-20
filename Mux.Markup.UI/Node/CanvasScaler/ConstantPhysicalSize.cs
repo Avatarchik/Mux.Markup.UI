@@ -6,6 +6,31 @@ namespace Mux.Markup
     /// A class that represents <see cref="T:UnityEngine.UI.CanvasScaler.ScaleMode.ConstantPhysicalSize" />
     /// and its scaling properties.
     /// </summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:Text>
+    ///         <mu:Text.Content>
+    /// > Using the Constant Physical Size mode, positions and sizes of UI elements are specified in physical units,
+    /// > such as millimeters, points, or picas.
+    /// Unity - Scripting API: UI.CanvasScaler.ScaleMode.ConstantPhysicalSize
+    /// https://docs.unity3d.com/ScriptReference/UI.CanvasScaler.ScaleMode.ConstantPhysicalSize.html
+    ///         </mu:Text.Content>
+    ///     </mu:Text>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class ConstantPhysicalSize : CanvasScaler.Modifier
     {
         /// <summary>Backing store for the <see cref="PhysicalUnit" /> property.</summary>

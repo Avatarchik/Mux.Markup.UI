@@ -3,6 +3,24 @@
 namespace Mux.Markup
 {
     /// <summary>An <see cref="Graphic{T}" /> that represents <see cref="T:UnityEngine.UI.RawImage" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:RawImage />
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class RawImage : Graphic<UnityEngine.UI.RawImage>
     {
         /// <summary>Backing store for the <see cref="Texture" /> property.</summary>

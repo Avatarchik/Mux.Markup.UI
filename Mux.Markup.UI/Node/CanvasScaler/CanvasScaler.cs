@@ -5,6 +5,29 @@ namespace Mux.Markup
     /// <summary>
     /// An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.CanvasScaler" />.
     /// </summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:Text>
+    ///         <mu:Text.Content>
+    /// mu:CanvasScaler determines the scale of uGUI components.
+    /// See what happens to this text if you change UiScale property of mu:CanvasScaler!
+    ///         </mu:Text.Content>
+    ///     </mu:Text>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class CanvasScaler : Object<UnityEngine.UI.CanvasScaler>
     {
         /// <summary>Backing store for the <see cref="UiScale" /> property.</summary>

@@ -6,6 +6,33 @@ namespace Mux.Markup
     /// A class that represents <see cref="F:UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize" />
     /// and its scaling properties.
     /// </summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ScaleWithScreenSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:Text>
+    ///         <mu:Text.Content>
+    /// > Using the Scale With Screen Size mode, positions and sizes can be specified according to the pixels of a specified reference resolution.
+    /// > If the current screen resolution is larger than the reference resolution, the Canvas will keep having only the resolution of the reference resolution,
+    /// > but will scale up in order to fit the screen. If the current screen resolution is smaller than the reference resolution,
+    /// > the Canvas will similarly be scaled down to fit.
+    /// Unity - Scripting API: UI.CanvasScaler.ScaleMode.ScaleWithScreenSize
+    /// https://docs.unity3d.com/ScriptReference/UI.CanvasScaler.ScaleMode.ScaleWithScreenSize.html
+    ///         </mu:Text.Content>
+    ///     </mu:Text>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public sealed class ScaleWithScreenSize : CanvasScaler.Modifier
     {
         /// <summary>Backing store for the <see cref="ReferenceResolution" /> property.</summary>

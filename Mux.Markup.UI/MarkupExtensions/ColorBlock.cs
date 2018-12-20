@@ -7,6 +7,43 @@ namespace Mux.Markup
     /// A <xref href="Xamarin.Forms.Xaml.IMarkupExtension`1?text=markup extension" />
     /// that represents <see cref="T:UnityEngine.UI.ColorBlock" />.
     /// </summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:VerticalLayoutGroup />
+    ///     <!--
+    ///         You have to give property name "Path" to Binding and "Name" to
+    ///         x:Reference only when you compile the interpreter with IL2CPP.
+    ///         It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///     -->
+    ///     <mu:Selectable TargetGraphic="{Binding Path=Component, Source={x:Reference Name=targetGraphic}}">
+    ///         <mu:Selectable.Colors>
+    ///             <mu:ColorBlock
+    ///                 ColorMultiplier="0.5"
+    ///                 NormalColor="{m:Color R=0, G=0, B=0}"
+    ///                 PressedColor="{m:Color R=0, G=0, B=1}"
+    ///                 HighlightedColor="{m:Color R=0, G=1, B=0}"
+    ///                 DisabledColor="{m:Color R=1, G=0, B=0}" />
+    ///         </mu:Selectable.Colors>
+    ///     </mu:Selectable>
+    ///     <mu:Image x:Name="targetGraphic" />
+    ///     <m:RectTransform>
+    ///         <mu:Text Content="See what happens if you click or change Interactive property of mu:Selectable!" />
+    ///     </m:RectTransform>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     [AcceptEmptyServiceProvider]
     public class ColorBlock : IMarkupExtension<UnityEngine.UI.ColorBlock>
     {
