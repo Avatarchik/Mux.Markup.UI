@@ -9,7 +9,7 @@ namespace Mux.Markup.Extras
     /// A component that represents a group of <see cref="Picker{T}">Pickers</see>.
     /// </summary>
     /// <example>
-    /// <code language="lang-xaml">
+    /// <code language="xaml">
     /// <![CDATA[
     /// <m:RectTransform
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -77,7 +77,7 @@ namespace Mux.Markup.Extras
 
     /// <summary>An component that represents a value to pick.</summary>
     /// <example>
-    /// <code language="lang-xaml">
+    /// <code language="xaml">
     /// <![CDATA[
     /// <m:RectTransform
     ///     xmlns="http://xamarin.com/schemas/2014/forms"

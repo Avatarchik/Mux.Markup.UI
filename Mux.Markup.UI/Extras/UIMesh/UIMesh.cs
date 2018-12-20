@@ -8,7 +8,7 @@ namespace Mux.Markup.Extras
     /// A class that allows creating or modifying meshes with XAML and data binding.
     /// </summary>
     /// <example>
-    /// <code language="lang-xaml">
+    /// <code language="xaml">
     /// <![CDATA[
     /// <m:RectTransform
     ///     xmlns="http://xamarin.com/schemas/2014/forms"

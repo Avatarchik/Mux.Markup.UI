@@ -123,7 +123,7 @@ namespace Mux.Markup.Extras
     /// <summary>A <see cref="UIMeshItem" /> that represents a quad.</summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddUIVertexQuad" />
     /// <example>
-    /// <code language="lang-xaml">
+    /// <code language="xaml">
     /// <![CDATA[
     /// <m:RectTransform
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -208,7 +208,7 @@ namespace Mux.Markup.Extras
     /// </summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddUIVertexStream" />
     /// <example>
-    /// <code language="lang-xaml">
+    /// <code language="xaml">
     /// <![CDATA[
     /// <m:RectTransform
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -307,7 +307,7 @@ namespace Mux.Markup.Extras
     /// <summary>A <see cref="UIMeshItem" /> that represents a list of triangles.</summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddUIVertexTriangleStream" />
     /// <example>
-    /// <code language="lang-xaml">
+    /// <code language="xaml">
     /// <![CDATA[
     /// <m:RectTransform
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -380,7 +380,7 @@ namespace Mux.Markup.Extras
     /// <summary>A <see cref="UIMeshItem" /> that represents a triangle.</summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddTriangle" />
     /// <example>
-    /// <code language="lang-xaml">
+    /// <code language="xaml">
     /// <![CDATA[
     /// <m:RectTransform
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -451,7 +451,7 @@ namespace Mux.Markup.Extras
     /// <summary>A <see cref="UIMeshItem" /> that represents a single vertex.</summary>
     /// <seealso cref="M:UnityEngine.UI.VertexHelper.AddVert" />
     /// <example>
-    /// <code language="lang-xaml">
+    /// <code language="xaml">
     /// <![CDATA[
     /// <m:RectTransform
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
