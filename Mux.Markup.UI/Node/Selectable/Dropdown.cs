@@ -90,6 +90,64 @@ namespace Mux.Markup
     }
 
     /// <summary>A <see cref="Selectable{T}" /> that represents <see cref="T:UnityEngine.UI.Dropdown" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <m:RectTransform>
+    ///         <mu:ContentSizeFitter VerticalFit="PreferredSize" />
+    ///         <mu:Dropdown>
+    ///             <mu:Dropdown.Template>
+    ///                 <Binding Path="Component" Source="{x:Reference Name=template}" />
+    ///             </mu:Dropdown.Template>
+    ///             <mu:Dropdown.CaptionText>
+    ///                 <Binding Path="Component" Source="{x:Reference Name=captionText}" />
+    ///             </mu:Dropdown.CaptionText>
+    ///             <mu:Dropdown.ItemText>
+    ///                 <Binding Path="Component" Source="{x:Reference Name=itemText}" />
+    ///             </mu:Dropdown.ItemText>
+    ///             <mu:Dropdown.Options>
+    ///                 <mu:DropdownOptionData Text="A" />
+    ///                 <mu:DropdownOptionData Text="B" />
+    ///             </mu:Dropdown.Options>
+    ///         </mu:Dropdown>
+    ///         <mu:Text x:Name="captionText" />
+    ///         <m:RectTransform x:Name="template" ActiveSelf="False" X="{m:Stretch}" Y="{m:Sized AnchoredPosition=2, SizeDelta=150, Anchor=0, Pivot=1}">
+    ///             <m:RectTransform x:Name="viewport" X="{m:Stretch Pivot=0, OffsetMax=-18}" Y="{m:Stretch Pivot=1}">
+    ///                 <m:RectTransform x:Name="content" Y="{m:Sized SizeDelta=28, Anchor=1, Pivot=1}">
+    ///                     <m:RectTransform X="{m:Stretch}" Y="{m:Sized SizeDelta=21}">
+    ///                         <mu:Toggle
+    ///                             Graphic="{Binding Path=Component, Source={x:Reference Name=itemGraphic}}"
+    ///                             TargetGraphic="{Binding Path=Component, Source={x:Reference Name=itemTargetGraphic}}" />
+    ///                         <mu:Image x:Name="itemTargetGraphic" />
+    ///                         <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
+    ///                             <mu:Image x:Name="itemGraphic" Color="{m:Color R=0, G=0, B=1, A=0.5}" />
+    ///                         </m:RectTransform>
+    ///                         <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
+    ///                             <mu:Text x:Name="itemText" />
+    ///                         </m:RectTransform>
+    ///                     </m:RectTransform>
+    ///                 </m:RectTransform>
+    ///             </m:RectTransform>
+    ///             <mu:ScrollRect
+    ///                 Viewport="{Binding Path=Component, Source={x:Reference Name=viewport}}"
+    ///                 Content="{Binding Path=Component, Source={x:Reference Name=content}}" />
+    ///         </m:RectTransform>
+    ///     </m:RectTransform>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     [ContentProperty("Options")]
     public class Dropdown : Selectable<UnityEngine.UI.Dropdown>
     {

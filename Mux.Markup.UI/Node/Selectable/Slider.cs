@@ -5,6 +5,47 @@ using Xamarin.Forms;
 namespace Mux.Markup
 {
     /// <summary>A <see cref="Selectable{T}" /> that represents <see cref="T:UnityEngine.UI.Slider" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <!--
+    ///         You have to give property name "Path" to Binding and "Name" to x:Reference
+    ///         only when you compile the interpreter with IL2CPP.
+    ///         It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///
+    ///         Note that mu:Slider.FillRect is bound to Component.transform of a graphic
+    ///         component. It ensures a graphic already exists when the value is resolved,
+    ///         which is an undocumented prerequisite of UnityEngine.UI.Slider.fillRect.
+    ///     -->
+    ///     <mu:Slider
+    ///         FillRect="{Binding Path=Component.transform, Source={x:Reference Name=fill}}"
+    ///         HandleRect="{Binding Path=Component, Source={x:Reference Name=handle}}"
+    ///         TargetGraphic="{Binding Path=Component, Source={x:Reference Name=targetGraphic}}" />
+    ///     <m:RectTransform X="{m:Stretch OffsetMin=2, OffsetMax=-2}">
+    ///         <m:RectTransform X="{m:Sized SizeDelta=4}" Y="{m:Stretch}">
+    ///             <mu:Image x:Name="fill" Color="{m:Color R=0, G=0, B=1}" />
+    ///         </m:RectTransform>
+    ///     </m:RectTransform>
+    ///     <m:RectTransform X="{m:Stretch OffsetMin=4, OffsetMax=-4}">
+    ///         <m:RectTransform x:Name="handle" X="{m:Sized SizeDelta=8}" Y="{m:Stretch}">
+    ///             <mu:Image x:Name="targetGraphic" Color="{m:Color R=0, G=1, B=0}" />
+    ///         </m:RectTransform>
+    ///     </m:RectTransform>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class Slider : Selectable<UnityEngine.UI.Slider>
     {
         [StructLayout(LayoutKind.Auto)]

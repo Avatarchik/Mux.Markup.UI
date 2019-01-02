@@ -4,6 +4,38 @@ using Xamarin.Forms;
 namespace Mux.Markup
 {
     /// <summary>A <see cref="Selectable{T}" /> that represents <see cref="T:UnityEngine.UI.InputField" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:InputField
+    ///         LineType="MultiLineNewline"
+    ///         Placeholder="{Binding Path=Component, Source={x:Reference Name=placeholder}}"
+    ///         TextComponent="{Binding Path=Component, Source={x:Reference Name=text}}">
+    ///         <mu:InputField.Text>
+    /// You have to give property name "Path" to Binding and "Name" to x:Reference
+    /// only when you compile the interpreter with IL2CPP.
+    /// It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///         </mu:InputField.Text>
+    ///     </mu:InputField>
+    ///     <mu:Image x:Name="placeholder" Color="{m:Color R=0, G=0, B=1}" />
+    ///     <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
+    ///         <mu:Text x:Name="text" />
+    ///     </m:RectTransform>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class InputField : Selectable<UnityEngine.UI.InputField>
     {
         /// <summary>Backing store for the <see cref="TextComponent" /> property.</summary>

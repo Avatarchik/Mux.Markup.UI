@@ -4,6 +4,33 @@ using Xamarin.Forms;
 namespace Mux.Markup
 {
     /// <summary>A <see cref="Selectable{T}" /> that represents <see cref="T:UnityEngine.UI.Toggle" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <!--
+    ///         You have to give property name "Path" to Binding and "Name" to x:Reference
+    ///         only when you compile the interpreter with IL2CPP.
+    ///         It is because ContentPropertyAttribute does not work with IL2CPP.
+    ///     -->
+    ///     <mu:Toggle Graphic="{Binding Path=Component, Source={x:Reference Name=graphic}}" />
+    ///     <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
+    ///         <mu:Image x:Name="graphic" Color="{m:Color R=0, G=0, B=1}" />
+    ///     </m:RectTransform>
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class Toggle : Selectable<UnityEngine.UI.Toggle>
     {
         private static Lazy<UnityEngine.Object> s_builtinBackgroundPrefab = new Lazy<UnityEngine.Object>(LoadBuiltinBackgroundPrefab, false);

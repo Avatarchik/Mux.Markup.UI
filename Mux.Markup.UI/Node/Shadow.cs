@@ -82,11 +82,51 @@ namespace Mux.Markup
     }
 
     /// <summary>A class that represents <see cref="T:UnityEngine.UI.Shadow" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:Shadow />
+    ///     <mu:Text Content="This text is shadowed." />
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public sealed class Shadow : Shadow<UnityEngine.UI.Shadow>
     {
     }
 
     /// <summary>A class that represents <see cref="T:UnityEngine.UI.Outline" />.</summary>
+    /// <example>
+    /// <code language="xaml">
+    /// <![CDATA[
+    /// <m:RectTransform
+    ///     xmlns="http://xamarin.com/schemas/2014/forms"
+    ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
+    ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
+    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     <m:StandaloneInputModule />
+    ///     <mu:EventSystem />
+    ///     <mu:Canvas />
+    ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
+    ///     <mu:GraphicRaycaster />
+    ///     <mu:Outline />
+    ///     <mu:Text Content="This text is outlined." />
+    /// </m:RectTransform>
+    /// ]]>
+    /// </code>
+    /// </example>
     public sealed class Outline : Shadow<UnityEngine.UI.Outline>
     {
     }
