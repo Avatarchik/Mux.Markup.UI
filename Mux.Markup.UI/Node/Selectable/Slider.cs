@@ -121,8 +121,11 @@ namespace Mux.Markup
                         newValue.gameObject.layer = slider._builtinFillArea.layer;
                     }
                 }
-                else
+                else if (newValue != null)
                 {
+                    // This clause will only executed if the value is not null because
+                    // null causes NullReferenceException in uGUI.
+
                     slider._builtinFillArea.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
                     if (component != null)
