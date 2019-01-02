@@ -278,7 +278,6 @@ namespace Mux.Markup
                     if (dropdown.Component != null)
                     {
                         dropdown._builtinTemplate.layer = dropdown.Component.gameObject.layer;
-                        dropdown.Template.SetParent(dropdown.Component.gameObject.transform, false);
                         dropdown.Component.template = dropdown.Template;
                     }
                 }
@@ -293,7 +292,6 @@ namespace Mux.Markup
 
                     if (dropdown.Component != null)
                     {
-                        dropdown.Template.SetParent(null);
                         dropdown.Component.template = dropdown.Template;
                     }
                 }
@@ -315,8 +313,6 @@ namespace Mux.Markup
 
                     if (component != null)
                     {
-                        dropdown._builtinCaption.layer = component.gameObject.layer;
-                        dropdown._builtinCaption.transform.SetParent(component.gameObject.transform, false);
                         component.captionText = newValue;
                     }
                 }
@@ -512,11 +508,8 @@ namespace Mux.Markup
         {
             base.AddToInMainThread(gameObject);
 
-            if (Template == _builtinTemplate.GetComponent<UnityEngine.RectTransform>())
-            {
-                _builtinTemplate.layer = gameObject.layer;
-                Template.SetParent(gameObject.transform, false);
-            }
+            _builtinTemplate.layer = gameObject.layer;
+            _builtinTemplate.transform.SetParent(gameObject.transform, false);
 
             if (CaptionText == _builtinCaption.GetComponent<UnityEngine.UI.Text>())
             {
