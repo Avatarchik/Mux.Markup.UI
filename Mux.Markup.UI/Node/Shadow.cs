@@ -86,7 +86,7 @@ namespace Mux.Markup
     {
     }
 
-    /// <summary>A class that represents <see href="T:UnityEngine.UI.Outline" />.</summary>
+    /// <summary>A class that represents <see cref="T:UnityEngine.UI.Outline" />.</summary>
     public sealed class Outline : Shadow<UnityEngine.UI.Outline>
     {
     }
