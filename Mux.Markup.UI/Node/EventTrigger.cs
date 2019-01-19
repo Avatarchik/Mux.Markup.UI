@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
@@ -70,10 +71,32 @@ namespace Mux.Markup
     [ContentProperty("Triggers")]
     public class EventTrigger : Object<UnityEngine.EventSystems.EventTrigger>
     {
+        private sealed class UnityTriggerCollection : TemplatableCollectionList<UnityEngine.EventSystems.EventTrigger.Entry>
+        {
+            public readonly List<UnityEngine.EventSystems.EventTrigger.Entry> list = new List<UnityEngine.EventSystems.EventTrigger.Entry>();
+
+            protected override IList<UnityEngine.EventSystems.EventTrigger.Entry> GetList()
+            {
+                return list;
+            }
+
+            public override void InsertListRange(int index, IEnumerable<UnityEngine.EventSystems.EventTrigger.Entry> enumerable)
+            {
+                list.InsertRange(index, enumerable);
+            }
+
+            public override void RemoveListRange(int index, int count)
+            {
+                list.RemoveRange(index, count);
+            }
+        }
+
         private sealed class TriggerCollection : TemplatableCollection<EventTriggerEntry>
         {
-            public readonly TemplatableCollectionList<UnityEngine.EventSystems.EventTrigger.Entry> _entries =
-                new TemplatableCollectionList<UnityEngine.EventSystems.EventTrigger.Entry>();
+            private readonly ImmutableList<EventTriggerEntry>.Builder _builder =
+                ImmutableList.CreateBuilder<EventTriggerEntry>();
+
+            public readonly UnityTriggerCollection _entries = new UnityTriggerCollection();
 
             private static UnityEngine.EventSystems.EventTrigger.Entry EntrySelector(EventTriggerEntry source)
             {
@@ -84,6 +107,11 @@ namespace Mux.Markup
             {
             }
 
+            protected override IList<EventTriggerEntry> GetList()
+            {
+                return _builder;
+            }
+
             public override void ClearList()
             {
                 base.ClearList();
@@ -92,7 +120,7 @@ namespace Mux.Markup
 
             public override void InsertListRange(int index, IEnumerable<EventTriggerEntry> enumerable)
             {
-                base.InsertListRange(index, enumerable);
+                _builder.InsertRange(index, enumerable);
                 Forms.mainThread.Post(state => _entries.InsertListRange(index, enumerable.Select(EntrySelector)), null);
             }
 
@@ -104,7 +132,11 @@ namespace Mux.Markup
 
             public override void RemoveListRange(int index, int count)
             {
-                base.RemoveListRange(index, count);
+                for (var remaining = count; remaining > 0; remaining--)
+                {
+                    _builder.RemoveAt(index);
+                }
+
                 Forms.mainThread.Post(state => _entries.RemoveListRange(index, count), null);
             }
 
@@ -112,6 +144,11 @@ namespace Mux.Markup
             {
                 base.ReplaceListRange(index, count, enumerable);
                 Forms.mainThread.Post(state => _entries.ReplaceListRange(index, count, enumerable.Select(EntrySelector)), null);
+            }
+
+            public ImmutableList<EventTriggerEntry> ToImmutable()
+            {
+                return _builder.ToImmutable();
             }
         }
 
@@ -218,7 +255,7 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void OnBindingContextChanged()
         {
-            foreach (var trigger in _triggers)
+            foreach (var trigger in _triggers.ToImmutable())
             {
                 SetInheritedBindingContext(trigger, BindingContext);
             }

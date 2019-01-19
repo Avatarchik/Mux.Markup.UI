@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -151,13 +152,40 @@ namespace Mux.Markup
     [ContentProperty("Options")]
     public class Dropdown : Selectable<UnityEngine.UI.Dropdown>
     {
+        private sealed class TemplatableUnityOptionData : TemplatableCollectionList<UnityEngine.UI.Dropdown.OptionData>
+        {
+            public readonly List<UnityEngine.UI.Dropdown.OptionData> list = new List<UnityEngine.UI.Dropdown.OptionData>();
+
+            protected override IList<UnityEngine.UI.Dropdown.OptionData> GetList()
+            {
+                return list;
+            }
+
+            public override void InsertListRange(int index, IEnumerable<UnityEngine.UI.Dropdown.OptionData> enumerable)
+            {
+                list.InsertRange(index, enumerable);
+            }
+
+            public override void RemoveListRange(int index, int count)
+            {
+                list.RemoveRange(index, count);
+            }
+        }
+
         private sealed class TemplatableOptionData : TemplatableCollection<DropdownOptionData>
         {
-            public readonly TemplatableCollectionList<UnityEngine.UI.Dropdown.OptionData> data =
-                new TemplatableCollectionList<UnityEngine.UI.Dropdown.OptionData>();
+            private readonly ImmutableList<DropdownOptionData>.Builder _builder =
+                ImmutableList.CreateBuilder<DropdownOptionData>();
+
+            public readonly TemplatableUnityOptionData data = new TemplatableUnityOptionData();
 
             public TemplatableOptionData(BindableObject container) : base(container)
             {
+            }
+
+            protected override IList<DropdownOptionData> GetList()
+            {
+                return _builder;
             }
 
             public override void ClearList()
@@ -174,7 +202,7 @@ namespace Mux.Markup
                     data.dropdown = (Dropdown)container;
                 }
 
-                base.InsertListRange(index, enumerable);
+                _builder.InsertRange(index, enumerable);
                 data.InsertListRange(index, enumerable.Select(item => item.data));
                 RefreshShownValue();
             }
@@ -188,8 +216,14 @@ namespace Mux.Markup
 
             public override void RemoveListRange(int index, int count)
             {
-                base.RemoveListRange(index, count);
                 data.RemoveListRange(index, count);
+
+                while (count > 0)
+                {
+                    _builder.RemoveAt(index);
+                    count--;
+                }
+
                 RefreshShownValue();
             }
 
@@ -213,6 +247,11 @@ namespace Mux.Markup
                 {
                     Forms.mainThread.Post(state => ((UnityEngine.UI.Dropdown)state).RefreshShownValue(), component);
                 }
+            }
+
+            public ImmutableList<DropdownOptionData> ToImmutable()
+            {
+                return _builder.ToImmutable();
             }
         }
 
@@ -555,7 +594,7 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void OnBindingContextChanged()
         {
-            foreach (var option in _options)
+            foreach (var option in _options.ToImmutable())
             {
                 SetInheritedBindingContext(option, BindingContext);
             }

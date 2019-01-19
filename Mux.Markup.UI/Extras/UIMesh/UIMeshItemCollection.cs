@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -6,13 +7,21 @@ namespace Mux.Markup.Extras
 {
     internal sealed class UIMeshItemCollection : TemplatableCollection<UIMeshItem>
     {
+        private readonly ImmutableList<UIMeshItem>.Builder _builder =
+            ImmutableList.CreateBuilder<UIMeshItem>();
+
         public UIMeshItemCollection(UIMesh container) : base(container)
         {
         }
 
+        protected override IList<UIMeshItem> GetList()
+        {
+            return _builder;
+        }
+
         public override void ClearList()
         {
-            foreach (var item in list)
+            foreach (var item in _builder)
             {
                 item.Dispose();
             }
@@ -24,11 +33,11 @@ namespace Mux.Markup.Extras
         public override void InsertListRange(int index, IEnumerable<UIMeshItem> enumerable)
         {
             var mesh = (UIMesh)container;
-            var oldCount = list.Count;
+            var oldCount = _builder.Count;
 
-            base.InsertListRange(index, enumerable);
+            _builder.InsertRange(index, enumerable);
 
-            foreach (var item in list.Skip(oldCount))
+            foreach (var item in _builder.Skip(oldCount))
             {
                 BindableObject.SetInheritedBindingContext(item, mesh.BindingContext);
                 item.mesh = mesh;
@@ -45,12 +54,12 @@ namespace Mux.Markup.Extras
 
         public override void RemoveListRange(int index, int count)
         {
-            foreach (var item in list.Skip(index).Take(count))
+            while (count > 0)
             {
-                item.Dispose();
+                _builder[index].Dispose();
+                _builder.RemoveAt(index);
             }
 
-            base.RemoveListRange(index, count);
             ((UIMesh)container).Component?.SetVerticesDirty();
         }
 
@@ -58,20 +67,25 @@ namespace Mux.Markup.Extras
         {
             var mesh = (UIMesh)container;
 
-            foreach (var item in list.Skip(index).Take(count))
+            foreach (var item in _builder.Skip(index).Take(count))
             {
                 item.Dispose();
             }
 
             base.ReplaceListRange(index, count, enumerable);
 
-            foreach (var item in list.Skip(index).Take(count))
+            foreach (var item in _builder.Skip(index).Take(count))
             {
                 BindableObject.SetInheritedBindingContext(item, mesh.BindingContext);
                 item.mesh = mesh;
             }
 
             mesh.Component?.SetVerticesDirty();
+        }
+
+        public ImmutableList<UIMeshItem> ToImmutable()
+        {
+            return _builder.ToImmutable();
         }
     }
 }

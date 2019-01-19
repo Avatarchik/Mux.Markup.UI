@@ -147,7 +147,7 @@ namespace Mux.Markup.Extras
         {
             base.OnBindingContextChanged();
 
-            foreach (var item in _items)
+            foreach (var item in _items.ToImmutable())
             {
                 SetInheritedBindingContext(item, BindingContext);
             }
