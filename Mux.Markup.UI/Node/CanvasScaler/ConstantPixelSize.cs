@@ -52,7 +52,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.scaleFactor = (float)state, component);
+                Forms.mainThread.Send(state => component.scaleFactor = (float)state, component);
             }
         }
 

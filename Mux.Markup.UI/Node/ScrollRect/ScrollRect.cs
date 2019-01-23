@@ -229,15 +229,12 @@ namespace Mux.Markup
         {
             ((Modifier)oldValue)?.DestroyMux();
 
-            Forms.mainThread.Post(state =>
-            {
-                var rect = (ScrollRect)state;
+            var component = ((ScrollRect)sender).Component;
 
-                if (rect.Component != null)
-                {
-                    rect.Component.inertia = rect.Inertia != null;
-                }
-            }, sender);
+            if (component != null)
+            {
+                Forms.mainThread.Send(state => component.inertia = state != null, newValue);
+            }
 
             if (newValue != null)
             {
@@ -252,7 +249,7 @@ namespace Mux.Markup
             var sender = (ScrollRect)boxedSender;
             var component = sender.Component;
 
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
                 var newValue = (UnityEngine.UI.Scrollbar)state;
 
@@ -291,7 +288,7 @@ namespace Mux.Markup
             var sender = (ScrollRect)boxedSender;
             var component = sender.Component;
 
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
                 var newValue = (UnityEngine.UI.Scrollbar)state;
 

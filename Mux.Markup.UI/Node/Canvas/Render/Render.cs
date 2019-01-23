@@ -44,7 +44,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.pixelPerfect = (bool)state, newValue);
+                Forms.mainThread.Send(state => component.pixelPerfect = (bool)state, newValue);
             }
         }
 
@@ -54,7 +54,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.overridePixelPerfect = (bool)state, newValue);
+                Forms.mainThread.Send(state => component.overridePixelPerfect = (bool)state, newValue);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.worldCamera = (UnityEngine.Camera)state, newValue);
+                Forms.mainThread.Send(state => component.worldCamera = (UnityEngine.Camera)state, newValue);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.planeDistance = (float)state, newValue);
+                Forms.mainThread.Send(state => component.planeDistance = (float)state, newValue);
             }
         }
 
@@ -84,7 +84,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.sortingLayerID = (int)state, newValue);
+                Forms.mainThread.Send(state => component.sortingLayerID = (int)state, newValue);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.sortingOrder = (int)state, newValue);
+                Forms.mainThread.Send(state => component.sortingOrder = (int)state, newValue);
             }
         }
 
@@ -104,7 +104,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.overrideSorting = (bool)state, newValue);
+                Forms.mainThread.Send(state => component.overrideSorting = (bool)state, newValue);
             }
         }
 
@@ -114,7 +114,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.targetDisplay = (int)state, newValue);
+                Forms.mainThread.Send(state => component.targetDisplay = (int)state, newValue);
             }
         }
 

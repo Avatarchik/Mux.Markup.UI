@@ -11,12 +11,12 @@ namespace Mux.Markup
         {
             add
             {
-                Forms.mainThread.Post(state => _onClick.AddListener(value), null);
+                Forms.mainThread.Send(state => _onClick.AddListener(value), null);
             }
 
             remove
             {
-                Forms.mainThread.Post(state => _onClick.RemoveListener(value), null);
+                Forms.mainThread.Send(state => _onClick.RemoveListener(value), null);
             }
         }
 

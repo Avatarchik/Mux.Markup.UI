@@ -55,12 +55,12 @@ namespace Mux.Markup
         {
             add
             {
-                Forms.mainThread.Post(state => entry.callback.AddListener(value), null);
+                Forms.mainThread.Send(state => entry.callback.AddListener(value), null);
             }
 
             remove
             {
-                Forms.mainThread.Post(state => entry.callback.RemoveListener(value), null);
+                Forms.mainThread.Send(state => entry.callback.RemoveListener(value), null);
             }
         }
     }
@@ -115,19 +115,19 @@ namespace Mux.Markup
             public override void ClearList()
             {
                 base.ClearList();
-                Forms.mainThread.Post(state => _entries.ClearList(), null);
+                Forms.mainThread.Send(state => _entries.ClearList(), null);
             }
 
             public override void InsertListRange(int index, IEnumerable<EventTriggerEntry> enumerable)
             {
                 _builder.InsertRange(index, enumerable);
-                Forms.mainThread.Post(state => _entries.InsertListRange(index, enumerable.Select(EntrySelector)), null);
+                Forms.mainThread.Send(state => _entries.InsertListRange(index, enumerable.Select(EntrySelector)), null);
             }
 
             public override void MoveListRange(int from, int to, int count)
             {
                 base.MoveListRange(from, to, count);
-                Forms.mainThread.Post(state => _entries.MoveListRange(from, to, count), null);
+                Forms.mainThread.Send(state => _entries.MoveListRange(from, to, count), null);
             }
 
             public override void RemoveListRange(int index, int count)
@@ -137,13 +137,13 @@ namespace Mux.Markup
                     _builder.RemoveAt(index);
                 }
 
-                Forms.mainThread.Post(state => _entries.RemoveListRange(index, count), null);
+                Forms.mainThread.Send(state => _entries.RemoveListRange(index, count), null);
             }
 
             public override void ReplaceListRange(int index, int count, IEnumerable<EventTriggerEntry> enumerable)
             {
                 base.ReplaceListRange(index, count, enumerable);
-                Forms.mainThread.Post(state => _entries.ReplaceListRange(index, count, enumerable.Select(EntrySelector)), null);
+                Forms.mainThread.Send(state => _entries.ReplaceListRange(index, count, enumerable.Select(EntrySelector)), null);
             }
 
             public ImmutableList<EventTriggerEntry> ToImmutable()

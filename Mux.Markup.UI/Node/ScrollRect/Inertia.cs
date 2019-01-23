@@ -61,7 +61,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.decelerationRate = (float)state, newValue);
+                Forms.mainThread.Send(state => component.decelerationRate = (float)state, newValue);
             }
         }
 

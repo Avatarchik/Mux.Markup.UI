@@ -144,43 +144,40 @@ namespace Mux.Markup
 
         private static void OnFillRectChanged(BindableObject boxedSlider, object boxedOldValue, object boxedNewValue)
         {
-            var slider = (Slider)boxedSlider;
-            var component = slider.Component;
-
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
-                var newValue = (UnityEngine.RectTransform)state;
+                var slider = (Slider)state;
 
-                if (newValue == slider._builtinFillArea.transform.GetChild(0))
+                if (slider.FillRect == slider._builtinFillArea.transform.GetChild(0))
                 {
                     slider._builtinFillArea.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (component != null)
+                    if (slider.Component != null)
                     {
-                        slider._builtinFillArea.transform.SetParent(component.transform, false);
-                        slider._builtinFillArea.layer = component.gameObject.layer;
-                        newValue.gameObject.layer = slider._builtinFillArea.layer;
+                        slider._builtinFillArea.transform.SetParent(slider.Component.transform, false);
+                        slider._builtinFillArea.layer = slider.Component.gameObject.layer;
+                        slider.FillRect.gameObject.layer = slider._builtinFillArea.layer;
                     }
                 }
-                else if (newValue != null)
+                else if (slider.FillRect != null)
                 {
                     // This clause will only executed if the value is not null because
                     // null causes NullReferenceException in uGUI.
 
                     slider._builtinFillArea.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (component != null)
+                    if (slider.Component != null)
                     {
                         slider._builtinFillArea.transform.SetParent(null);
-                        component.fillRect = newValue;
+                        slider.Component.fillRect = slider.FillRect;
                     }
                 }
-            }, boxedNewValue);
+            }, boxedSlider);
         }
 
         private static void OnHandleRectChanged(BindableObject boxedSlider, object boxedOldValue, object boxedNewValue)
         {
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
                 var slider = (Slider)state;
                 var builtinHandleRect = slider._builtinHandleSlideArea.transform.GetChild(0);

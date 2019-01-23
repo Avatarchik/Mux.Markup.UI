@@ -83,7 +83,7 @@ namespace Mux.Markup
 
         private static void OnHandleRectChanged(BindableObject boxedScrollbar, object boxedOldValue, object boxedNewValue)
         {
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
                 var scrollbar = (Scrollbar)state;
                 var builtinHandleRect = scrollbar._builtinSlidingArea.transform.GetChild(0);

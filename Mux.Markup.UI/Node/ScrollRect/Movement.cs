@@ -112,7 +112,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.elasticity = (float)state, newValue);
+                Forms.mainThread.Send(state => component.elasticity = (float)state, newValue);
             }
         }
 

@@ -172,71 +172,65 @@ namespace Mux.Markup
 
         private static void OnTextComponentChanged(BindableObject boxedInputField, object boxedOldValue, object boxedNewValue)
         {
-            var inputField = (InputField)boxedInputField;
-            var component = inputField.Component;
-
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
-                var newValue = (UnityEngine.UI.Text)state;
+                var inputField = (InputField)state;
 
-                if (newValue == inputField._builtinText.GetComponent<UnityEngine.UI.Text>())
+                if (inputField.TextComponent == inputField._builtinText.GetComponent<UnityEngine.UI.Text>())
                 {
                     inputField._builtinText.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (component != null)
+                    if (inputField.Component != null)
                     {
-                        inputField._builtinText.layer = component.gameObject.layer;
-                        inputField._builtinText.transform.SetParent(component.gameObject.transform, false);
-                        component.textComponent = newValue;
-                        component.ForceLabelUpdate();
+                        inputField._builtinText.layer = inputField.Component.gameObject.layer;
+                        inputField._builtinText.transform.SetParent(inputField.Component.gameObject.transform, false);
+                        inputField.Component.textComponent = inputField.TextComponent;
+                        inputField.Component.ForceLabelUpdate();
                     }
                 }
                 else
                 {
                     inputField._builtinText.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (component != null)
+                    if (inputField.Component != null)
                     {
-                        inputField._builtinText.layer = component.gameObject.layer;
-                        inputField._builtinText.transform.SetParent(component.gameObject.transform, false);
-                        component.textComponent = newValue;
-                        component.ForceLabelUpdate();
+                        inputField._builtinText.layer = inputField.Component.gameObject.layer;
+                        inputField._builtinText.transform.SetParent(inputField.Component.gameObject.transform, false);
+                        inputField.Component.textComponent = inputField.TextComponent;
+                        inputField.Component.ForceLabelUpdate();
                     }
                 }
-            }, boxedNewValue);
+            }, boxedInputField);
         }
 
         private static void OnPlaceholderChanged(BindableObject boxedInputField, object boxedOldValue, object boxedNewValue)
         {
-            var inputField = (InputField)boxedInputField;
-            var component = inputField.Component;
-
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
-                var newValue = (UnityEngine.UI.Graphic)state;
+                var inputField = (InputField)state;
 
-                if (newValue == inputField._builtinPlaceholder.GetComponent<UnityEngine.UI.Text>())
+                if (inputField.Placeholder == inputField._builtinPlaceholder.GetComponent<UnityEngine.UI.Text>())
                 {
                     inputField._builtinPlaceholder.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (component != null)
+                    if (inputField.Component != null)
                     {
-                        inputField._builtinPlaceholder.layer = component.gameObject.layer;
-                        inputField._builtinPlaceholder.transform.SetParent(component.gameObject.transform, false);
-                        component.placeholder = newValue;
+                        inputField._builtinPlaceholder.layer = inputField.Component.gameObject.layer;
+                        inputField._builtinPlaceholder.transform.SetParent(inputField.Component.gameObject.transform, false);
+                        inputField.Component.placeholder = inputField.Placeholder;
                     }
                 }
                 else
                 {
                     inputField._builtinPlaceholder.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (component != null)
+                    if (inputField.Component != null)
                     {
                         inputField._builtinText.transform.SetParent(null);
-                        component.placeholder = newValue;
+                        inputField.Component.placeholder = inputField.Placeholder;
                     }
                 }
-            }, boxedNewValue);
+            }, boxedInputField);
         }
 
         private UnityEngine.GameObject _builtinText;
@@ -483,12 +477,12 @@ namespace Mux.Markup
         {
             add
             {
-                Forms.mainThread.Post(state => _onEndEdit.AddListener(value), null);
+                Forms.mainThread.Send(state => _onEndEdit.AddListener(value), null);
             }
 
             remove
             {
-                Forms.mainThread.Post(state => _onEndEdit.RemoveListener(value), null);
+                Forms.mainThread.Send(state => _onEndEdit.RemoveListener(value), null);
             }
         }
 

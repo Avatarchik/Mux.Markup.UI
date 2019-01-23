@@ -41,7 +41,7 @@ namespace Mux.Markup
 
         private static void OnImageChanged(BindableObject sender, object oldValue, object newValue)
         {
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
                 var data = (DropdownOptionData)state;
                 data.data.image = data.Image;
@@ -51,7 +51,7 @@ namespace Mux.Markup
 
         private static void OnTextChanged(BindableObject sender, object oldValue, object newValue)
         {
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
                 var data = (DropdownOptionData)state;
                 data.data.text = data.Text;
@@ -245,7 +245,7 @@ namespace Mux.Markup
 
                 if (component != null)
                 {
-                    Forms.mainThread.Post(state => ((UnityEngine.UI.Dropdown)state).RefreshShownValue(), component);
+                    Forms.mainThread.Send(state => component.RefreshShownValue(), null);
                 }
             }
 
@@ -364,7 +364,7 @@ namespace Mux.Markup
 
         private static void OnTemplateChanged(BindableObject boxedDropdown, object boxedOldValue, object boxedNewValue)
         {
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
                 var dropdown = (Dropdown)state;
 
@@ -397,33 +397,30 @@ namespace Mux.Markup
 
         private static void OnCaptionTextChanged(BindableObject boxedDropdown, object boxedOldValue, object boxedNewValue)
         {
-            var dropdown = (Dropdown)boxedDropdown;
-            var component = dropdown.Component;
-
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
-                var newValue = (UnityEngine.UI.Text)state;
+                var dropdown = (Dropdown)state;
 
-                if (newValue == dropdown._builtinCaption.GetComponent<UnityEngine.UI.Text>())
+                if (dropdown.CaptionText == dropdown._builtinCaption.GetComponent<UnityEngine.UI.Text>())
                 {
                     dropdown._builtinCaption.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (component != null)
+                    if (dropdown.Component != null)
                     {
-                        component.captionText = newValue;
+                        dropdown.Component.captionText = dropdown.CaptionText;
                     }
                 }
                 else
                 {
                     dropdown._builtinCaption.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (component != null)
+                    if (dropdown.Component != null)
                     {
                         dropdown._builtinCaption.transform.SetParent(null);
-                        component.captionText = newValue;
+                        dropdown.Component.captionText = dropdown.CaptionText;
                     }
                 }
-            }, boxedNewValue);
+            }, boxedDropdown);
         }
 
         private static object CreateDefaultOptions(BindableObject sender)

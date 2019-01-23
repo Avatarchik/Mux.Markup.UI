@@ -57,7 +57,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.constraintCount = (int)state, newValue);
+                Forms.mainThread.Send(state => component.constraintCount = (int)state, newValue);
             }
         }
 

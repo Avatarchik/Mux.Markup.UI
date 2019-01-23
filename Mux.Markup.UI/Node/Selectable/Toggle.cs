@@ -88,7 +88,7 @@ namespace Mux.Markup
 
         private static void OnGraphicChanged(BindableObject boxedToggle, object boxedOldValue, object boxedNewValue)
         {
-            Forms.mainThread.Post(state =>
+            Forms.mainThread.Send(state =>
             {
                 var toggle = (Toggle)state;
                 var builtinCheckmark = toggle._builtinBackground.transform.GetChild(0).gameObject;

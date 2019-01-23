@@ -71,7 +71,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(
+                Forms.mainThread.Send(
                     state => component.referenceResolution = (UnityEngine.Vector2)state,
                     newValue);
             }
@@ -83,7 +83,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(
+                Forms.mainThread.Send(
                     state => component.screenMatchMode = (UnityEngine.UI.CanvasScaler.ScreenMatchMode)state,
                     newValue);
             }
@@ -95,7 +95,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.matchWidthOrHeight = (float)state, newValue);
+                Forms.mainThread.Send(state => component.matchWidthOrHeight = (float)state, newValue);
             }
         }
 

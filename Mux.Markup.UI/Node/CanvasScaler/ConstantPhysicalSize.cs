@@ -69,7 +69,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(
+                Forms.mainThread.Send(
                     state => component.physicalUnit = (UnityEngine.UI.CanvasScaler.Unit)state,
                     newValue);
             }
@@ -81,7 +81,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.fallbackScreenDPI = (float)state, newValue);
+                Forms.mainThread.Send(state => component.fallbackScreenDPI = (float)state, newValue);
             }
         }
 
@@ -91,7 +91,7 @@ namespace Mux.Markup
 
             if (component != null)
             {
-                Forms.mainThread.Post(state => component.defaultSpriteDPI = (float)state, newValue);
+                Forms.mainThread.Send(state => component.defaultSpriteDPI = (float)state, newValue);
             }
         }
 
