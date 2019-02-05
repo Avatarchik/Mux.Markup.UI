@@ -37,7 +37,7 @@ namespace Mux.Markup
 
         private static UnityEngine.Object LoadSlidingAreaPrefab()
         {
-            return UnityEngine.Resources.Load("Scrollbar/Sliding Area");
+            return UnityEngine.Resources.Load("Mux/Scrollbar/Sliding Area");
         }
 
         private UnityEngine.GameObject _builtinSlidingArea;

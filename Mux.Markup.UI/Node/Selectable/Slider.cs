@@ -66,8 +66,8 @@ namespace Mux.Markup
         private static BuiltinPrefabs LoadBuiltinPrefabs()
         {
             return new BuiltinPrefabs(
-                UnityEngine.Resources.LoadAsync("Slider/Fill Area"),
-                UnityEngine.Resources.LoadAsync("Slider/Handle Slide Area"));
+                UnityEngine.Resources.LoadAsync("Mux/Slider/Fill Area"),
+                UnityEngine.Resources.LoadAsync("Mux/Slider/Handle Slide Area"));
         }
 
         private UnityEngine.GameObject _builtinFillArea;

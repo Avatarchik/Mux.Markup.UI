@@ -259,7 +259,7 @@ namespace Mux.Markup
 
         private static UnityEngine.Object LoadBuiltinTemplatePrefab()
         {
-            return UnityEngine.Resources.Load("Dropdown/Template");
+            return UnityEngine.Resources.Load("Mux/Dropdown/Template");
         }
 
         private UnityEngine.GameObject _builtinTemplate;

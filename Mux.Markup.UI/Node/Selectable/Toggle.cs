@@ -37,7 +37,7 @@ namespace Mux.Markup
 
         private static UnityEngine.Object LoadBuiltinBackgroundPrefab()
         {
-            return UnityEngine.Resources.Load("Toggle/Background");
+            return UnityEngine.Resources.Load("Mux/Toggle/Background");
         }
 
         private UnityEngine.GameObject _builtinBackground;

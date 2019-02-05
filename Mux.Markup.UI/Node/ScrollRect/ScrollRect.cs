@@ -72,8 +72,8 @@ namespace Mux.Markup
         private static BuiltinScrollbarPrefabs LoadBuiltinScrollbarPrefabs()
         {
             return new BuiltinScrollbarPrefabs(
-                UnityEngine.Resources.LoadAsync("ScrollRect/Scrollbar Horizontal"),
-                UnityEngine.Resources.LoadAsync("ScrollRect/Scrollbar Vertical"));
+                UnityEngine.Resources.LoadAsync("Mux/ScrollRect/Scrollbar Horizontal"),
+                UnityEngine.Resources.LoadAsync("Mux/ScrollRect/Scrollbar Vertical"));
         }
 
         private UnityEngine.GameObject _builtinHorizontalScrollbar;
