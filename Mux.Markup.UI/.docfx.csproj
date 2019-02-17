@@ -6,7 +6,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Mux\Mux.Markup\.docfx.csproj" />
         <Reference Include="Xamarin.Forms.Core">
-            <HintPath>..\..\Mux\Installation\Plugins\Xamarin.Forms.Core.dll</HintPath>
+            <HintPath>..\..\Mux\Plugins\Xamarin.Forms.Core.dll</HintPath>
         </Reference>
     </ItemGroup>
 </Project>

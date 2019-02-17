@@ -23,13 +23,9 @@ namespace Mux.Markup
     ///         You have to give property name "Path" to Binding and "Name" to x:Reference
     ///         only when you compile the interpreter with IL2CPP.
     ///         It is because ContentPropertyAttribute does not work with IL2CPP.
-    ///
-    ///         Note that mu:Slider.FillRect is bound to Component.transform of a graphic
-    ///         component. It ensures a graphic already exists when the value is resolved,
-    ///         which is an undocumented prerequisite of UnityEngine.UI.Slider.fillRect.
     ///     -->
     ///     <mu:Slider
-    ///         FillRect="{Binding Path=Component.transform, Source={x:Reference Name=fill}}"
+    ///         FillRect="{Binding Path=Component, Source={x:Reference Name=fill}}"
     ///         HandleRect="{Binding Path=Component, Source={x:Reference Name=handle}}"
     ///         TargetGraphic="{Binding Path=Component, Source={x:Reference Name=targetGraphic}}" />
     ///     <m:RectTransform X="{m:Stretch OffsetMin=2, OffsetMax=-2}">
