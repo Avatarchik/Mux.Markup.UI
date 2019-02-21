@@ -50,12 +50,12 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void InitializeComponentInMainThread()
+        protected sealed override void InitializeBodyInMainThread()
         {
-            Component.renderMode = UnityEngine.RenderMode.ScreenSpaceCamera;
-            base.InitializeComponentInMainThread();
-            Component.worldCamera = WorldCamera;
-            Component.sortingLayerID = SortingLayer;
+            Body.renderMode = UnityEngine.RenderMode.ScreenSpaceCamera;
+            base.InitializeBodyInMainThread();
+            Body.worldCamera = WorldCamera;
+            Body.sortingLayerID = SortingLayer;
         }
     }
 }

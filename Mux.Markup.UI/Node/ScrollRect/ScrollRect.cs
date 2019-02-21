@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.ScrollRect" />.</summary>
+    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.ScrollRect" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -42,17 +42,17 @@ namespace Mux.Markup
     ///         <mu:Scrollbar x:Name="verticalScrollbar" Direction="BottomToTop" />
     ///     </m:RectTransform>
     ///     <mu:ScrollRect
-    ///         HorizontalScrollbar="{Binding Path=Component, Source={x:Reference Name=horizontalScrollbar}}"
+    ///         HorizontalScrollbar="{Binding Path=Body, Source={x:Reference Name=horizontalScrollbar}}"
     ///         HorizontalScrollbarSpacing="15"
-    ///         VerticalScrollbar="{Binding Path=Component, Source={x:Reference Name=verticalScrollbar}}"
+    ///         VerticalScrollbar="{Binding Path=Body, Source={x:Reference Name=verticalScrollbar}}"
     ///         VerticalScrollbarSpacing="15"
-    ///         Viewport="{Binding Path=Component, Source={x:Reference Name=viewport}}"
-    ///         Content="{Binding Path=Component, Source={x:Reference Name=content}}" />
+    ///         Viewport="{Binding Path=Body, Source={x:Reference Name=viewport}}"
+    ///         Content="{Binding Path=Body, Source={x:Reference Name=content}}" />
     /// </m:RectTransform>
     /// ]]>
     /// </code>
     /// </example>
-    public class ScrollRect : Object<UnityEngine.UI.ScrollRect>
+    public class ScrollRect : Component<UnityEngine.UI.ScrollRect>
     {
         [StructLayout(LayoutKind.Auto)]
         private readonly struct BuiltinScrollbarPrefabs
@@ -80,34 +80,34 @@ namespace Mux.Markup
         private UnityEngine.GameObject _builtinVerticalScrollbar;
 
         /// <summary>Backing store for the <see cref="Content" /> property.</summary>
-        public static readonly BindableProperty ContentProperty = CreateBindableComponentProperty<UnityEngine.RectTransform>(
+        public static readonly BindableProperty ContentProperty = CreateBindableBodyProperty<UnityEngine.RectTransform>(
             "Content",
             typeof(ScrollRect),
-            (component, value) =>
+            (body, value) =>
             {
-                component.content = value;
-                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                body.content = value;
+                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
             });
 
         /// <summary>Backing store for the <see cref="Horizontal" /> property.</summary>
-        public static readonly BindableProperty HorizontalProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty HorizontalProperty = CreateBindableBodyProperty<bool>(
             "Horizontal",
             typeof(ScrollRect),
-            (component, value) =>
+            (body, value) =>
             {
-                component.horizontal = value;
-                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                body.horizontal = value;
+                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
             },
             true);
 
         /// <summary>Backing store for the <see cref="Vertical" /> property.</summary>
-        public static readonly BindableProperty VerticalProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty VerticalProperty = CreateBindableBodyProperty<bool>(
             "Vertical",
             typeof(ScrollRect),
-            (component, value) =>
+            (body, value) =>
             {
-                component.vertical = value;
-                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                body.vertical = value;
+                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
             },
             true);
 
@@ -131,20 +131,20 @@ namespace Mux.Markup
             sender => new Inertia());
 
         /// <summary>Backing store for the <see cref="ScrollSensitivity" /> property.</summary>
-        public static readonly BindableProperty ScrollSensitivityProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty ScrollSensitivityProperty = CreateBindableBodyProperty<float>(
             "ScrollSensitivity",
             typeof(ScrollRect),
-            (component, value) => component.scrollSensitivity = value,
+            (body, value) => body.scrollSensitivity = value,
             1.0f);
 
         /// <summary>Backing store for the <see cref="Viewport" /> property.</summary>
-        public static readonly BindableProperty ViewportProperty = CreateBindableComponentProperty<UnityEngine.RectTransform>(
+        public static readonly BindableProperty ViewportProperty = CreateBindableBodyProperty<UnityEngine.RectTransform>(
             "Viewport",
             typeof(ScrollRect),
-            (component, value) =>
+            (body, value) =>
             {
-                component.viewport = value;
-                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                body.viewport = value;
+                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
             });
 
         /// <summary>Backing store for the <see cref="HorizontalScrollbar" /> property.</summary>
@@ -168,59 +168,59 @@ namespace Mux.Markup
             OnVerticalScrollbarChanged);
 
         /// <summary>Backing store for the <see cref="HorizontalScrollbarVisibility" /> property.</summary>
-        public static readonly BindableProperty HorizontalScrollbarVisibilityProperty = CreateBindableComponentProperty<UnityEngine.UI.ScrollRect.ScrollbarVisibility>(
+        public static readonly BindableProperty HorizontalScrollbarVisibilityProperty = CreateBindableBodyProperty<UnityEngine.UI.ScrollRect.ScrollbarVisibility>(
             "HorizontalScrollbarVisibility",
             typeof(ScrollRect),
-            (component, value) =>
+            (body, value) =>
             {
-                component.horizontalScrollbarVisibility = value;
-                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                body.horizontalScrollbarVisibility = value;
+                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
             },
             UnityEngine.UI.ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport);
 
         /// <summary>Backing store for the <see cref="VerticalScrollbarVisibility" /> property.</summary>
-        public static readonly BindableProperty VerticalScrollbarVisibilityProperty = CreateBindableComponentProperty<UnityEngine.UI.ScrollRect.ScrollbarVisibility>(
+        public static readonly BindableProperty VerticalScrollbarVisibilityProperty = CreateBindableBodyProperty<UnityEngine.UI.ScrollRect.ScrollbarVisibility>(
             "VerticalScrollbarVisibility",
             typeof(ScrollRect),
-            (component, value) =>
+            (body, value) =>
             {
-                component.verticalScrollbarVisibility = value;
-                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                body.verticalScrollbarVisibility = value;
+                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
             },
             UnityEngine.UI.ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport);
 
         /// <summary>Backing store for the <see cref="HorizontalScrollbarSpacing" /> property.</summary>
-        public static readonly BindableProperty HorizontalScrollbarSpacingProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty HorizontalScrollbarSpacingProperty = CreateBindableBodyProperty<float>(
             "HorizontalScrollbarSpacing",
             typeof(ScrollRect),
-            (component, value) =>
+            (body, value) =>
             {
-                component.horizontalScrollbarSpacing = value;
-                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                body.horizontalScrollbarSpacing = value;
+                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
             },
             -3f);
 
         /// <summary>Backing store for the <see cref="VerticalScrollbarSpacing" /> property.</summary>
-        public static readonly BindableProperty VerticalScrollbarSpacingProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty VerticalScrollbarSpacingProperty = CreateBindableBodyProperty<float>(
             "VerticalScrollbarSpacing",
             typeof(ScrollRect),
-            (component, value) =>
+            (body, value) =>
             {
-                component.verticalScrollbarSpacing = value;
-                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                body.verticalScrollbarSpacing = value;
+                UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
             },
             -3f);
 
         /// <summary>Backing store for the <see cref="NormalizedPosition" /> property.</summary>
-        public static readonly BindableProperty NormalizedPositionProperty = CreateBindableComponentProperty<UnityEngine.Vector2>(
+        public static readonly BindableProperty NormalizedPositionProperty = CreateBindableBodyProperty<UnityEngine.Vector2>(
             "NormalizedPosition",
             typeof(ScrollRect),
-            (component, value) =>
+            (body, value) =>
             {
-                var old = component.onValueChanged;
-                component.onValueChanged = new UnityEngine.UI.ScrollRect.ScrollRectEvent();
-                component.onValueChanged.AddListener(newValue => component.onValueChanged = old);
-                component.normalizedPosition = value;
+                var old = body.onValueChanged;
+                body.onValueChanged = new UnityEngine.UI.ScrollRect.ScrollRectEvent();
+                body.onValueChanged.AddListener(newValue => body.onValueChanged = old);
+                body.normalizedPosition = value;
             },
             UnityEngine.Vector2.zero,
             BindingMode.TwoWay);
@@ -229,17 +229,17 @@ namespace Mux.Markup
         {
             ((Modifier)oldValue)?.DestroyMux();
 
-            var component = ((ScrollRect)sender).Component;
+            var body = ((ScrollRect)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.inertia = state != null, newValue);
+                Forms.mainThread.Send(state => body.inertia = state != null, newValue);
             }
 
             if (newValue != null)
             {
                 var modifier = (Modifier)newValue;
-                modifier.SetBinding(Modifier.ComponentProperty, new Binding("Component"));
+                modifier.SetBinding(Modifier.BodyProperty, new Binding("Body"));
                 SetInheritedBindingContext(modifier, sender.BindingContext);
             }
         }
@@ -247,7 +247,7 @@ namespace Mux.Markup
         private static void OnHorizontalScrollbarChanged(BindableObject boxedSender, object boxedOldValue, object boxedNewValue)
         {
             var sender = (ScrollRect)boxedSender;
-            var component = sender.Component;
+            var body = sender.Body;
 
             Forms.mainThread.Send(state =>
             {
@@ -257,27 +257,27 @@ namespace Mux.Markup
                 {
                     sender._builtinHorizontalScrollbar.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (component != null)
+                    if (body != null)
                     {
                         var child = sender._builtinVerticalScrollbar.transform.GetChild(0);
 
-                        sender._builtinHorizontalScrollbar.transform.SetParent(component.gameObject.transform, false);
-                        sender._builtinHorizontalScrollbar.layer = component.gameObject.layer;
-                        child.gameObject.layer = component.gameObject.layer;
-                        child.GetChild(0).gameObject.layer = component.gameObject.layer;
-                        component.horizontalScrollbar = newValue;
-                        UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                        sender._builtinHorizontalScrollbar.transform.SetParent(body.gameObject.transform, false);
+                        sender._builtinHorizontalScrollbar.layer = body.gameObject.layer;
+                        child.gameObject.layer = body.gameObject.layer;
+                        child.GetChild(0).gameObject.layer = body.gameObject.layer;
+                        body.horizontalScrollbar = newValue;
+                        UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
                     }
                 }
                 else
                 {
                     sender._builtinHorizontalScrollbar.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (component != null)
+                    if (body != null)
                     {
                         sender._builtinHorizontalScrollbar.transform.SetParent(null);
-                        component.horizontalScrollbar = newValue;
-                        UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                        body.horizontalScrollbar = newValue;
+                        UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
                     }
                 }
             }, boxedNewValue);
@@ -286,7 +286,7 @@ namespace Mux.Markup
         private static void OnVerticalScrollbarChanged(BindableObject boxedSender, object boxedOldValue, object boxedNewValue)
         {
             var sender = (ScrollRect)boxedSender;
-            var component = sender.Component;
+            var body = sender.Body;
 
             Forms.mainThread.Send(state =>
             {
@@ -296,27 +296,27 @@ namespace Mux.Markup
                 {
                     sender._builtinVerticalScrollbar.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (component != null)
+                    if (body != null)
                     {
                         var child = sender._builtinVerticalScrollbar.transform.GetChild(0);
 
-                        sender._builtinVerticalScrollbar.transform.SetParent(component.gameObject.transform, false);
-                        sender._builtinVerticalScrollbar.layer = component.gameObject.layer;
-                        child.gameObject.layer = component.gameObject.layer;
-                        child.GetChild(0).gameObject.layer = component.gameObject.layer;
-                        component.verticalScrollbar = newValue;
-                        UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                        sender._builtinVerticalScrollbar.transform.SetParent(body.gameObject.transform, false);
+                        sender._builtinVerticalScrollbar.layer = body.gameObject.layer;
+                        child.gameObject.layer = body.gameObject.layer;
+                        child.GetChild(0).gameObject.layer = body.gameObject.layer;
+                        body.verticalScrollbar = newValue;
+                        UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
                     }
                 }
                 else
                 {
                     sender._builtinVerticalScrollbar.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (component != null)
+                    if (body != null)
                     {
                         sender._builtinVerticalScrollbar.transform.SetParent(null);
-                        component.verticalScrollbar = newValue;
-                        UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(component);
+                        body.verticalScrollbar = newValue;
+                        UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(body);
                     }
                 }
             }, boxedNewValue);
@@ -369,7 +369,7 @@ namespace Mux.Markup
         }
 
         /// <summary>A property that represents the movement of <see cref="T:UnityEngine.UI.ScrollRect" />.</summary>
-        /// <remarks>Setting <see cref="Object{T:UnityEngine.UI.ScrollRect}.Modifier" /> to this property binds its lifetime to the lifetime of this object.</remarks>
+        /// <remarks>Setting <see cref="Component{T:UnityEngine.UI.ScrollRect}.Modifier" /> to this property binds its lifetime to the lifetime of this object.</remarks>
         /// <seealso cref="Unrestricted" />
         /// <seealso cref="Elastic" />
         /// <seealso cref="Clamped" />
@@ -387,7 +387,7 @@ namespace Mux.Markup
         }
 
         /// <summary>A property that represents the movement inertia of <see cref="T:UnityEngine.UI.ScrollRect" />.</summary>
-        /// <remarks>Setting <see cref="Object{T:UnityEngine.UI.ScrollRect}.Modifier" /> to this property binds its lifetime to the lifetime of this object.</remarks>
+        /// <remarks>Setting <see cref="Component{T:UnityEngine.UI.ScrollRect}.Modifier" /> to this property binds its lifetime to the lifetime of this object.</remarks>
         /// <seealso cref="Inertia" />
         public Modifier Inertia
         {
@@ -563,57 +563,59 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.UI.ScrollRect>();
-            Component.horizontal = Horizontal;
-            Component.vertical = Vertical;
-            Component.inertia = Inertia != null;
-            Component.scrollSensitivity = ScrollSensitivity;
-            Component.viewport = Viewport;
-            Component.content = Content;
-            Component.horizontalScrollbar = HorizontalScrollbar;
-            Component.verticalScrollbar = VerticalScrollbar;
-            Component.horizontalScrollbarVisibility = HorizontalScrollbarVisibility;
-            Component.verticalScrollbarVisibility = VerticalScrollbarVisibility;
-            Component.horizontalScrollbarSpacing = HorizontalScrollbarSpacing;
-            Component.verticalScrollbarSpacing = VerticalScrollbarSpacing;
-            Component.onValueChanged.AddListener(value => SetValueCore(NormalizedPositionProperty, value));
+            base.AwakeInMainThread();
+
+            Body.horizontal = Horizontal;
+            Body.vertical = Vertical;
+            Body.inertia = Inertia != null;
+            Body.scrollSensitivity = ScrollSensitivity;
+            Body.viewport = Viewport;
+            Body.content = Content;
+            Body.horizontalScrollbar = HorizontalScrollbar;
+            Body.verticalScrollbar = VerticalScrollbar;
+            Body.horizontalScrollbarVisibility = HorizontalScrollbarVisibility;
+            Body.verticalScrollbarVisibility = VerticalScrollbarVisibility;
+            Body.horizontalScrollbarSpacing = HorizontalScrollbarSpacing;
+            Body.verticalScrollbarSpacing = VerticalScrollbarSpacing;
+            Body.onValueChanged.AddListener(value => SetValueCore(NormalizedPositionProperty, value));
 
             if (Content != null)
             {
-                Component.normalizedPosition = NormalizedPosition;
+                Body.normalizedPosition = NormalizedPosition;
             }
 
             if (HorizontalScrollbar == _builtinHorizontalScrollbar.GetComponent<UnityEngine.UI.Scrollbar>())
             {
                 var child = _builtinHorizontalScrollbar.transform.GetChild(0);
-                _builtinHorizontalScrollbar.transform.SetParent(gameObject.transform, false);
-                _builtinHorizontalScrollbar.layer = gameObject.layer;
-                child.gameObject.layer = gameObject.layer;
-                child.GetChild(0).gameObject.layer = gameObject.layer;
+                _builtinHorizontalScrollbar.transform.SetParent(Body.transform, false);
+                _builtinHorizontalScrollbar.layer = Body.gameObject.layer;
+                child.gameObject.layer = Body.gameObject.layer;
+                child.GetChild(0).gameObject.layer = Body.gameObject.layer;
             }
 
             if (VerticalScrollbar == _builtinVerticalScrollbar.GetComponent<UnityEngine.UI.Scrollbar>())
             {
                 var child = _builtinVerticalScrollbar.transform.GetChild(0);
-                _builtinVerticalScrollbar.transform.SetParent(gameObject.transform, false);
-                _builtinVerticalScrollbar.layer = gameObject.layer;
-                child.gameObject.layer = gameObject.layer;
-                child.GetChild(0).gameObject.layer = gameObject.layer;
+                _builtinVerticalScrollbar.transform.SetParent(Body.transform, false);
+                _builtinVerticalScrollbar.layer = Body.gameObject.layer;
+                child.gameObject.layer = Body.gameObject.layer;
+                child.GetChild(0).gameObject.layer = Body.gameObject.layer;
             }
 
-            Movement.Component = Component;
+            Movement.Body = Body;
 
             if (Inertia != null)
             {
-                Inertia.Component = Component;
+                Inertia.Body = Body;
             }
 
-            UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(Component);
+            UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(Body);
         }
 
-        internal override void DestroyMuxInMainThread()
+        /// <inheritdoc />
+        protected override void DestroyMuxInMainThread()
         {
             base.DestroyMuxInMainThread();
             Movement.DestroyMux();

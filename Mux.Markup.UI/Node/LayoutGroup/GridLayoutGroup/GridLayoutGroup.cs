@@ -27,31 +27,31 @@ namespace Mux.Markup
     public class GridLayoutGroup : LayoutGroup<UnityEngine.UI.GridLayoutGroup>
     {
         /// <summary>Backing store for the <see cref="CellSize" /> property.</summary>
-        public static readonly BindableProperty CellSizeProperty = CreateBindableComponentProperty<UnityEngine.Vector2>(
+        public static readonly BindableProperty CellSizeProperty = CreateBindableBodyProperty<UnityEngine.Vector2>(
             "CellSize",
             typeof(GridLayoutGroup),
-            (component, value) => component.cellSize = value,
+            (body, value) => body.cellSize = value,
             new UnityEngine.Vector2(100, 100));
 
         /// <summary>Backing store for the <see cref="Spacing" /> property.</summary>
-        public static readonly BindableProperty SpacingProperty = CreateBindableComponentProperty<UnityEngine.Vector2>(
+        public static readonly BindableProperty SpacingProperty = CreateBindableBodyProperty<UnityEngine.Vector2>(
             "Spacing",
             typeof(GridLayoutGroup),
-            (component, value) => component.spacing = value,
+            (body, value) => body.spacing = value,
             UnityEngine.Vector2.zero);
 
         /// <summary>Backing store for the <see cref="StartCorner" /> property.</summary>
-        public static readonly BindableProperty StartCornerProperty = CreateBindableComponentProperty<UnityEngine.UI.GridLayoutGroup.Corner>(
+        public static readonly BindableProperty StartCornerProperty = CreateBindableBodyProperty<UnityEngine.UI.GridLayoutGroup.Corner>(
             "StartCorner",
             typeof(GridLayoutGroup),
-            (component, value) => component.startCorner = value,
+            (body, value) => body.startCorner = value,
             UnityEngine.UI.GridLayoutGroup.Corner.UpperLeft);
 
         /// <summary>Backing store for the <see cref="StartAxis" /> property.</summary>
-        public static readonly BindableProperty StartAxisProperty = CreateBindableComponentProperty<UnityEngine.UI.GridLayoutGroup.Axis>(
+        public static readonly BindableProperty StartAxisProperty = CreateBindableBodyProperty<UnityEngine.UI.GridLayoutGroup.Axis>(
             "StartAxis",
             typeof(GridLayoutGroup),
-            (component, value) => component.startAxis = value,
+            (body, value) => body.startAxis = value,
             UnityEngine.UI.GridLayoutGroup.Axis.Horizontal);
 
         /// <summary>Backing store for the <see cref="Constraint" /> property.</summary>
@@ -143,18 +143,19 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
-            Component.cellSize = CellSize;
-            Component.spacing = Spacing;
-            Component.startCorner = StartCorner;
-            Component.startAxis = StartAxis;
-            Constraint.Component = Component;
+            Body.cellSize = CellSize;
+            Body.spacing = Spacing;
+            Body.startCorner = StartCorner;
+            Body.startAxis = StartAxis;
+            Constraint.Body = Body;
         }
 
-        internal override void DestroyMuxInMainThread()
+        /// <inheritdoc />
+        protected override void DestroyMuxInMainThread()
         {
             base.DestroyMuxInMainThread();
             Constraint.DestroyMux();

@@ -155,7 +155,7 @@ namespace Mux.Markup.Extras
                 var isOn = EqualityComparer<T>.Default.Equals(picker.Value, group.Value);
 
                 group.PropertyChanged += picker.OnGroupPropertyChanged;
-                picker.SetValueCore(GroupProperty, group.Component);
+                picker.SetValueCore(GroupProperty, group.Body);
                 picker.SetValueCore(IsOnProperty, isOn);
             }
         }
@@ -219,16 +219,17 @@ namespace Mux.Markup.Extras
                     break;
 
                 case "Group":
-                    if (Group != PickerGroup.Component)
+                    if (Group != PickerGroup.Body)
                     {
-                        SetValueCore(GroupProperty, PickerGroup.Component);
+                        SetValueCore(GroupProperty, PickerGroup.Body);
                         throw new Exception("setting Group property of Picker is prohibited");
                     }
                     break;
             }
         }
 
-        internal override void DestroyMuxInMainThread()
+        /// <inheritdoc />
+        protected override void DestroyMuxInMainThread()
         {
             base.DestroyMuxInMainThread();
 
@@ -244,8 +245,8 @@ namespace Mux.Markup.Extras
 
             switch (args.PropertyName)
             {
-                case "Component":
-                    SetValueCore(GroupProperty, group.Component);
+                case "Body":
+                    SetValueCore(GroupProperty, group.Body);
                     break;
 
                 case "Value":

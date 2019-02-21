@@ -3,27 +3,27 @@
 namespace Mux.Markup
 {
     /// <summary>An abstract class that represents <see cref="T:UnityEngine.UI.Shadow" /> or its subclass.</summary>
-    public class Shadow<T> : Object<T> where T : UnityEngine.UI.Shadow
+    public class Shadow<T> : Component<T> where T : UnityEngine.UI.Shadow
     {
         /// <summary>Backing store for the <see cref="EffectColor" /> property.</summary>
-        public static readonly BindableProperty EffectColorProperty = CreateBindableComponentProperty<UnityEngine.Color>(
+        public static readonly BindableProperty EffectColorProperty = CreateBindableBodyProperty<UnityEngine.Color>(
             "EffectColor",
             typeof(Shadow<T>),
-            (component, value) => component.effectColor = value,
+            (body, value) => body.effectColor = value,
             new UnityEngine.Color(0f, 0f, 0f, 0.5f));
 
         /// <summary>Backing store for the <see cref="EffectDistance" /> property.</summary>
-        public static readonly BindableProperty EffectDistanceProperty = CreateBindableComponentProperty<UnityEngine.Vector2>(
+        public static readonly BindableProperty EffectDistanceProperty = CreateBindableBodyProperty<UnityEngine.Vector2>(
             "EffectDistance",
             typeof(Shadow<T>),
-            (component, value) => component.effectDistance = value,
+            (body, value) => body.effectDistance = value,
             new UnityEngine.Vector2(1, -1));
 
         /// <summary>Backing store for the <see cref="UseGraphicAlpha" /> property.</summary>
-        public static readonly BindableProperty UseGraphicAlphaProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty UseGraphicAlphaProperty = CreateBindableBodyProperty<bool>(
             "UseGraphicAlpha",
             typeof(Shadow<T>),
-            (component, value) => component.useGraphicAlpha = value,
+            (body, value) => body.useGraphicAlpha = value,
             true);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.Shadow.effectColor" />.</summary>
@@ -72,12 +72,13 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<T>();
-            Component.effectColor = EffectColor;
-            Component.effectDistance = EffectDistance;
-            Component.useGraphicAlpha = UseGraphicAlpha;
+            base.AwakeInMainThread();
+
+            Body.effectColor = EffectColor;
+            Body.effectDistance = EffectDistance;
+            Body.useGraphicAlpha = UseGraphicAlpha;
         }
     }
 

@@ -2,27 +2,27 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.EventSystems.EventSystem" />.</summary>
-    public class EventSystem : Object<UnityEngine.EventSystems.EventSystem>
+    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.EventSystems.EventSystem" />.</summary>
+    public class EventSystem : Component<UnityEngine.EventSystems.EventSystem>
     {
         /// <summary>Backing store for the <see cref="FirstSelectedGameObject" /> property.</summary>
-        public static readonly BindableProperty FirstSelectedGameObjectProperty = CreateBindableComponentProperty<UnityEngine.GameObject>(
+        public static readonly BindableProperty FirstSelectedGameObjectProperty = CreateBindableBodyProperty<UnityEngine.GameObject>(
             "FirstSelectedGameObject",
             typeof(EventSystem),
-            (component, value) => component.firstSelectedGameObject = value);
+            (body, value) => body.firstSelectedGameObject = value);
 
         /// <summary>Backing store for the <see cref="SendNavigationEvents" /> property.</summary>
-        public static readonly BindableProperty SendNavigationEventsProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty SendNavigationEventsProperty = CreateBindableBodyProperty<bool>(
             "SendNavigationEvents",
             typeof(EventSystem),
-            (component, value) => component.sendNavigationEvents = value,
+            (body, value) => body.sendNavigationEvents = value,
             true);
 
         /// <summary>Backing store for the <see cref="PixelDragThreshold" /> property.</summary>
-        public static readonly BindableProperty PixelDragThresholdProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty PixelDragThresholdProperty = CreateBindableBodyProperty<int>(
             "PixelDragThreshold",
             typeof(EventSystem),
-            (component, value) => component.pixelDragThreshold = value,
+            (body, value) => body.pixelDragThreshold = value,
             10);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.EventSystems.EventSystem.firstSelectedGameObject" />.</summary>
@@ -68,12 +68,13 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.EventSystems.EventSystem>();
-            Component.firstSelectedGameObject = FirstSelectedGameObject;
-            Component.sendNavigationEvents = SendNavigationEvents;
-            Component.pixelDragThreshold = PixelDragThreshold;
+            base.AwakeInMainThread();
+
+            Body.firstSelectedGameObject = FirstSelectedGameObject;
+            Body.sendNavigationEvents = SendNavigationEvents;
+            Body.pixelDragThreshold = PixelDragThreshold;
         }
     }
 }

@@ -2,42 +2,42 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.LayoutGroup" />.</summary>
-    public abstract class LayoutGroup<T> : Object<T> where T : UnityEngine.UI.LayoutGroup
+    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.LayoutGroup" />.</summary>
+    public abstract class LayoutGroup<T> : Component<T> where T : UnityEngine.UI.LayoutGroup
     {
         /// <summary>Backing store for the <see cref="PaddingLeft" /> property.</summary>
-        public static readonly BindableProperty PaddingLeftProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty PaddingLeftProperty = CreateBindableBodyProperty<int>(
             "PaddingLeft",
             typeof(LayoutGroup<T>),
-            (component, value) => component.padding.left = value,
+            (body, value) => body.padding.left = value,
             0);
 
         /// <summary>Backing store for the <see cref="PaddingRight" /> property.</summary>
-        public static readonly BindableProperty PaddingRightProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty PaddingRightProperty = CreateBindableBodyProperty<int>(
             "PaddingRight",
             typeof(LayoutGroup<T>),
-            (component, value) => component.padding.right = value,
+            (body, value) => body.padding.right = value,
             0);
 
         /// <summary>Backing store for the <see cref="PaddingTop" /> property.</summary>
-        public static readonly BindableProperty PaddingTopProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty PaddingTopProperty = CreateBindableBodyProperty<int>(
             "PaddingTop",
             typeof(LayoutGroup<T>),
-            (component, value) => component.padding.right = value,
+            (body, value) => body.padding.right = value,
             0);
 
         /// <summary>Backing store for the <see cref="PaddingBottom" /> property.</summary>
-        public static readonly BindableProperty PaddingBottomProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty PaddingBottomProperty = CreateBindableBodyProperty<int>(
             "PaddingBottom",
             typeof(LayoutGroup<T>),
-            (component, value) => component.padding.bottom = value,
+            (body, value) => body.padding.bottom = value,
             0);
 
         /// <summary>Backing store for the <see cref="ChildAlignment" /> property.</summary>
-        public static readonly BindableProperty ChildAlignmentProperty = CreateBindableComponentProperty<UnityEngine.TextAnchor>(
+        public static readonly BindableProperty ChildAlignmentProperty = CreateBindableBodyProperty<UnityEngine.TextAnchor>(
             "ChildAlignment",
             typeof(LayoutGroup<T>),
-            (component, value) => component.childAlignment = value,
+            (body, value) => body.childAlignment = value,
             UnityEngine.TextAnchor.UpperLeft);
 
         /// <summary>
@@ -123,14 +123,15 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<T>();
-            Component.padding.left = PaddingLeft;
-            Component.padding.right = PaddingRight;
-            Component.padding.top = PaddingTop;
-            Component.padding.bottom = PaddingBottom;
-            Component.childAlignment = ChildAlignment;
+            base.AwakeInMainThread();
+
+            Body.padding.left = PaddingLeft;
+            Body.padding.right = PaddingRight;
+            Body.padding.top = PaddingTop;
+            Body.padding.bottom = PaddingBottom;
+            Body.childAlignment = ChildAlignment;
         }
     }
 }

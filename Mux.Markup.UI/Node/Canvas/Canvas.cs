@@ -2,7 +2,7 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.Canvas" />.</summary>
+    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.Canvas" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -26,7 +26,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class Canvas : Object<UnityEngine.Canvas>
+    public class Canvas : Component<UnityEngine.Canvas>
     {
         /// <summary>Backing store for the <see cref="Render" /> property.</summary>
         public static readonly BindableProperty RenderProperty = CreateBindableModifierProperty(
@@ -35,14 +35,14 @@ namespace Mux.Markup
             sender => new ScreenSpaceOverlay());
 
         /// <summary>Backing store for the <see cref="AdditionalShaderChannels" /> property.</summary>
-        public static readonly BindableProperty AdditionalShaderChannelsProperty = CreateBindableComponentProperty<UnityEngine.AdditionalCanvasShaderChannels>(
+        public static readonly BindableProperty AdditionalShaderChannelsProperty = CreateBindableBodyProperty<UnityEngine.AdditionalCanvasShaderChannels>(
             "AdditionalShaderChannels",
             typeof(Canvas),
-            (component, value) => component.additionalShaderChannels = value,
+            (body, value) => body.additionalShaderChannels = value,
             UnityEngine.AdditionalCanvasShaderChannels.None);
 
         /// <summary>A property that represents <see cref="T:UnityEngine.RenderMode.ScreenSpaceCamera" /> and its rendering properties.</summary>
-        /// <remarks>Setting <see cref="Object{T:UnityEngine.Canvas}.Modifier" /> to this property binds its lifetime to the lifetime of this object.</remarks>
+        /// <remarks>Setting <see cref="Component{T:UnityEngine.Canvas}.Modifier" /> to this property binds its lifetime to the lifetime of this object.</remarks>
         public Modifier Render
         {
             get
@@ -78,14 +78,16 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.Canvas>();
-            Component.additionalShaderChannels = AdditionalShaderChannels;
-            Render.Component = Component;
+            base.AwakeInMainThread();
+
+            Body.additionalShaderChannels = AdditionalShaderChannels;
+            Render.Body = Body;
         }
 
-        internal override void DestroyMuxInMainThread()
+        /// <inheritdoc />
+        protected override void DestroyMuxInMainThread()
         {
             base.DestroyMuxInMainThread();
             Render.DestroyMux();

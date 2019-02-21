@@ -24,58 +24,58 @@ namespace Mux.Markup
     public class Image : Graphic<UnityEngine.UI.Image>
     {
         /// <summary>Backing store for the <see cref="Sprite" /> property.</summary>
-        public static readonly BindableProperty SpriteProperty = CreateBindableComponentProperty<UnityEngine.Sprite>(
+        public static readonly BindableProperty SpriteProperty = CreateBindableBodyProperty<UnityEngine.Sprite>(
             "Sprite",
             typeof(Image),
-            (component, value) => component.sprite = value);
+            (body, value) => body.sprite = value);
 
         /// <summary>Backing store for the <see cref="Type" /> property.</summary>
-        public static readonly BindableProperty TypeProperty = CreateBindableComponentProperty<UnityEngine.UI.Image.Type>(
+        public static readonly BindableProperty TypeProperty = CreateBindableBodyProperty<UnityEngine.UI.Image.Type>(
             "Type",
             typeof(Image),
-            (component, value) => component.type = value,
+            (body, value) => body.type = value,
             UnityEngine.UI.Image.Type.Simple);
 
         /// <summary>Backing store for the <see cref="FillCenter" /> property.</summary>
-        public static readonly BindableProperty FillCenterProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty FillCenterProperty = CreateBindableBodyProperty<bool>(
             "FillCenter",
             typeof(Image),
-            (component, value) => component.fillCenter = value,
+            (body, value) => body.fillCenter = value,
             true);
 
         /// <summary>Backing store for the <see cref="FillMethod" /> property.</summary>
-        public static readonly BindableProperty FillMethodProperty = CreateBindableComponentProperty<UnityEngine.UI.Image.FillMethod>(
+        public static readonly BindableProperty FillMethodProperty = CreateBindableBodyProperty<UnityEngine.UI.Image.FillMethod>(
             "FillMethod",
             typeof(Image),
-            (component, value) => component.fillMethod = value,
+            (body, value) => body.fillMethod = value,
             UnityEngine.UI.Image.FillMethod.Radial360);
 
         /// <summary>Backing store for the <see cref="FillOrigin" /> property.</summary>
-        public static readonly BindableProperty FillOriginProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty FillOriginProperty = CreateBindableBodyProperty<int>(
             "FillOrigin",
             typeof(Image),
-            (component, value) => component.fillOrigin = value,
+            (body, value) => body.fillOrigin = value,
             0);
 
         /// <summary>Backing store for the <see cref="FillClockwise" /> property.</summary>
-        public static readonly BindableProperty FillClockwiseProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty FillClockwiseProperty = CreateBindableBodyProperty<bool>(
             "FillClockwise",
             typeof(Image),
-            (component, value) => component.fillClockwise = value,
+            (body, value) => body.fillClockwise = value,
             true);
 
         /// <summary>Backing store for the <see cref="FillAmount" /> property.</summary>
-        public static readonly BindableProperty FillAmountProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty FillAmountProperty = CreateBindableBodyProperty<float>(
             "FillAmount",
             typeof(Image),
-            (component, value) => component.fillAmount = value,
+            (body, value) => body.fillAmount = value,
             1f);
 
         /// <summary>Backing store for the <see cref="PreserveAspect" /> property.</summary>
-        public static readonly BindableProperty PreserveAspectProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty PreserveAspectProperty = CreateBindableBodyProperty<bool>(
             "PreserveAspect",
             typeof(Image),
-            (component, value) => component.preserveAspect = value,
+            (body, value) => body.preserveAspect = value,
             false);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.Image.sprite" />.</summary>
@@ -191,18 +191,18 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
-            Component.sprite = Sprite;
-            Component.type = Type;
-            Component.fillCenter = FillCenter;
-            Component.fillMethod = FillMethod;
-            Component.fillOrigin = FillOrigin;
-            Component.fillClockwise = FillClockwise;
-            Component.fillAmount = FillAmount;
-            Component.preserveAspect = PreserveAspect;
+            Body.sprite = Sprite;
+            Body.type = Type;
+            Body.fillCenter = FillCenter;
+            Body.fillMethod = FillMethod;
+            Body.fillOrigin = FillOrigin;
+            Body.fillClockwise = FillClockwise;
+            Body.fillAmount = FillAmount;
+            Body.preserveAspect = PreserveAspect;
         }
     }
 }

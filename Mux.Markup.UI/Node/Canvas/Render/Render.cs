@@ -40,81 +40,81 @@ namespace Mux.Markup
 
         private static void OnPixelPerfectChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((Render)sender).Component;
+            var body = ((Render)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.pixelPerfect = (bool)state, newValue);
+                Forms.mainThread.Send(state => body.pixelPerfect = (bool)state, newValue);
             }
         }
 
         private static void OnOverridePixelPerfectChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((Render)sender).Component;
+            var body = ((Render)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.overridePixelPerfect = (bool)state, newValue);
+                Forms.mainThread.Send(state => body.overridePixelPerfect = (bool)state, newValue);
             }
         }
 
         private static void OnWorldCameraChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ScreenSpaceCamera)sender).Component;
+            var body = ((ScreenSpaceCamera)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.worldCamera = (UnityEngine.Camera)state, newValue);
+                Forms.mainThread.Send(state => body.worldCamera = (UnityEngine.Camera)state, newValue);
             }
         }
 
         private static void OnPlaneDistanceChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ScreenSpaceCamera)sender).Component;
+            var body = ((ScreenSpaceCamera)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.planeDistance = (float)state, newValue);
+                Forms.mainThread.Send(state => body.planeDistance = (float)state, newValue);
             }
         }
 
         private static void OnSortingLayerChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ScreenSpaceCamera)sender).Component;
+            var body = ((ScreenSpaceCamera)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.sortingLayerID = (int)state, newValue);
+                Forms.mainThread.Send(state => body.sortingLayerID = (int)state, newValue);
             }
         }
 
         private static void OnSortingOrderChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((Render)sender).Component;
+            var body = ((Render)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.sortingOrder = (int)state, newValue);
+                Forms.mainThread.Send(state => body.sortingOrder = (int)state, newValue);
             }
         }
 
         private static void OnOverrideSortingChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((Render)sender).Component;
+            var body = ((Render)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.overrideSorting = (bool)state, newValue);
+                Forms.mainThread.Send(state => body.overrideSorting = (bool)state, newValue);
             }
         }
 
         private static void OnTargetDisplayChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((Render)sender).Component;
+            var body = ((Render)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.targetDisplay = (int)state, newValue);
+                Forms.mainThread.Send(state => body.targetDisplay = (int)state, newValue);
             }
         }
 
@@ -241,11 +241,11 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected override void InitializeComponentInMainThread()
+        protected override void InitializeBodyInMainThread()
         {
-            Component.overrideSorting = OverrideSorting;
-            Component.sortingOrder = SortingOrder;
-            Component.targetDisplay = TargetDisplay;
+            Body.overrideSorting = OverrideSorting;
+            Body.sortingOrder = SortingOrder;
+            Body.targetDisplay = TargetDisplay;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Mux.Markup.Extras
             }
 
             base.ClearList();
-            ((UIMesh)container).Component?.SetVerticesDirty();
+            ((UIMesh)container).Body?.SetVerticesDirty();
         }
 
         public override void InsertListRange(int index, IEnumerable<UIMeshItem> enumerable)
@@ -43,13 +43,13 @@ namespace Mux.Markup.Extras
                 item.mesh = mesh;
             }
 
-            mesh.Component?.SetVerticesDirty();
+            mesh.Body?.SetVerticesDirty();
         }
 
         public override void MoveListRange(int from, int to, int count)
         {
             base.MoveListRange(from, to, count);
-            ((UIMesh)container).Component?.SetVerticesDirty();
+            ((UIMesh)container).Body?.SetVerticesDirty();
         }
 
         public override void RemoveListRange(int index, int count)
@@ -60,7 +60,7 @@ namespace Mux.Markup.Extras
                 _builder.RemoveAt(index);
             }
 
-            ((UIMesh)container).Component?.SetVerticesDirty();
+            ((UIMesh)container).Body?.SetVerticesDirty();
         }
 
         public override void ReplaceListRange(int index, int count, IEnumerable<UIMeshItem> enumerable)
@@ -80,7 +80,7 @@ namespace Mux.Markup.Extras
                 item.mesh = mesh;
             }
 
-            mesh.Component?.SetVerticesDirty();
+            mesh.Body?.SetVerticesDirty();
         }
 
         public ImmutableList<UIMeshItem> ToImmutable()

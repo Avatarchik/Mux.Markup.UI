@@ -23,7 +23,7 @@ namespace Mux.Markup
     ///         only when you compile the interpreter with IL2CPP.
     ///         It is because ContentPropertyAttribute does not work with IL2CPP.
     ///     -->
-    ///     <mu:Toggle Graphic="{Binding Path=Component, Source={x:Reference Name=graphic}}" />
+    ///     <mu:Toggle Graphic="{Binding Path=Body, Source={x:Reference Name=graphic}}" />
     ///     <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
     ///         <mu:Image x:Name="graphic" Color="{m:Color R=0, G=0, B=1}" />
     ///     </m:RectTransform>
@@ -43,10 +43,10 @@ namespace Mux.Markup
         private UnityEngine.GameObject _builtinBackground;
 
         /// <summary>Backing store for the <see cref="ToggleTransition" /> property.</summary>
-        public static readonly BindableProperty ToggleTransitionProperty = CreateBindableComponentProperty<UnityEngine.UI.Toggle.ToggleTransition>(
+        public static readonly BindableProperty ToggleTransitionProperty = CreateBindableBodyProperty<UnityEngine.UI.Toggle.ToggleTransition>(
             "ToggleTransition",
             typeof(Toggle),
-            (component, value) => component.toggleTransition = value,
+            (body, value) => body.toggleTransition = value,
             UnityEngine.UI.Toggle.ToggleTransition.Fade);
 
         /// <summary>Backing store for the <see cref="Graphic" /> property.</summary>
@@ -60,27 +60,27 @@ namespace Mux.Markup
             OnGraphicChanged);
 
         /// <summary>Backing store for the <see cref="Group" /> property.</summary>
-        public static readonly BindableProperty GroupProperty = CreateBindableComponentProperty<UnityEngine.UI.ToggleGroup>(
+        public static readonly BindableProperty GroupProperty = CreateBindableBodyProperty<UnityEngine.UI.ToggleGroup>(
             "Group",
             typeof(Toggle),
-            (component, value) => component.group = value);
+            (body, value) => body.group = value);
 
         /// <summary>Backing store for the <see cref="IsOn" /> property.</summary>
-        public static readonly BindableProperty IsOnProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty IsOnProperty = CreateBindableBodyProperty<bool>(
             "IsOn",
             typeof(Toggle),
-            (component, value) =>
+            (body, value) =>
             {
-                var old = component.onValueChanged;
-                component.onValueChanged = new UnityEngine.UI.Toggle.ToggleEvent();
+                var old = body.onValueChanged;
+                body.onValueChanged = new UnityEngine.UI.Toggle.ToggleEvent();
 
                 try
                 {
-                    component.isOn = value;
+                    body.isOn = value;
                 }
                 finally
                 {
-                    component.onValueChanged = old;
+                    body.onValueChanged = old;
                 }
             },
             true,
@@ -97,12 +97,12 @@ namespace Mux.Markup
                 {
                     toggle._builtinBackground.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (toggle.Component != null)
+                    if (toggle.Body != null)
                     {
-                        toggle._builtinBackground.transform.parent?.SetParent(toggle.Component.transform, false);
-                        toggle._builtinBackground.layer = toggle.Component.gameObject.layer;
+                        toggle._builtinBackground.transform.parent?.SetParent(toggle.Body.transform, false);
+                        toggle._builtinBackground.layer = toggle.Body.gameObject.layer;
                         builtinCheckmark.layer = toggle._builtinBackground.layer;
-                        toggle.SetGraphicToComponent(toggle.Graphic);
+                        toggle.SetGraphicToBody(toggle.Graphic);
                     }
                 }
                 else
@@ -114,10 +114,10 @@ namespace Mux.Markup
                         toggle.SetValueCore(TargetGraphicProperty, null);
                     }
 
-                    if (toggle.Component != null)
+                    if (toggle.Body != null)
                     {
                         toggle._builtinBackground.transform.parent?.SetParent(null);
-                        toggle.SetGraphicToComponent(toggle.Graphic);
+                        toggle.SetGraphicToBody(toggle.Graphic);
                     }
                 }
             }, boxedToggle);
@@ -192,32 +192,32 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
             var builtinCheckmark = _builtinBackground.transform.GetChild(0).gameObject;
 
             if (Graphic == builtinCheckmark.GetComponent<UnityEngine.UI.Image>())
             {
-                _builtinBackground.transform.SetParent(gameObject.transform, false);
-                _builtinBackground.layer = gameObject.layer;
+                _builtinBackground.transform.SetParent(Body.transform, false);
+                _builtinBackground.layer = Body.gameObject.layer;
                 builtinCheckmark.layer = _builtinBackground.layer;
             }
 
-            Component.toggleTransition = ToggleTransition;
-            Component.graphic = Graphic;
-            Component.group = Group;
-            Component.isOn = IsOn;
-            Component.onValueChanged.AddListener(value => SetValueCore(IsOnProperty, value));
+            Body.toggleTransition = ToggleTransition;
+            Body.graphic = Graphic;
+            Body.group = Group;
+            Body.isOn = IsOn;
+            Body.onValueChanged.AddListener(value => SetValueCore(IsOnProperty, value));
         }
 
-        private void SetGraphicToComponent(UnityEngine.UI.Graphic graphic)
+        private void SetGraphicToBody(UnityEngine.UI.Graphic graphic)
         {
-            Component.graphic = graphic;
+            Body.graphic = graphic;
 
             // This triggers an effect such as hiding graphic if off to be played.
-            Component.group = Group;
+            Body.group = Group;
         }
     }
 }

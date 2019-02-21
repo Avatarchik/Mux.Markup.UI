@@ -156,8 +156,8 @@ namespace Mux.Markup.Extras
         /// <inheritdoc />
         protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
         {
-            Component = gameObject.AddComponent<MuxUIMesh>();
-            Component.items = _items;
+            Body = gameObject.AddComponent<MuxUIMesh>();
+            Body.items = _items;
         }
     }
 

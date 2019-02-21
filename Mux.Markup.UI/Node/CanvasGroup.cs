@@ -3,7 +3,7 @@
 namespace Mux.Markup
 {
     /// <summary>
-    /// An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.CanvasGroup" />.
+    /// An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.CanvasGroup" />.
     /// </summary>
     /// <example>
     /// <code language="xaml">
@@ -30,33 +30,33 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class CanvasGroup : Object<UnityEngine.CanvasGroup>
+    public class CanvasGroup : Component<UnityEngine.CanvasGroup>
     {
         /// <summary>Backing store for the <see cref="Alpha" /> property.</summary>
-        public static readonly BindableProperty AlphaProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty AlphaProperty = CreateBindableBodyProperty<float>(
             "Alpha",
             typeof(CanvasGroup),
-            (component, value) => component.alpha = value);
+            (body, value) => body.alpha = value);
 
         /// <summary>Backing store for the <see cref="Interactable" /> property.</summary>
-        public static readonly BindableProperty InteractableProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty InteractableProperty = CreateBindableBodyProperty<bool>(
             "Interactable",
             typeof(CanvasGroup),
-            (component, value) => component.interactable = value,
+            (body, value) => body.interactable = value,
             true);
 
         /// <summary>Backing store for the <see cref="BlocksRaycasts" /> property.</summary>
-        public static readonly BindableProperty BlocksRaycastsProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty BlocksRaycastsProperty = CreateBindableBodyProperty<bool>(
             "BlocksRaycasts",
             typeof(CanvasGroup),
-            (component, value) => component.blocksRaycasts = value,
+            (body, value) => body.blocksRaycasts = value,
             true);
 
         /// <summary>Backing store for the <see cref="IgnoreParentGroups" /> property.</summary>
-        public static readonly BindableProperty IgnoreParentGroupsProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty IgnoreParentGroupsProperty = CreateBindableBodyProperty<bool>(
             "IgnoreParentGroups",
             typeof(CanvasGroup),
-            (component, value) => component.ignoreParentGroups = value,
+            (body, value) => body.ignoreParentGroups = value,
             false);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.CanvasGroup.alpha" />.</summary>
@@ -116,13 +116,14 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.CanvasGroup>();
-            Component.alpha = Alpha;
-            Component.interactable = Interactable;
-            Component.blocksRaycasts = BlocksRaycasts;
-            Component.ignoreParentGroups = IgnoreParentGroups;
+            base.AwakeInMainThread();
+
+            Body.alpha = Alpha;
+            Body.interactable = Interactable;
+            Body.blocksRaycasts = BlocksRaycasts;
+            Body.ignoreParentGroups = IgnoreParentGroups;
         }
     }
 }

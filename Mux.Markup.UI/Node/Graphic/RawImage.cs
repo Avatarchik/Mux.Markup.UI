@@ -24,16 +24,16 @@ namespace Mux.Markup
     public class RawImage : Graphic<UnityEngine.UI.RawImage>
     {
         /// <summary>Backing store for the <see cref="Texture" /> property.</summary>
-        public static readonly BindableProperty TextureProperty = CreateBindableComponentProperty<UnityEngine.Texture>(
+        public static readonly BindableProperty TextureProperty = CreateBindableBodyProperty<UnityEngine.Texture>(
             "Texture",
             typeof(RawImage),
-            (component, value) => component.texture = value);
+            (body, value) => body.texture = value);
 
         /// <summary>Backing store for the <see cref="UvRect" /> property.</summary>
-        public static readonly BindableProperty UvRectProperty = CreateBindableComponentProperty<UnityEngine.Rect>(
+        public static readonly BindableProperty UvRectProperty = CreateBindableBodyProperty<UnityEngine.Rect>(
             "UvRect",
             typeof(RawImage),
-            (component, value) => component.uvRect = value,
+            (body, value) => body.uvRect = value,
             new UnityEngine.Rect(0, 0, 1, 1));
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.RawImage.texture" />.</summary>
@@ -65,12 +65,12 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
-            Component.texture = Texture;
-            Component.uvRect = UvRect;
+            Body.texture = Texture;
+            Body.uvRect = UvRect;
         }
     }
 }

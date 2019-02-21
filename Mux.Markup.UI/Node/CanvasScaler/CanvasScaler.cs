@@ -3,7 +3,7 @@
 namespace Mux.Markup
 {
     /// <summary>
-    /// An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.CanvasScaler" />.
+    /// An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.CanvasScaler" />.
     /// </summary>
     /// <example>
     /// <code language="xaml">
@@ -28,7 +28,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class CanvasScaler : Object<UnityEngine.UI.CanvasScaler>
+    public class CanvasScaler : Component<UnityEngine.UI.CanvasScaler>
     {
         /// <summary>Backing store for the <see cref="UiScale" /> property.</summary>
         public static readonly BindableProperty UiScaleProperty = CreateBindableModifierProperty(
@@ -37,15 +37,15 @@ namespace Mux.Markup
             sender => new ConstantPixelSize());
 
         /// <summary>Backing store for the <see cref="ReferencePixelsPerUnit" /> property.</summary>
-        public static readonly BindableProperty ReferencePixelsPerUnitProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty ReferencePixelsPerUnitProperty = CreateBindableBodyProperty<float>(
             "ReferencePixelsPerUnit",
             typeof(CanvasScaler),
-            (component, value) => component.referencePixelsPerUnit = value,
+            (body, value) => body.referencePixelsPerUnit = value,
             100f);
 
         /// <summary>A property that represents scaling mode and its properties.</summary>
         /// <remarks>
-        /// Setting <see cref="Object{T:UnityEngine.UI.CanvasScaler}.Modifier" />
+        /// Setting <see cref="Component{T:UnityEngine.UI.CanvasScaler}.Modifier" />
         /// to this property binds its lifetime to the lifetime of this object.
         /// </remarks>
         public Modifier UiScale
@@ -85,14 +85,16 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.UI.CanvasScaler>();
-            Component.referencePixelsPerUnit = ReferencePixelsPerUnit;
-            UiScale.Component = Component;
+            base.AwakeInMainThread();
+
+            Body.referencePixelsPerUnit = ReferencePixelsPerUnit;
+            UiScale.Body = Body;
         }
 
-        internal override void DestroyMuxInMainThread()
+        /// <inheritdoc />
+        protected override void DestroyMuxInMainThread()
         {
             base.DestroyMuxInMainThread();
             UiScale?.DestroyMux();

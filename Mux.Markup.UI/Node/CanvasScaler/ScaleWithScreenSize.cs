@@ -67,35 +67,35 @@ namespace Mux.Markup
 
         private static void OnReferenceResolutionChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ScaleWithScreenSize)sender).Component;
+            var body = ((ScaleWithScreenSize)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
                 Forms.mainThread.Send(
-                    state => component.referenceResolution = (UnityEngine.Vector2)state,
+                    state => body.referenceResolution = (UnityEngine.Vector2)state,
                     newValue);
             }
         }
 
         private static void OnScreenMatchModeChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ScaleWithScreenSize)sender).Component;
+            var body = ((ScaleWithScreenSize)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
                 Forms.mainThread.Send(
-                    state => component.screenMatchMode = (UnityEngine.UI.CanvasScaler.ScreenMatchMode)state,
+                    state => body.screenMatchMode = (UnityEngine.UI.CanvasScaler.ScreenMatchMode)state,
                     newValue);
             }
         }
 
         private static void OnMatchWidthOrHeightChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ScaleWithScreenSize)sender).Component;
+            var body = ((ScaleWithScreenSize)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.matchWidthOrHeight = (float)state, newValue);
+                Forms.mainThread.Send(state => body.matchWidthOrHeight = (float)state, newValue);
             }
         }
 
@@ -148,12 +148,12 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void InitializeComponentInMainThread()
+        protected sealed override void InitializeBodyInMainThread()
         {
-            Component.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            Component.referenceResolution = ReferenceResolution;
-            Component.screenMatchMode = ScreenMatchMode;
-            Component.matchWidthOrHeight = MatchWidthOrHeight;
+            Body.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            Body.referenceResolution = ReferenceResolution;
+            Body.screenMatchMode = ScreenMatchMode;
+            Body.matchWidthOrHeight = MatchWidthOrHeight;
         }
     }
 }

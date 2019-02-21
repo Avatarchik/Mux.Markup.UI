@@ -48,11 +48,11 @@ namespace Mux.Markup
 
         private static void OnScaleFactorChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ConstantPixelSize)sender).Component;
+            var body = ((ConstantPixelSize)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.scaleFactor = (float)state, component);
+                Forms.mainThread.Send(state => body.scaleFactor = (float)state, body);
             }
         }
 
@@ -73,10 +73,10 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void InitializeComponentInMainThread()
+        protected sealed override void InitializeBodyInMainThread()
         {
-            Component.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ConstantPixelSize;
-            Component.scaleFactor = ScaleFactor;
+            Body.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ConstantPixelSize;
+            Body.scaleFactor = ScaleFactor;
         }
     }
 }

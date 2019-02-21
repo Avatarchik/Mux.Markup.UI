@@ -110,15 +110,15 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void InitializeComponentInMainThread()
+        protected sealed override void InitializeBodyInMainThread()
         {
-            Component.renderMode = UnityEngine.RenderMode.ScreenSpaceCamera;
-            base.InitializeComponentInMainThread();
-            Component.pixelPerfect = PixelPerfect;
-            Component.overridePixelPerfect = OverridePixelPerfect;
-            Component.worldCamera = WorldCamera;
-            Component.planeDistance = PlaneDistance;
-            Component.sortingLayerID = SortingLayer;
+            Body.renderMode = UnityEngine.RenderMode.ScreenSpaceCamera;
+            base.InitializeBodyInMainThread();
+            Body.pixelPerfect = PixelPerfect;
+            Body.overridePixelPerfect = OverridePixelPerfect;
+            Body.worldCamera = WorldCamera;
+            Body.planeDistance = PlaneDistance;
+            Body.sortingLayerID = SortingLayer;
         }
     }
 }

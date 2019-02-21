@@ -3,7 +3,7 @@
 namespace Mux.Markup
 {
     /// <summary>
-    /// A <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.ToggleGroup" />.
+    /// A <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.ToggleGroup" />.
     /// </summary>
     /// <example>
     /// <code language="xaml">
@@ -26,22 +26,22 @@ namespace Mux.Markup
     ///         It is because ContentPropertyAttribute does not work with IL2CPP.
     ///     -->
     ///     <m:RectTransform X="{m:Stretch AnchorMax=0.5}">
-    ///         <mu:Toggle Group="{Binding Path=Component, Source={x:Reference Name=group}}" />
+    ///         <mu:Toggle Group="{Binding Path=Body, Source={x:Reference Name=group}}" />
     ///     </m:RectTransform>
     ///     <m:RectTransform X="{m:Stretch AnchorMin=0.5}">
-    ///         <mu:Toggle Group="{Binding Path=Component, Source={x:Reference Name=group}}" />
+    ///         <mu:Toggle Group="{Binding Path=Body, Source={x:Reference Name=group}}" />
     ///     </m:RectTransform>
     /// </m:RectTransform>
     /// ]]>
     /// </code>
     /// </example>
-    public class ToggleGroup : Object<UnityEngine.UI.ToggleGroup>
+    public class ToggleGroup : Component<UnityEngine.UI.ToggleGroup>
     {
         /// <summary>Backing store for the <see cref="AllowSwitchOff" /> property.</summary>
-        public static readonly BindableProperty AllowSwitchOffProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty AllowSwitchOffProperty = CreateBindableBodyProperty<bool>(
             "AllowSwitchOff",
             typeof(ToggleGroup),
-            (component, value) => component.allowSwitchOff = value,
+            (body, value) => body.allowSwitchOff = value,
             false);
 
         /// <summary>
@@ -61,10 +61,10 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.UI.ToggleGroup>();
-            Component.allowSwitchOff = AllowSwitchOff;
+            base.AwakeInMainThread();
+            Body.allowSwitchOff = AllowSwitchOff;
         }
     }
 }

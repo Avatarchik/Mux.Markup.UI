@@ -20,8 +20,8 @@ namespace Mux.Markup
     ///     <mu:GraphicRaycaster />
     ///     <mu:InputField
     ///         LineType="MultiLineNewline"
-    ///         Placeholder="{Binding Path=Component, Source={x:Reference Name=placeholder}}"
-    ///         TextComponent="{Binding Path=Component, Source={x:Reference Name=text}}">
+    ///         Placeholder="{Binding Path=Body, Source={x:Reference Name=placeholder}}"
+    ///         TextComponent="{Binding Path=Body, Source={x:Reference Name=text}}">
     ///         <mu:InputField.Text>
     /// You have to give property name "Path" to Binding and "Name" to x:Reference
     /// only when you compile the interpreter with IL2CPP.
@@ -49,108 +49,108 @@ namespace Mux.Markup
             OnTextComponentChanged);
 
         /// <summary>Backing store for the <see cref="Text" /> property.</summary>
-        public static readonly BindableProperty TextProperty = CreateBindableComponentProperty<string>(
+        public static readonly BindableProperty TextProperty = CreateBindableBodyProperty<string>(
             "Text",
             typeof(InputField),
-            (component, value) =>
+            (body, value) =>
             {
-                var old = component.onValueChanged;
-                component.onValueChanged = new UnityEngine.UI.InputField.OnChangeEvent();
+                var old = body.onValueChanged;
+                body.onValueChanged = new UnityEngine.UI.InputField.OnChangeEvent();
 
                 try
                 {
-                    component.text = value;
+                    body.text = value;
                 }
                 finally
                 {
-                    component.onValueChanged = old;
+                    body.onValueChanged = old;
                 }
             },
             "",
             BindingMode.TwoWay);
 
         /// <summary>Backing store for the <see cref="ContentType" /> property.</summary>
-        public static readonly BindableProperty ContentTypeProperty = CreateBindableComponentProperty<UnityEngine.UI.InputField.ContentType>(
+        public static readonly BindableProperty ContentTypeProperty = CreateBindableBodyProperty<UnityEngine.UI.InputField.ContentType>(
             "ContentType",
             typeof(InputField),
-            (component, value) => component.contentType = value,
+            (body, value) => body.contentType = value,
             UnityEngine.UI.InputField.ContentType.Standard);
 
         /// <summary>Backing store for the <see cref="LineType" /> property.</summary>
-        public static readonly BindableProperty LineTypeProperty = CreateBindableComponentProperty<UnityEngine.UI.InputField.LineType>(
+        public static readonly BindableProperty LineTypeProperty = CreateBindableBodyProperty<UnityEngine.UI.InputField.LineType>(
             "LineType",
             typeof(InputField),
-            (component, value) => component.lineType = value,
+            (body, value) => body.lineType = value,
             UnityEngine.UI.InputField.LineType.SingleLine);
 
         /// <summary>Backing store for the <see cref="InputType" /> property.</summary>
-        public static readonly BindableProperty InputTypeProperty = CreateBindableComponentProperty<UnityEngine.UI.InputField.InputType>(
+        public static readonly BindableProperty InputTypeProperty = CreateBindableBodyProperty<UnityEngine.UI.InputField.InputType>(
             "InputType",
             typeof(InputField),
-            (component, value) => component.inputType = value,
+            (body, value) => body.inputType = value,
             UnityEngine.UI.InputField.InputType.Standard);
 
         /// <summary>Backing store for the <see cref="CharacterValidation" /> property.</summary>
-        public static readonly BindableProperty CharacterValidationProperty = CreateBindableComponentProperty<UnityEngine.UI.InputField.CharacterValidation>(
+        public static readonly BindableProperty CharacterValidationProperty = CreateBindableBodyProperty<UnityEngine.UI.InputField.CharacterValidation>(
             "CharacterValidation",
             typeof(InputField),
-            (component, value) => component.characterValidation = value,
+            (body, value) => body.characterValidation = value,
             UnityEngine.UI.InputField.CharacterValidation.None);
 
         /// <summary>Backing store for the <see cref="KeyboardType" /> property.</summary>
-        public static readonly BindableProperty KeyboardTypeProperty = CreateBindableComponentProperty<UnityEngine.TouchScreenKeyboardType>(
+        public static readonly BindableProperty KeyboardTypeProperty = CreateBindableBodyProperty<UnityEngine.TouchScreenKeyboardType>(
             "KeyboardType",
             typeof(InputField),
-            (component, value) => component.keyboardType = value,
+            (body, value) => body.keyboardType = value,
             UnityEngine.TouchScreenKeyboardType.Default);
 
         /// <summary>Backing store for the <see cref="CharacterLimit" /> property.</summary>
-        public static readonly BindableProperty CharacterLimitProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty CharacterLimitProperty = CreateBindableBodyProperty<int>(
             "CharacterLimit",
             typeof(InputField),
-            (component, value) => component.characterLimit = value,
+            (body, value) => body.characterLimit = value,
             0);
 
         /// <summary>Backing store for the <see cref="CaretBlinkRate" /> property.</summary>
-        public static readonly BindableProperty CaretBlinkRateProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty CaretBlinkRateProperty = CreateBindableBodyProperty<float>(
             "CaretBlinkRate",
             typeof(InputField),
-            (component, value) => component.caretBlinkRate = value,
+            (body, value) => body.caretBlinkRate = value,
             0.85f);
 
         /// <summary>Backing store for the <see cref="CaretWidth" /> property.</summary>
-        public static readonly BindableProperty CaretWidthProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty CaretWidthProperty = CreateBindableBodyProperty<int>(
             "CaretWidth",
             typeof(InputField),
-            (component, value) => component.caretWidth = value,
+            (body, value) => body.caretWidth = value,
             1);
 
         /// <summary>Backing store for the <see cref="CaretColor" /> property.</summary>
-        public static readonly BindableProperty CaretColorProperty = CreateBindableComponentProperty<UnityEngine.Color>(
+        public static readonly BindableProperty CaretColorProperty = CreateBindableBodyProperty<UnityEngine.Color>(
             "CaretColor",
             typeof(InputField),
-            (component, value) => component.caretColor = value,
+            (body, value) => body.caretColor = value,
             new UnityEngine.Color32(50, 50, 50, 255));
 
         /// <summary>Backing store for the <see cref="CustomCaretColor" /> property.</summary>
-        public static readonly BindableProperty CustomCaretColorProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty CustomCaretColorProperty = CreateBindableBodyProperty<bool>(
             "CustomCaretColor",
             typeof(InputField),
-            (component, value) => component.customCaretColor = value,
+            (body, value) => body.customCaretColor = value,
             false);
 
         /// <summary>Backing store for the <see cref="SelectionColor" /> property.</summary>
-        public static readonly BindableProperty SelectionColorProperty = CreateBindableComponentProperty<UnityEngine.Color>(
+        public static readonly BindableProperty SelectionColorProperty = CreateBindableBodyProperty<UnityEngine.Color>(
             "SelectionColor",
             typeof(InputField),
-            (component, value) => component.selectionColor = value,
+            (body, value) => body.selectionColor = value,
             new UnityEngine.Color32(168, 206, 255, 192));
 
         /// <summary>Backing store for the <see cref="HideMobileInput" /> property.</summary>
-        public static readonly BindableProperty HideMobileInputProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty HideMobileInputProperty = CreateBindableBodyProperty<bool>(
             "HideMobileInput",
             typeof(InputField),
-            (component, value) => component.shouldHideMobileInput = value,
+            (body, value) => body.shouldHideMobileInput = value,
             false);
 
         /// <summary>Backing store for the <see cref="Placeholder" /> property.</summary>
@@ -164,10 +164,10 @@ namespace Mux.Markup
             OnPlaceholderChanged);
 
         /// <summary>Backing store for the <see cref="ReadOnly" /> property.</summary>
-        public static readonly BindableProperty ReadOnlyProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty ReadOnlyProperty = CreateBindableBodyProperty<bool>(
             "ReadOnly",
             typeof(InputField),
-            (component, value) => component.readOnly = value,
+            (body, value) => body.readOnly = value,
             false);
 
         private static void OnTextComponentChanged(BindableObject boxedInputField, object boxedOldValue, object boxedNewValue)
@@ -180,24 +180,24 @@ namespace Mux.Markup
                 {
                     inputField._builtinText.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (inputField.Component != null)
+                    if (inputField.Body != null)
                     {
-                        inputField._builtinText.layer = inputField.Component.gameObject.layer;
-                        inputField._builtinText.transform.SetParent(inputField.Component.gameObject.transform, false);
-                        inputField.Component.textComponent = inputField.TextComponent;
-                        inputField.Component.ForceLabelUpdate();
+                        inputField._builtinText.layer = inputField.Body.gameObject.layer;
+                        inputField._builtinText.transform.SetParent(inputField.Body.gameObject.transform, false);
+                        inputField.Body.textComponent = inputField.TextComponent;
+                        inputField.Body.ForceLabelUpdate();
                     }
                 }
                 else
                 {
                     inputField._builtinText.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (inputField.Component != null)
+                    if (inputField.Body != null)
                     {
-                        inputField._builtinText.layer = inputField.Component.gameObject.layer;
-                        inputField._builtinText.transform.SetParent(inputField.Component.gameObject.transform, false);
-                        inputField.Component.textComponent = inputField.TextComponent;
-                        inputField.Component.ForceLabelUpdate();
+                        inputField._builtinText.layer = inputField.Body.gameObject.layer;
+                        inputField._builtinText.transform.SetParent(inputField.Body.gameObject.transform, false);
+                        inputField.Body.textComponent = inputField.TextComponent;
+                        inputField.Body.ForceLabelUpdate();
                     }
                 }
             }, boxedInputField);
@@ -213,21 +213,21 @@ namespace Mux.Markup
                 {
                     inputField._builtinPlaceholder.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (inputField.Component != null)
+                    if (inputField.Body != null)
                     {
-                        inputField._builtinPlaceholder.layer = inputField.Component.gameObject.layer;
-                        inputField._builtinPlaceholder.transform.SetParent(inputField.Component.gameObject.transform, false);
-                        inputField.Component.placeholder = inputField.Placeholder;
+                        inputField._builtinPlaceholder.layer = inputField.Body.gameObject.layer;
+                        inputField._builtinPlaceholder.transform.SetParent(inputField.Body.gameObject.transform, false);
+                        inputField.Body.placeholder = inputField.Placeholder;
                     }
                 }
                 else
                 {
                     inputField._builtinPlaceholder.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (inputField.Component != null)
+                    if (inputField.Body != null)
                     {
                         inputField._builtinText.transform.SetParent(null);
-                        inputField.Component.placeholder = inputField.Placeholder;
+                        inputField.Body.placeholder = inputField.Placeholder;
                     }
                 }
             }, boxedInputField);
@@ -527,40 +527,40 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
             if (TextComponent == _builtinText.GetComponent<UnityEngine.UI.Text>())
             {
-                _builtinText.layer = gameObject.layer;
-                _builtinText.transform.SetParent(gameObject.transform, false);
+                _builtinText.layer = Body.gameObject.layer;
+                _builtinText.transform.SetParent(Body.transform, false);
             }
 
             if (Placeholder == _builtinPlaceholder.GetComponent<UnityEngine.UI.Text>())
             {
-                _builtinPlaceholder.layer = gameObject.layer;
-                _builtinPlaceholder.transform.SetParent(gameObject.transform, false);
+                _builtinPlaceholder.layer = Body.gameObject.layer;
+                _builtinPlaceholder.transform.SetParent(Body.transform, false);
             }
 
-            Component.textComponent = TextComponent;
-            Component.text = Text;
-            Component.contentType = ContentType;
-            Component.lineType = LineType;
-            Component.inputType = InputType;
-            Component.characterValidation = CharacterValidation;
-            Component.keyboardType = KeyboardType;
-            Component.characterLimit = CharacterLimit;
-            Component.caretBlinkRate = CaretBlinkRate;
-            Component.caretWidth = CaretWidth;
-            Component.caretColor = CaretColor;
-            Component.customCaretColor = CustomCaretColor;
-            Component.selectionColor = SelectionColor;
-            Component.shouldHideMobileInput = HideMobileInput;
-            Component.placeholder = Placeholder;
-            Component.readOnly = ReadOnly;
-            Component.onEndEdit = _onEndEdit;
-            Component.onValueChanged.AddListener(value => SetValueCore(TextProperty, value));
+            Body.textComponent = TextComponent;
+            Body.text = Text;
+            Body.contentType = ContentType;
+            Body.lineType = LineType;
+            Body.inputType = InputType;
+            Body.characterValidation = CharacterValidation;
+            Body.keyboardType = KeyboardType;
+            Body.characterLimit = CharacterLimit;
+            Body.caretBlinkRate = CaretBlinkRate;
+            Body.caretWidth = CaretWidth;
+            Body.caretColor = CaretColor;
+            Body.customCaretColor = CustomCaretColor;
+            Body.selectionColor = SelectionColor;
+            Body.shouldHideMobileInput = HideMobileInput;
+            Body.placeholder = Placeholder;
+            Body.readOnly = ReadOnly;
+            Body.onEndEdit = _onEndEdit;
+            Body.onValueChanged.AddListener(value => SetValueCore(TextProperty, value));
 
             // The following line has a long story of uGUI internals.
             // InputField registers a callback for vertices change of text
@@ -576,7 +576,7 @@ namespace Mux.Markup
             // label does not depend on the layout. So we can determine the
             // enabled/disabled state before changing the layout, and that is
             // whath this one line does.
-            Component.ForceLabelUpdate();
+            Body.ForceLabelUpdate();
         }
     }
 }

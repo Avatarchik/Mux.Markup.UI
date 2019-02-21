@@ -3,55 +3,55 @@
 namespace Mux.Markup
 {
     /// <summary>An abstract class to represent <see cref="T:UnityEngine.UI.Selectable" /> or its subclass.</summary>
-    public abstract class Selectable<T> : Object<T> where T : UnityEngine.UI.Selectable
+    public abstract class Selectable<T> : Component<T> where T : UnityEngine.UI.Selectable
     {
         /// <summary>Backing store for the <see cref="Interactable" /> property.</summary>
-        public static readonly BindableProperty InteractableProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty InteractableProperty = CreateBindableBodyProperty<bool>(
             "Interactable",
             typeof(Selectable<T>),
-            (component, value) => component.interactable = value,
+            (body, value) => body.interactable = value,
             true);
 
         /// <summary>Backing store for the <see cref="TargetGraphic" /> property.</summary>
-        public static readonly BindableProperty TargetGraphicProperty = CreateBindableComponentProperty<UnityEngine.UI.Graphic>(
+        public static readonly BindableProperty TargetGraphicProperty = CreateBindableBodyProperty<UnityEngine.UI.Graphic>(
             "TargetGraphic",
             typeof(Selectable<T>),
-            (component, value) => component.targetGraphic = value);
+            (body, value) => body.targetGraphic = value);
 
         /// <summary>Backing store for the <see cref="Transition" /> property.</summary>
-        public static readonly BindableProperty TransitionProperty = CreateBindableComponentProperty<UnityEngine.UI.Selectable.Transition>(
+        public static readonly BindableProperty TransitionProperty = CreateBindableBodyProperty<UnityEngine.UI.Selectable.Transition>(
             "Transition",
             typeof(Selectable<T>),
-            (component, value) => component.transition = value,
+            (body, value) => body.transition = value,
             UnityEngine.UI.Selectable.Transition.ColorTint);
 
         /// <summary>Backing store for the <see cref="Colors" /> property.</summary>
-        public static readonly BindableProperty ColorsProperty = CreateBindableComponentProperty<UnityEngine.UI.ColorBlock>(
+        public static readonly BindableProperty ColorsProperty = CreateBindableBodyProperty<UnityEngine.UI.ColorBlock>(
             "Colors",
             typeof(Selectable<T>),
-            (component, value) => component.colors = value,
+            (body, value) => body.colors = value,
             UnityEngine.UI.ColorBlock.defaultColorBlock);
 
         /// <summary>Backing store for the <see cref="SpriteState" /> property.</summary>
-        public static readonly BindableProperty SpriteStateProperty = CreateBindableComponentProperty<UnityEngine.UI.SpriteState>(
+        public static readonly BindableProperty SpriteStateProperty = CreateBindableBodyProperty<UnityEngine.UI.SpriteState>(
             "SpriteState",
             typeof(Selectable<T>),
-            (component, value) => component.spriteState = value);
+            (body, value) => body.spriteState = value);
 
         /// <summary>Backing store for the <see cref="AnimationTriggers" /> property.</summary>
-        public static readonly BindableProperty AnimationTriggersProperty = CreateBindableComponentProperty<UnityEngine.UI.AnimationTriggers>(
+        public static readonly BindableProperty AnimationTriggersProperty = CreateBindableBodyProperty<UnityEngine.UI.AnimationTriggers>(
             "AnimationTriggers",
             typeof(Selectable<T>),
-            (component, value) => component.animationTriggers = value,
+            (body, value) => body.animationTriggers = value,
             null,
             BindingMode.OneWay,
             bindable => new UnityEngine.UI.AnimationTriggers());
 
         /// <summary>Backing store for the <see cref="Navigation" /> property.</summary>
-        public static readonly BindableProperty NavigationProperty = CreateBindableComponentProperty<UnityEngine.UI.Navigation>(
+        public static readonly BindableProperty NavigationProperty = CreateBindableBodyProperty<UnityEngine.UI.Navigation>(
             "Navigation",
             typeof(Selectable<T>),
-            (component, value) => component.navigation = value,
+            (body, value) => body.navigation = value,
             UnityEngine.UI.Navigation.defaultNavigation);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.Selectable.interactable" />.</summary>
@@ -156,26 +156,22 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<T>();
-            Component.interactable = Interactable;
-            Component.targetGraphic = TargetGraphic;
-            Component.transition = Transition;
-            Component.colors = Colors;
-            Component.spriteState = SpriteState;
-            Component.animationTriggers = AnimationTriggers;
-            Component.navigation = Navigation;
+            base.AwakeInMainThread();
+
+            Body.interactable = Interactable;
+            Body.targetGraphic = TargetGraphic;
+            Body.transition = Transition;
+            Body.colors = Colors;
+            Body.spriteState = SpriteState;
+            Body.animationTriggers = AnimationTriggers;
+            Body.navigation = Navigation;
         }
     }
 
     /// <summary>A class to represent <see cref="T:UnityEngine.UI.Selectable" />.</summary>
     public class Selectable : Selectable<UnityEngine.UI.Selectable>
     {
-        /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
-        {
-            base.AddToInMainThread(gameObject);
-        }
     }
 }

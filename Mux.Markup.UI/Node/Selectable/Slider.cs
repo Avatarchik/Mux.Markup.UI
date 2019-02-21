@@ -25,9 +25,9 @@ namespace Mux.Markup
     ///         It is because ContentPropertyAttribute does not work with IL2CPP.
     ///     -->
     ///     <mu:Slider
-    ///         FillRect="{Binding Path=Component, Source={x:Reference Name=fill}}"
-    ///         HandleRect="{Binding Path=Component, Source={x:Reference Name=handle}}"
-    ///         TargetGraphic="{Binding Path=Component, Source={x:Reference Name=targetGraphic}}" />
+    ///         FillRect="{Binding Path=Body, Source={x:Reference Name=fill}}"
+    ///         HandleRect="{Binding Path=Body, Source={x:Reference Name=handle}}"
+    ///         TargetGraphic="{Binding Path=Body, Source={x:Reference Name=targetGraphic}}" />
     ///     <m:RectTransform X="{m:Stretch OffsetMin=2, OffsetMax=-2}">
     ///         <m:RectTransform X="{m:Sized SizeDelta=4}" Y="{m:Stretch}">
     ///             <mu:Image x:Name="fill" Color="{m:Color R=0, G=0, B=1}" />
@@ -90,49 +90,49 @@ namespace Mux.Markup
             OnHandleRectChanged);
 
         /// <summary>Backing store for the <see cref="Direction" /> property.</summary>
-        public static readonly BindableProperty DirectionProperty = CreateBindableComponentProperty<UnityEngine.UI.Slider.Direction>(
+        public static readonly BindableProperty DirectionProperty = CreateBindableBodyProperty<UnityEngine.UI.Slider.Direction>(
             "Direction",
             typeof(Slider),
-            (component, value) => component.direction = value,
+            (body, value) => body.direction = value,
             UnityEngine.UI.Slider.Direction.LeftToRight);
 
         /// <summary>Backing store for the <see cref="MinValue" /> property.</summary>
-        public static readonly BindableProperty MinValueProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty MinValueProperty = CreateBindableBodyProperty<float>(
             "MinValue",
             typeof(Slider),
-            (component, value) => component.minValue = value,
+            (body, value) => body.minValue = value,
             0f);
 
         /// <summary>Backing store for the <see cref="MaxValue" /> property.</summary>
-        public static readonly BindableProperty MaxValueProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty MaxValueProperty = CreateBindableBodyProperty<float>(
             "MaxValue",
             typeof(Slider),
-            (component, value) => component.maxValue = value,
+            (body, value) => body.maxValue = value,
             1f);
 
         /// <summary>Backing store for the <see cref="WholeNumbers" /> property.</summary>
-        public static readonly BindableProperty WholeNumbersProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty WholeNumbersProperty = CreateBindableBodyProperty<bool>(
             "WholeNumbers",
             typeof(Slider),
-            (component, value) => component.wholeNumbers = value,
+            (body, value) => body.wholeNumbers = value,
             false);
 
         /// <summary>Backing store for the <see cref="Value" /> property.</summary>
-        public static readonly BindableProperty ValueProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty ValueProperty = CreateBindableBodyProperty<float>(
             "Value",
             typeof(Slider),
-            (component, value) =>
+            (body, value) =>
             {
-                var old = component.onValueChanged;
-                component.onValueChanged = new UnityEngine.UI.Slider.SliderEvent();
+                var old = body.onValueChanged;
+                body.onValueChanged = new UnityEngine.UI.Slider.SliderEvent();
 
                 try
                 {
-                    component.value = value;
+                    body.value = value;
                 }
                 finally
                 {
-                    component.onValueChanged = old;
+                    body.onValueChanged = old;
                 }
             },
             0f,
@@ -148,10 +148,10 @@ namespace Mux.Markup
                 {
                     slider._builtinFillArea.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (slider.Component != null)
+                    if (slider.Body != null)
                     {
-                        slider._builtinFillArea.transform.SetParent(slider.Component.transform, false);
-                        slider._builtinFillArea.layer = slider.Component.gameObject.layer;
+                        slider._builtinFillArea.transform.SetParent(slider.Body.transform, false);
+                        slider._builtinFillArea.layer = slider.Body.gameObject.layer;
                         slider.FillRect.gameObject.layer = slider._builtinFillArea.layer;
                     }
                 }
@@ -162,10 +162,10 @@ namespace Mux.Markup
 
                     slider._builtinFillArea.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (slider.Component != null)
+                    if (slider.Body != null)
                     {
                         slider._builtinFillArea.transform.SetParent(null);
-                        slider.Component.fillRect = slider.FillRect;
+                        slider.Body.fillRect = slider.FillRect;
                     }
                 }
             }, boxedSlider);
@@ -182,12 +182,12 @@ namespace Mux.Markup
                 {
                     slider._builtinHandleSlideArea.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (slider.Component != null)
+                    if (slider.Body != null)
                     {
-                        slider._builtinHandleSlideArea.transform.SetParent(slider.Component.transform, false);
-                        slider._builtinHandleSlideArea.layer = slider.Component.gameObject.layer;
+                        slider._builtinHandleSlideArea.transform.SetParent(slider.Body.transform, false);
+                        slider._builtinHandleSlideArea.layer = slider.Body.gameObject.layer;
                         slider.HandleRect.gameObject.layer = slider._builtinHandleSlideArea.layer;
-                        slider.Component.handleRect = slider.HandleRect;
+                        slider.Body.handleRect = slider.HandleRect;
                     }
                 }
                 else
@@ -199,10 +199,10 @@ namespace Mux.Markup
                         slider.SetValueCore(TargetGraphicProperty, null);
                     }
 
-                    if (slider.Component != null)
+                    if (slider.Body != null)
                     {
                         slider._builtinHandleSlideArea.transform.SetParent(null);
-                        slider.Component.handleRect = slider.HandleRect;
+                        slider.Body.handleRect = slider.HandleRect;
                     }
                 }
             }, boxedSlider);
@@ -321,32 +321,32 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
             if (FillRect == _builtinFillArea.transform.GetChild(0))
             {
-                _builtinFillArea.transform.SetParent(gameObject.transform, false);
-                _builtinFillArea.layer = gameObject.layer;
+                _builtinFillArea.transform.SetParent(Body.transform, false);
+                _builtinFillArea.layer = Body.gameObject.layer;
                 FillRect.gameObject.layer = _builtinFillArea.layer;
             }
 
             if (HandleRect == _builtinHandleSlideArea.transform.GetChild(0))
             {
-                _builtinHandleSlideArea.transform.SetParent(gameObject.transform, false);
-                _builtinHandleSlideArea.layer = gameObject.layer;
+                _builtinHandleSlideArea.transform.SetParent(Body.transform, false);
+                _builtinHandleSlideArea.layer = Body.gameObject.layer;
                 HandleRect.gameObject.layer = _builtinHandleSlideArea.layer;
             }
 
-            Component.fillRect = FillRect;
-            Component.handleRect = HandleRect;
-            Component.direction = Direction;
-            Component.minValue = MinValue;
-            Component.maxValue = MaxValue;
-            Component.wholeNumbers = WholeNumbers;
-            Component.value = Value;
-            Component.onValueChanged.AddListener(newValue => SetValueCore(ValueProperty, newValue));
+            Body.fillRect = FillRect;
+            Body.handleRect = HandleRect;
+            Body.direction = Direction;
+            Body.minValue = MinValue;
+            Body.maxValue = MaxValue;
+            Body.wholeNumbers = WholeNumbers;
+            Body.value = Value;
+            Body.onValueChanged.AddListener(newValue => SetValueCore(ValueProperty, newValue));
         }
     }
 }

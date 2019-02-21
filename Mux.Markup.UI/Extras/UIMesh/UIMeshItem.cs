@@ -19,7 +19,7 @@ namespace Mux.Markup.Extras
         /// </summary>
         protected UnityEngine.UIVertex Map(UnityEngine.UIVertex vertex)
         {
-            var rect = ((UnityEngine.RectTransform)mesh.Component.transform).rect;
+            var rect = ((UnityEngine.RectTransform)mesh.Body.transform).rect;
 
             vertex.position.x *= rect.width;
             vertex.position.y *= rect.height;
@@ -82,7 +82,7 @@ namespace Mux.Markup.Extras
                 notifyingNew.CollectionChanged += item._collectionHandler;
             }
 
-            item.mesh?.Component?.SetVerticesDirty();
+            item.mesh?.Body?.SetVerticesDirty();
         }
 
         private readonly NotifyCollectionChangedEventHandler _collectionHandler;
@@ -98,7 +98,7 @@ namespace Mux.Markup.Extras
 
                 if (weak.TryGetTarget(out strong))
                 {
-                    strong.mesh?.Component?.SetVerticesDirty();
+                    strong.mesh?.Body?.SetVerticesDirty();
                 }
                 else
                 {
@@ -425,7 +425,7 @@ namespace Mux.Markup.Extras
 
         private static void OnIndicesChanged(BindableObject sender, object oldValue, object newValue)
         {
-            ((Triangle)sender).mesh?.Component?.SetVerticesDirty();
+            ((Triangle)sender).mesh?.Body?.SetVerticesDirty();
         }
 
         /// <summary>Indicies into the positions array.</summary>
@@ -496,7 +496,7 @@ namespace Mux.Markup.Extras
 
         private static void OnValueChanged(BindableObject sender, object oldValue, object newValue)
         {
-            ((Vert)sender).mesh?.Component?.SetVerticesDirty();
+            ((Vert)sender).mesh?.Body?.SetVerticesDirty();
         }
 
         /// <summary>A property that represents a vertex.</summary>

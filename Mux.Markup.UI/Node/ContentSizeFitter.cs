@@ -2,7 +2,7 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.ContentSizeFitter" />.</summary>
+    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.ContentSizeFitter" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -28,20 +28,20 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class ContentSizeFitter : Object<UnityEngine.UI.ContentSizeFitter>
+    public class ContentSizeFitter : Component<UnityEngine.UI.ContentSizeFitter>
     {
         /// <summary>Backing store for the <see cref="HorizontalFit" /> property.</summary>
-        public static readonly BindableProperty HorizontalFitProperty = CreateBindableComponentProperty<UnityEngine.UI.ContentSizeFitter.FitMode>(
+        public static readonly BindableProperty HorizontalFitProperty = CreateBindableBodyProperty<UnityEngine.UI.ContentSizeFitter.FitMode>(
             "HorizontalFit",
             typeof(ContentSizeFitter),
-            (component, value) => component.horizontalFit = value,
+            (body, value) => body.horizontalFit = value,
             UnityEngine.UI.ContentSizeFitter.FitMode.Unconstrained);
 
         /// <summary>Backing store for the <see cref="VerticalFit" /> property.</summary>
-        public static readonly BindableProperty VerticalFitProperty = CreateBindableComponentProperty<UnityEngine.UI.ContentSizeFitter.FitMode>(
+        public static readonly BindableProperty VerticalFitProperty = CreateBindableBodyProperty<UnityEngine.UI.ContentSizeFitter.FitMode>(
             "VerticalFit",
             typeof(ContentSizeFitter),
-            (component, value) => component.verticalFit = value,
+            (body, value) => body.verticalFit = value,
             UnityEngine.UI.ContentSizeFitter.FitMode.Unconstrained);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.ContentSizeFitter.horizontalFit" />.</summary>
@@ -73,11 +73,12 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
-            Component.horizontalFit = HorizontalFit;
-            Component.verticalFit = VerticalFit;
+            base.AwakeInMainThread();
+
+            Body.horizontalFit = HorizontalFit;
+            Body.verticalFit = VerticalFit;
         }
     }
 }

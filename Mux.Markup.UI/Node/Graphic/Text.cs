@@ -24,94 +24,94 @@ namespace Mux.Markup
     public class Text : Graphic<UnityEngine.UI.Text>
     {
         /// <summary>Backing store for the <see cref="Content" /> property.</summary>
-        public static readonly BindableProperty ContentProperty = CreateBindableComponentProperty<string>(
+        public static readonly BindableProperty ContentProperty = CreateBindableBodyProperty<string>(
             "Content",
             typeof(Text),
-            (component, value) => component.text = value,
+            (body, value) => body.text = value,
             "New Text");
 
         /// <summary>Backing store for the <see cref="Font" /> property.</summary>
-        public static readonly BindableProperty FontProperty = CreateBindableComponentProperty<UnityEngine.Font>(
+        public static readonly BindableProperty FontProperty = CreateBindableBodyProperty<UnityEngine.Font>(
             "Font",
             typeof(Text),
-            (component, value) => component.font = value,
+            (body, value) => body.font = value,
             UnityEngine.Resources.GetBuiltinResource<UnityEngine.Font>("Arial.ttf"));
 
         /// <summary>Backing store for the <see cref="FontSize" /> property.</summary>
-        public static readonly BindableProperty FontSizeProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty FontSizeProperty = CreateBindableBodyProperty<int>(
             "FontSize",
             typeof(Text),
-            (component, value) => component.fontSize = value,
+            (body, value) => body.fontSize = value,
             14);
 
         /// <summary>Backing store for the <see cref="FontStyle" /> property.</summary>
-        public static readonly BindableProperty FontStyleProperty = CreateBindableComponentProperty<UnityEngine.FontStyle>(
+        public static readonly BindableProperty FontStyleProperty = CreateBindableBodyProperty<UnityEngine.FontStyle>(
             "FontStyle",
             typeof(Text),
-            (component, value) => component.fontStyle = value,
+            (body, value) => body.fontStyle = value,
             UnityEngine.FontStyle.Normal);
 
         /// <summary>Backing store for the <see cref="ResizeTextForBestFit" /> property.</summary>
-        public static readonly BindableProperty ResizeTextForBestFitProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty ResizeTextForBestFitProperty = CreateBindableBodyProperty<bool>(
             "ResizeTextForBestFit",
             typeof(Text),
-            (component, value) => component.resizeTextForBestFit = value,
+            (body, value) => body.resizeTextForBestFit = value,
             false);
 
         /// <summary>Backing store for the <see cref="ResizeTextMinSize" /> property.</summary>
-        public static readonly BindableProperty ResizeTextMinSizeProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty ResizeTextMinSizeProperty = CreateBindableBodyProperty<int>(
             "ResizeTextMinSize",
             typeof(Text),
-            (component, value) => component.resizeTextMinSize = value,
+            (body, value) => body.resizeTextMinSize = value,
             10);
 
         /// <summary>Backing store for the <see cref="ResizeTextMaxSize" /> property.</summary>
-        public static readonly BindableProperty ResizeTextMaxSizeProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty ResizeTextMaxSizeProperty = CreateBindableBodyProperty<int>(
             "ResizeTextMaxSize",
             typeof(Text),
-            (component, value) => component.resizeTextMaxSize = value,
+            (body, value) => body.resizeTextMaxSize = value,
             40);
 
         /// <summary>Backing store for the <see cref="Alignment" /> property.</summary>
-        public static readonly BindableProperty AlignmentProperty = CreateBindableComponentProperty<UnityEngine.TextAnchor>(
+        public static readonly BindableProperty AlignmentProperty = CreateBindableBodyProperty<UnityEngine.TextAnchor>(
             "Alignment",
             typeof(Text),
-            (component, value) => component.alignment = value,
+            (body, value) => body.alignment = value,
             UnityEngine.TextAnchor.UpperLeft);
 
         /// <summary>Backing store for the <see cref="AlignByGeometry" /> property.</summary>
-        public static readonly BindableProperty AlignByGeometryProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty AlignByGeometryProperty = CreateBindableBodyProperty<bool>(
             "AlignByGeometry",
             typeof(Text),
-            (component, value) => component.alignByGeometry = value,
+            (body, value) => body.alignByGeometry = value,
             false);
 
         /// <summary>Backing store for the <see cref="SupportRichText" /> property.</summary>
-        public static readonly BindableProperty SupportRichTextProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty SupportRichTextProperty = CreateBindableBodyProperty<bool>(
             "SupportRichText",
             typeof(Text),
-            (component, value) => component.supportRichText = value,
+            (body, value) => body.supportRichText = value,
             true);
 
         /// <summary>Backing store for the <see cref="HorizontalOverflow" /> property.</summary>
-        public static readonly BindableProperty HorizontalOverflowProperty = CreateBindableComponentProperty<UnityEngine.HorizontalWrapMode>(
+        public static readonly BindableProperty HorizontalOverflowProperty = CreateBindableBodyProperty<UnityEngine.HorizontalWrapMode>(
             "HorizontalOverflow",
             typeof(Text),
-            (component, value) => component.horizontalOverflow = value,
+            (body, value) => body.horizontalOverflow = value,
             UnityEngine.HorizontalWrapMode.Wrap);
 
         /// <summary>Backing store for the <see cref="VerticalOverflow" /> property.</summary>
-        public static readonly BindableProperty VerticalOverflowProperty = CreateBindableComponentProperty<UnityEngine.VerticalWrapMode>(
+        public static readonly BindableProperty VerticalOverflowProperty = CreateBindableBodyProperty<UnityEngine.VerticalWrapMode>(
             "VerticalOverflow",
             typeof(Text),
-            (component, value) => component.verticalOverflow = value,
+            (body, value) => body.verticalOverflow = value,
             UnityEngine.VerticalWrapMode.Truncate);
 
         /// <summary>Backing store for the <see cref="LineSpacing" /> property.</summary>
-        public static readonly BindableProperty LineSpacingProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty LineSpacingProperty = CreateBindableBodyProperty<float>(
             "LineSpacing",
             typeof(Text),
-            (component, value) => component.lineSpacing = value,
+            (body, value) => body.lineSpacing = value,
             1f);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.Text.text" />.</summary>
@@ -302,23 +302,23 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
-            Component.text = Content;
-            Component.font = Font;
-            Component.fontSize = FontSize;
-            Component.fontStyle = FontStyle;
-            Component.resizeTextForBestFit = ResizeTextForBestFit;
-            Component.resizeTextMinSize = ResizeTextMinSize;
-            Component.resizeTextMaxSize = ResizeTextMaxSize;
-            Component.alignment = Alignment;
-            Component.alignByGeometry = AlignByGeometry;
-            Component.supportRichText = SupportRichText;
-            Component.horizontalOverflow = HorizontalOverflow;
-            Component.verticalOverflow = VerticalOverflow;
-            Component.lineSpacing = LineSpacing;
+            Body.text = Content;
+            Body.font = Font;
+            Body.fontSize = FontSize;
+            Body.fontStyle = FontStyle;
+            Body.resizeTextForBestFit = ResizeTextForBestFit;
+            Body.resizeTextMinSize = ResizeTextMinSize;
+            Body.resizeTextMaxSize = ResizeTextMaxSize;
+            Body.alignment = Alignment;
+            Body.alignByGeometry = AlignByGeometry;
+            Body.supportRichText = SupportRichText;
+            Body.horizontalOverflow = HorizontalOverflow;
+            Body.verticalOverflow = VerticalOverflow;
+            Body.lineSpacing = LineSpacing;
         }
     }
 }

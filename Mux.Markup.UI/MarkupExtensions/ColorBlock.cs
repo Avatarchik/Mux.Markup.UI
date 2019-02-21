@@ -26,7 +26,7 @@ namespace Mux.Markup
     ///         x:Reference only when you compile the interpreter with IL2CPP.
     ///         It is because ContentPropertyAttribute does not work with IL2CPP.
     ///     -->
-    ///     <mu:Selectable TargetGraphic="{Binding Path=Component, Source={x:Reference Name=targetGraphic}}">
+    ///     <mu:Selectable TargetGraphic="{Binding Path=Body, Source={x:Reference Name=targetGraphic}}">
     ///         <mu:Selectable.Colors>
     ///             <mu:ColorBlock
     ///                 ColorMultiplier="0.5"

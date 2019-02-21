@@ -23,7 +23,7 @@ namespace Mux.Markup
     ///         only when you compile the interpreter with IL2CPP.
     ///         It is because ContentPropertyAttribute does not work with IL2CPP.
     ///     -->
-    ///     <mu:Scrollbar HandleRect="{Binding Path=Component, Source={x:Reference Name=handle}}" />
+    ///     <mu:Scrollbar HandleRect="{Binding Path=Body, Source={x:Reference Name=handle}}" />
     ///     <m:RectTransform x:Name="handle">
     ///         <mu:Image Color="{m:Color R=0, G=0, B=1}" />
     ///     </m:RectTransform>
@@ -53,32 +53,32 @@ namespace Mux.Markup
             OnHandleRectChanged);
 
         /// <summary>Backing store for the <see cref="Direction" /> property.</summary>
-        public static readonly BindableProperty DirectionProperty = CreateBindableComponentProperty<UnityEngine.UI.Scrollbar.Direction>(
+        public static readonly BindableProperty DirectionProperty = CreateBindableBodyProperty<UnityEngine.UI.Scrollbar.Direction>(
             "Direction",
             typeof(Scrollbar),
-            (component, value) => component.direction = value,
+            (body, value) => body.direction = value,
             UnityEngine.UI.Scrollbar.Direction.LeftToRight);
 
         /// <summary>Backing store for the <see cref="Value" /> property.</summary>
-        public static readonly BindableProperty ValueProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty ValueProperty = CreateBindableBodyProperty<float>(
             "Value",
             typeof(Scrollbar),
-            (component, value) => component.value = value,
+            (body, value) => body.value = value,
             0f,
             BindingMode.TwoWay);
 
         /// <summary>Backing store for the <see cref="Size" /> property.</summary>
-        public static readonly BindableProperty SizeProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty SizeProperty = CreateBindableBodyProperty<float>(
             "Size",
             typeof(Scrollbar),
-            (component, value) => component.size = value,
+            (body, value) => body.size = value,
             0.2f);
 
         /// <summary>Backing store for the <see cref="NumberOfSteps" /> property.</summary>
-        public static readonly BindableProperty NumberOfStepsProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty NumberOfStepsProperty = CreateBindableBodyProperty<int>(
             "NumberOfSteps",
             typeof(Scrollbar),
-            (component, value) => component.numberOfSteps = value,
+            (body, value) => body.numberOfSteps = value,
             0);
 
         private static void OnHandleRectChanged(BindableObject boxedScrollbar, object boxedOldValue, object boxedNewValue)
@@ -92,12 +92,12 @@ namespace Mux.Markup
                 {
                     scrollbar._builtinSlidingArea.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (scrollbar.Component != null)
+                    if (scrollbar.Body != null)
                     {
-                        scrollbar._builtinSlidingArea.transform.SetParent(scrollbar.Component.gameObject.transform, false);
-                        scrollbar._builtinSlidingArea.layer = scrollbar.Component.gameObject.layer;
+                        scrollbar._builtinSlidingArea.transform.SetParent(scrollbar.Body.gameObject.transform, false);
+                        scrollbar._builtinSlidingArea.layer = scrollbar.Body.gameObject.layer;
                         scrollbar.HandleRect.gameObject.layer = scrollbar._builtinSlidingArea.layer;
-                        scrollbar.Component.handleRect = scrollbar.HandleRect;
+                        scrollbar.Body.handleRect = scrollbar.HandleRect;
                     }
                 }
                 else
@@ -109,10 +109,10 @@ namespace Mux.Markup
                         scrollbar.SetValueCore(TargetGraphicProperty, null);
                     }
 
-                    if (scrollbar.Component != null)
+                    if (scrollbar.Body != null)
                     {
                         scrollbar._builtinSlidingArea.transform.SetParent(null);
-                        scrollbar.Component.handleRect = scrollbar.HandleRect;
+                        scrollbar.Body.handleRect = scrollbar.HandleRect;
                     }
                 }
             }, boxedScrollbar);
@@ -202,23 +202,23 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
             if (HandleRect == _builtinSlidingArea.transform.GetChild(0))
             {
-                _builtinSlidingArea.transform.SetParent(gameObject.transform, false);
-                _builtinSlidingArea.layer = gameObject.layer;
+                _builtinSlidingArea.transform.SetParent(Body.transform, false);
+                _builtinSlidingArea.layer = Body.gameObject.layer;
                 HandleRect.gameObject.layer = _builtinSlidingArea.layer;
             }
 
-            Component.handleRect = HandleRect;
-            Component.direction = Direction;
-            Component.value = Value;
-            Component.size = Size;
-            Component.numberOfSteps = NumberOfSteps;
-            Component.onValueChanged.AddListener(newValue => SetValueCore(ValueProperty, newValue));
+            Body.handleRect = HandleRect;
+            Body.direction = Direction;
+            Body.value = Value;
+            Body.size = Size;
+            Body.numberOfSteps = NumberOfSteps;
+            Body.onValueChanged.AddListener(newValue => SetValueCore(ValueProperty, newValue));
         }
     }
 }

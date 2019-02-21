@@ -6,38 +6,38 @@ namespace Mux.Markup
     public abstract class HorizontalOrVerticalLayoutGroup<T> : LayoutGroup<T> where T : UnityEngine.UI.HorizontalOrVerticalLayoutGroup
     {
         /// <summary>Backing store for the <see cref="Spacing" /> property.</summary>
-        public static readonly BindableProperty SpacingProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty SpacingProperty = CreateBindableBodyProperty<float>(
             "Spacing",
             typeof(HorizontalOrVerticalLayoutGroup<T>),
-            (component, value) => component.spacing = value,
+            (body, value) => body.spacing = value,
             0f);
 
         /// <summary>Backing store for the <see cref="ChildForceExpandWidth" /> property.</summary>
-        public static readonly BindableProperty ChildForceExpandWidthProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty ChildForceExpandWidthProperty = CreateBindableBodyProperty<bool>(
             "ChildForceExpandWidth",
             typeof(HorizontalOrVerticalLayoutGroup<T>),
-            (component, value) => component.childForceExpandWidth = value,
+            (body, value) => body.childForceExpandWidth = value,
             true);
 
         /// <summary>Backing store for the <see cref="ChildForceExpandHeight" /> property.</summary>
-        public static readonly BindableProperty ChildForceExpandHeightProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty ChildForceExpandHeightProperty = CreateBindableBodyProperty<bool>(
             "ChildForceExpandHeight",
             typeof(HorizontalOrVerticalLayoutGroup<T>),
-            (component, value) => component.childForceExpandHeight = value,
+            (body, value) => body.childForceExpandHeight = value,
             true);
 
         /// <summary>Backing store for the <see cref="ChildControlWidth" /> property.</summary>
-        public static readonly BindableProperty ChildControlWidthProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty ChildControlWidthProperty = CreateBindableBodyProperty<bool>(
             "ChildControlWidth",
             typeof(HorizontalOrVerticalLayoutGroup<T>),
-            (component, value) => component.childControlWidth = value,
+            (body, value) => body.childControlWidth = value,
             true);
 
         /// <summary>Backing store for the <see cref="ChildControlHeight" /> property.</summary>
-        public static readonly BindableProperty ChildControlHeightProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty ChildControlHeightProperty = CreateBindableBodyProperty<bool>(
             "ChildControlHeight",
             typeof(HorizontalOrVerticalLayoutGroup<T>),
-            (component, value) => component.childControlHeight = value,
+            (body, value) => body.childControlHeight = value,
             true);
 
         /// <summary>
@@ -121,15 +121,15 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
-            Component.spacing = Spacing;
-            Component.childForceExpandWidth = ChildForceExpandWidth;
-            Component.childForceExpandHeight = ChildForceExpandHeight;
-            Component.childControlWidth = ChildControlWidth;
-            Component.childControlHeight = ChildControlHeight;
+            Body.spacing = Spacing;
+            Body.childForceExpandWidth = ChildForceExpandWidth;
+            Body.childForceExpandHeight = ChildForceExpandHeight;
+            Body.childControlWidth = ChildControlWidth;
+            Body.childControlHeight = ChildControlHeight;
         }
     }
 

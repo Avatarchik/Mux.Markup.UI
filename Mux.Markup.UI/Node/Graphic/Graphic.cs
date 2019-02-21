@@ -3,26 +3,26 @@ using Xamarin.Forms;
 namespace Mux.Markup
 {
     /// <summary>An abstract class that represents <see cref="T:UnityEngine.UI.Graphic" />.</summary>
-    public abstract class Graphic<T> : Object<T> where T : UnityEngine.UI.Graphic
+    public abstract class Graphic<T> : Component<T> where T : UnityEngine.UI.Graphic
     {
         /// <summary>Backing store for the <see cref="Color" /> property.</summary>
-        public static readonly BindableProperty ColorProperty = CreateBindableComponentProperty<UnityEngine.Color>(
+        public static readonly BindableProperty ColorProperty = CreateBindableBodyProperty<UnityEngine.Color>(
             "Color",
             typeof(Graphic<T>),
-            (component, value) => component.color = value,
+            (body, value) => body.color = value,
             UnityEngine.Color.white);
 
         /// <summary>Backing store for the <see cref="Material" /> property.</summary>
-        public static readonly BindableProperty MaterialProperty = CreateBindableComponentProperty<UnityEngine.Material>(
+        public static readonly BindableProperty MaterialProperty = CreateBindableBodyProperty<UnityEngine.Material>(
             "Material",
             typeof(Graphic<T>),
-            (component, value) => component.material = value);
+            (body, value) => body.material = value);
 
         /// <summary>Backing store for the <see cref="RaycastTarget" /> property.</summary>
-        public static readonly BindableProperty RaycastTargetProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty RaycastTargetProperty = CreateBindableBodyProperty<bool>(
             "RaycastTarget",
             typeof(Graphic<T>),
-            (component, value) => component.raycastTarget = value,
+            (body, value) => body.raycastTarget = value,
             true);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.Graphic.color" />.</summary>
@@ -70,12 +70,13 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<T>();
-            Component.color = Color;
-            Component.material = Material;
-            Component.raycastTarget = RaycastTarget;
+            base.AwakeInMainThread();
+
+            Body.color = Color;
+            Body.material = Material;
+            Body.raycastTarget = RaycastTarget;
         }
     }
 }

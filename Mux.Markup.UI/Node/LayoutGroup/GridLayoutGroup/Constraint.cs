@@ -34,9 +34,9 @@ namespace Mux.Markup
     public class Flexible : GridLayoutGroup.Modifier
     {
         /// <inheritdoc />
-        protected override void InitializeComponentInMainThread()
+        protected override void InitializeBodyInMainThread()
         {
-            Component.constraint = UnityEngine.UI.GridLayoutGroup.Constraint.Flexible;
+            Body.constraint = UnityEngine.UI.GridLayoutGroup.Constraint.Flexible;
         }
     }
     public abstract class FixedCount : GridLayoutGroup.Modifier
@@ -53,11 +53,11 @@ namespace Mux.Markup
 
         private static void OnCountChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((FixedCount)sender).Component;
+            var body = ((FixedCount)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.constraintCount = (int)state, newValue);
+                Forms.mainThread.Send(state => body.constraintCount = (int)state, newValue);
             }
         }
 
@@ -86,10 +86,10 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void InitializeComponentInMainThread()
+        protected sealed override void InitializeBodyInMainThread()
         {
-            Component.constraint = Constraint;
-            Component.constraintCount = Count;
+            Body.constraint = Constraint;
+            Body.constraintCount = Count;
         }
     }
 

@@ -2,63 +2,63 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.LayoutElement" />.</summary>
-    public class LayoutElement : Object<UnityEngine.UI.LayoutElement>
+    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.LayoutElement" />.</summary>
+    public class LayoutElement : Component<UnityEngine.UI.LayoutElement>
     {
         /// <summary>Backing store for the <see cref="IgnoreLayout" /> property.</summary>
-        public static readonly BindableProperty IgnoreLayoutProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty IgnoreLayoutProperty = CreateBindableBodyProperty<bool>(
             "IgnoreLayout",
             typeof(LayoutElement),
-            (component, value) => component.ignoreLayout = value,
+            (body, value) => body.ignoreLayout = value,
             false);
 
         /// <summary>Backing store for the <see cref="MinWidth" /> property.</summary>
-        public static readonly BindableProperty MinWidthProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty MinWidthProperty = CreateBindableBodyProperty<float>(
             "MinWidth",
             typeof(LayoutElement),
-            (component, value) => component.minWidth = value,
+            (body, value) => body.minWidth = value,
             -1f);
 
         /// <summary>Backing store for the <see cref="MinHeight" /> property.</summary>
-        public static readonly BindableProperty MinHeightProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty MinHeightProperty = CreateBindableBodyProperty<float>(
             "MinHeight",
             typeof(LayoutElement),
-            (component, value) => component.minHeight = value,
+            (body, value) => body.minHeight = value,
             -1f);
 
         /// <summary>Backing store for the <see cref="PreferredWidth" /> property.</summary>
-        public static readonly BindableProperty PreferredWidthProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty PreferredWidthProperty = CreateBindableBodyProperty<float>(
             "PreferredWidth",
             typeof(LayoutElement),
-            (component, value) => component.preferredWidth = value,
+            (body, value) => body.preferredWidth = value,
             -1f);
 
         /// <summary>Backing store for the <see cref="PreferredHeight" /> property.</summary>
-        public static readonly BindableProperty PreferredHeightProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty PreferredHeightProperty = CreateBindableBodyProperty<float>(
             "PreferredHeight",
             typeof(LayoutElement),
-            (component, value) => component.preferredHeight = value,
+            (body, value) => body.preferredHeight = value,
             -1f);
 
         /// <summary>Backing store for the <see cref="FlexibleWidth" /> property.</summary>
-        public static readonly BindableProperty FlexibleWidthProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty FlexibleWidthProperty = CreateBindableBodyProperty<float>(
             "FlexibleWidth",
             typeof(LayoutElement),
-            (component, value) => component.flexibleWidth = value,
+            (body, value) => body.flexibleWidth = value,
             -1f);
 
         /// <summary>Backing store for the <see cref="FlexibleHeight" /> property.</summary>
-        public static readonly BindableProperty FlexibleHeightProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty FlexibleHeightProperty = CreateBindableBodyProperty<float>(
             "FlexibleHeight",
             typeof(LayoutElement),
-            (component, value) => component.flexibleHeight = value,
+            (body, value) => body.flexibleHeight = value,
             -1f);
 
         /// <summary>Backing store for the <see cref="LayoutPriority" /> property.</summary>
-        public static readonly BindableProperty LayoutPriorityProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty LayoutPriorityProperty = CreateBindableBodyProperty<int>(
             "LayoutPriority",
             typeof(LayoutElement),
-            (component, value) => component.layoutPriority = value,
+            (body, value) => body.layoutPriority = value,
             1);
 
         /// <summary>
@@ -190,17 +190,18 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.UI.LayoutElement>();
-            Component.ignoreLayout = IgnoreLayout;
-            Component.minWidth = MinWidth;
-            Component.minHeight = MinHeight;
-            Component.preferredWidth = PreferredWidth;
-            Component.preferredHeight = PreferredHeight;
-            Component.flexibleWidth = FlexibleWidth;
-            Component.flexibleHeight = FlexibleHeight;
-            Component.layoutPriority = LayoutPriority;
+            base.AwakeInMainThread();
+
+            Body.ignoreLayout = IgnoreLayout;
+            Body.minWidth = MinWidth;
+            Body.minHeight = MinHeight;
+            Body.preferredWidth = PreferredWidth;
+            Body.preferredHeight = PreferredHeight;
+            Body.flexibleWidth = FlexibleWidth;
+            Body.flexibleHeight = FlexibleHeight;
+            Body.layoutPriority = LayoutPriority;
         }
     }
 }

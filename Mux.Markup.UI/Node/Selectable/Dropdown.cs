@@ -45,7 +45,7 @@ namespace Mux.Markup
             {
                 var data = (DropdownOptionData)state;
                 data.data.image = data.Image;
-                data.dropdown?.Component?.RefreshShownValue();
+                data.dropdown?.Body?.RefreshShownValue();
             }, sender);
         }
 
@@ -55,7 +55,7 @@ namespace Mux.Markup
             {
                 var data = (DropdownOptionData)state;
                 data.data.text = data.Text;
-                data.dropdown?.Component?.RefreshShownValue();
+                data.dropdown?.Body?.RefreshShownValue();
             }, sender);
         }
 
@@ -109,13 +109,13 @@ namespace Mux.Markup
     ///         <mu:ContentSizeFitter VerticalFit="PreferredSize" />
     ///         <mu:Dropdown>
     ///             <mu:Dropdown.Template>
-    ///                 <Binding Path="Component" Source="{x:Reference Name=template}" />
+    ///                 <Binding Path="Body" Source="{x:Reference Name=template}" />
     ///             </mu:Dropdown.Template>
     ///             <mu:Dropdown.CaptionText>
-    ///                 <Binding Path="Component" Source="{x:Reference Name=captionText}" />
+    ///                 <Binding Path="Body" Source="{x:Reference Name=captionText}" />
     ///             </mu:Dropdown.CaptionText>
     ///             <mu:Dropdown.ItemText>
-    ///                 <Binding Path="Component" Source="{x:Reference Name=itemText}" />
+    ///                 <Binding Path="Body" Source="{x:Reference Name=itemText}" />
     ///             </mu:Dropdown.ItemText>
     ///             <mu:Dropdown.Options>
     ///                 <mu:DropdownOptionData Text="A" />
@@ -128,8 +128,8 @@ namespace Mux.Markup
     ///                 <m:RectTransform x:Name="content" Y="{m:Sized SizeDelta=28, Anchor=1, Pivot=1}">
     ///                     <m:RectTransform X="{m:Stretch}" Y="{m:Sized SizeDelta=21}">
     ///                         <mu:Toggle
-    ///                             Graphic="{Binding Path=Component, Source={x:Reference Name=itemGraphic}}"
-    ///                             TargetGraphic="{Binding Path=Component, Source={x:Reference Name=itemTargetGraphic}}" />
+    ///                             Graphic="{Binding Path=Body, Source={x:Reference Name=itemGraphic}}"
+    ///                             TargetGraphic="{Binding Path=Body, Source={x:Reference Name=itemTargetGraphic}}" />
     ///                         <mu:Image x:Name="itemTargetGraphic" />
     ///                         <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
     ///                             <mu:Image x:Name="itemGraphic" Color="{m:Color R=0, G=0, B=1, A=0.5}" />
@@ -141,8 +141,8 @@ namespace Mux.Markup
     ///                 </m:RectTransform>
     ///             </m:RectTransform>
     ///             <mu:ScrollRect
-    ///                 Viewport="{Binding Path=Component, Source={x:Reference Name=viewport}}"
-    ///                 Content="{Binding Path=Component, Source={x:Reference Name=content}}" />
+    ///                 Viewport="{Binding Path=Body, Source={x:Reference Name=viewport}}"
+    ///                 Content="{Binding Path=Body, Source={x:Reference Name=content}}" />
     ///         </m:RectTransform>
     ///     </m:RectTransform>
     /// </m:RectTransform>
@@ -241,11 +241,11 @@ namespace Mux.Markup
 
             private void RefreshShownValue()
             {
-                var component = ((Dropdown)container).Component;
+                var body = ((Dropdown)container).Body;
 
-                if (component != null)
+                if (body != null)
                 {
-                    Forms.mainThread.Send(state => component.RefreshShownValue(), null);
+                    Forms.mainThread.Send(state => body.RefreshShownValue(), null);
                 }
             }
 
@@ -286,39 +286,39 @@ namespace Mux.Markup
             OnCaptionTextChanged);
 
         /// <summary>Backing store for the <see cref="CaptionImage" /> property.</summary>
-        public static readonly BindableProperty CaptionImageProperty = CreateBindableComponentProperty<UnityEngine.UI.Image>(
+        public static readonly BindableProperty CaptionImageProperty = CreateBindableBodyProperty<UnityEngine.UI.Image>(
             "CaptionImage",
             typeof(Dropdown),
-            (component, value) => component.captionImage = value);
+            (body, value) => body.captionImage = value);
 
         /// <summary>Backing store for the <see cref="ItemText" /> property.</summary>
-        public static readonly BindableProperty ItemTextProperty = CreateBindableComponentProperty<UnityEngine.UI.Text>(
+        public static readonly BindableProperty ItemTextProperty = CreateBindableBodyProperty<UnityEngine.UI.Text>(
             "ItemText",
             typeof(Dropdown),
-            (component, value) => component.itemText = value);
+            (body, value) => body.itemText = value);
 
         /// <summary>Backing store for the <see cref="ItemImage" /> property.</summary>
-        public static readonly BindableProperty ItemImageProperty = CreateBindableComponentProperty<UnityEngine.UI.Image>(
+        public static readonly BindableProperty ItemImageProperty = CreateBindableBodyProperty<UnityEngine.UI.Image>(
             "ItemImage",
             typeof(Dropdown),
-            (component, value) => component.itemImage = value);
+            (body, value) => body.itemImage = value);
 
         /// <summary>Backing store for the <see cref="Value" /> property.</summary>
-        public static readonly BindableProperty ValueProperty = CreateBindableComponentProperty<int>(
+        public static readonly BindableProperty ValueProperty = CreateBindableBodyProperty<int>(
             "Value",
             typeof(Dropdown),
-            (component, value) =>
+            (body, value) =>
             {
-                var old = component.onValueChanged;
-                component.onValueChanged = new UnityEngine.UI.Dropdown.DropdownEvent();
+                var old = body.onValueChanged;
+                body.onValueChanged = new UnityEngine.UI.Dropdown.DropdownEvent();
 
                 try
                 {
-                    component.value = value;
+                    body.value = value;
                 }
                 finally
                 {
-                    component.onValueChanged = old;
+                    body.onValueChanged = old;
                 }
             },
             0,
@@ -372,10 +372,10 @@ namespace Mux.Markup
                 {
                     dropdown._builtinTemplate.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (dropdown.Component != null)
+                    if (dropdown.Body != null)
                     {
-                        dropdown._builtinTemplate.layer = dropdown.Component.gameObject.layer;
-                        dropdown.Component.template = dropdown.Template;
+                        dropdown._builtinTemplate.layer = dropdown.Body.gameObject.layer;
+                        dropdown.Body.template = dropdown.Template;
                     }
                 }
                 else
@@ -387,9 +387,9 @@ namespace Mux.Markup
                         dropdown.SetValueCore(ItemTextProperty, null);
                     }
 
-                    if (dropdown.Component != null)
+                    if (dropdown.Body != null)
                     {
-                        dropdown.Component.template = dropdown.Template;
+                        dropdown.Body.template = dropdown.Template;
                     }
                 }
             }, boxedDropdown);
@@ -405,19 +405,19 @@ namespace Mux.Markup
                 {
                     dropdown._builtinCaption.hideFlags = UnityEngine.HideFlags.None;
 
-                    if (dropdown.Component != null)
+                    if (dropdown.Body != null)
                     {
-                        dropdown.Component.captionText = dropdown.CaptionText;
+                        dropdown.Body.captionText = dropdown.CaptionText;
                     }
                 }
                 else
                 {
                     dropdown._builtinCaption.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
 
-                    if (dropdown.Component != null)
+                    if (dropdown.Body != null)
                     {
                         dropdown._builtinCaption.transform.SetParent(null);
-                        dropdown.Component.captionText = dropdown.CaptionText;
+                        dropdown.Body.captionText = dropdown.CaptionText;
                     }
                 }
             }, boxedDropdown);
@@ -598,28 +598,28 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
+            base.AwakeInMainThread();
 
-            _builtinTemplate.layer = gameObject.layer;
-            _builtinTemplate.transform.SetParent(gameObject.transform, false);
+            _builtinTemplate.layer = Body.gameObject.layer;
+            _builtinTemplate.transform.SetParent(Body.transform, false);
 
             if (CaptionText == _builtinCaption.GetComponent<UnityEngine.UI.Text>())
             {
-                _builtinCaption.layer = gameObject.layer;
-                _builtinCaption.transform.SetParent(gameObject.transform, false);
+                _builtinCaption.layer = Body.gameObject.layer;
+                _builtinCaption.transform.SetParent(Body.transform, false);
             }
 
-            Component.template = Template;
-            Component.captionText = CaptionText;
-            Component.captionImage = CaptionImage;
-            Component.itemText = ItemText;
-            Component.itemImage = ItemImage;
-            Component.onValueChanged.AddListener(value => SetValueCore(ValueProperty, value));
-            Component.value = Value;
-            Component.options = _options.data.list;
-            Component.RefreshShownValue();
+            Body.template = Template;
+            Body.captionText = CaptionText;
+            Body.captionImage = CaptionImage;
+            Body.itemText = ItemText;
+            Body.itemImage = ItemImage;
+            Body.onValueChanged.AddListener(value => SetValueCore(ValueProperty, value));
+            Body.value = Value;
+            Body.options = _options.data.list;
+            Body.RefreshShownValue();
         }
     }
 }

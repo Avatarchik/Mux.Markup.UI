@@ -2,7 +2,7 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.AspectRatioFitter" />.</summary>
+    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.AspectRatioFitter" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -25,20 +25,20 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class AspectRatioFitter : Object<UnityEngine.UI.AspectRatioFitter>
+    public class AspectRatioFitter : Component<UnityEngine.UI.AspectRatioFitter>
     {
         /// <summary>Backing store for the <see cref="AspectMode" /> property.</summary>
-        public static readonly BindableProperty AspectModeProperty = CreateBindableComponentProperty<UnityEngine.UI.AspectRatioFitter.AspectMode>(
+        public static readonly BindableProperty AspectModeProperty = CreateBindableBodyProperty<UnityEngine.UI.AspectRatioFitter.AspectMode>(
             "AspectMode",
             typeof(AspectRatioFitter),
-            (component, value) => component.aspectMode = value,
+            (body, value) => body.aspectMode = value,
             UnityEngine.UI.AspectRatioFitter.AspectMode.None);
 
         /// <summary>Backing store for the <see cref="AspectRatio" /> property.</summary>
-        public static readonly BindableProperty AspectRatioProperty = CreateBindableComponentProperty<float>(
+        public static readonly BindableProperty AspectRatioProperty = CreateBindableBodyProperty<float>(
             "AspectRatio",
             typeof(AspectRatioFitter),
-            (component, value) => component.aspectRatio = value,
+            (body, value) => body.aspectRatio = value,
             1f);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.AspectRatioFitter.aspectMode" />.</summary>
@@ -70,11 +70,12 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.UI.AspectRatioFitter>();
-            Component.aspectMode = AspectMode;
-            Component.aspectRatio = AspectRatio;
+            base.AwakeInMainThread();
+
+            Body.aspectMode = AspectMode;
+            Body.aspectRatio = AspectRatio;
         }
     }
 }

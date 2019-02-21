@@ -21,10 +21,10 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            base.AddToInMainThread(gameObject);
-            Component.onClick = _onClick;
+            base.AwakeInMainThread();
+            Body.onClick = _onClick;
         }
     }
 }

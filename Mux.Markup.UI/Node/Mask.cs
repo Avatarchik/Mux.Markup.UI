@@ -2,7 +2,7 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.UI.Mask" />.</summary>
+    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.Mask" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -26,13 +26,13 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class Mask : Object<UnityEngine.UI.Mask>
+    public class Mask : Component<UnityEngine.UI.Mask>
     {
         /// <summary>Backing store for the <see cref="ShowMaskGraphic" /> property.</summary>
-        public static readonly BindableProperty ShowMaskGraphicProperty = CreateBindableComponentProperty<bool>(
+        public static readonly BindableProperty ShowMaskGraphicProperty = CreateBindableBodyProperty<bool>(
             "ShowMaskGraphic",
             typeof(Mask),
-            (component, value) => component.showMaskGraphic = value,
+            (body, value) => body.showMaskGraphic = value,
             true);
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.Mask.showMaskGraphic" />.</summary>
@@ -50,10 +50,10 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.UI.Mask>();
-            Component.showMaskGraphic = ShowMaskGraphic;
+            base.AwakeInMainThread();
+            Body.showMaskGraphic = ShowMaskGraphic;
         }
     }
 }

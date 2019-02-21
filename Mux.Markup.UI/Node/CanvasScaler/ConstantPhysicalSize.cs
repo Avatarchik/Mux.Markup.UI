@@ -65,33 +65,33 @@ namespace Mux.Markup
 
         private static void OnPhysicalUnitChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ConstantPhysicalSize)sender).Component;
+            var body = ((ConstantPhysicalSize)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
                 Forms.mainThread.Send(
-                    state => component.physicalUnit = (UnityEngine.UI.CanvasScaler.Unit)state,
+                    state => body.physicalUnit = (UnityEngine.UI.CanvasScaler.Unit)state,
                     newValue);
             }
         }
 
         private static void OnFallbackScreenDPIChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ConstantPhysicalSize)sender).Component;
+            var body = ((ConstantPhysicalSize)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.fallbackScreenDPI = (float)state, newValue);
+                Forms.mainThread.Send(state => body.fallbackScreenDPI = (float)state, newValue);
             }
         }
 
         private static void OnDefaultSpriteDPIChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((ConstantPhysicalSize)sender).Component;
+            var body = ((ConstantPhysicalSize)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.defaultSpriteDPI = (float)state, newValue);
+                Forms.mainThread.Send(state => body.defaultSpriteDPI = (float)state, newValue);
             }
         }
 
@@ -144,12 +144,12 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void InitializeComponentInMainThread()
+        protected sealed override void InitializeBodyInMainThread()
         {
-            Component.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ConstantPhysicalSize;
-            Component.physicalUnit = PhysicalUnit;
-            Component.fallbackScreenDPI = FallbackScreenDPI;
-            Component.defaultSpriteDPI = DefaultSpriteDPI;
+            Body.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ConstantPhysicalSize;
+            Body.physicalUnit = PhysicalUnit;
+            Body.fallbackScreenDPI = FallbackScreenDPI;
+            Body.defaultSpriteDPI = DefaultSpriteDPI;
         }
     }
 }

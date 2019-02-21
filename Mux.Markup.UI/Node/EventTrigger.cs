@@ -66,10 +66,10 @@ namespace Mux.Markup
     }
 
     /// <summary>
-    /// An <see cref="Object{T}" /> that represents <see cref="T:UnityEngine.EventSystems.EventTrigger" />.
+    /// An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.EventSystems.EventTrigger" />.
     /// </summary>
     [ContentProperty("Triggers")]
-    public class EventTrigger : Object<UnityEngine.EventSystems.EventTrigger>
+    public class EventTrigger : Component<UnityEngine.EventSystems.EventTrigger>
     {
         private sealed class UnityTriggerCollection : TemplatableCollectionList<UnityEngine.EventSystems.EventTrigger.Entry>
         {
@@ -246,10 +246,10 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        protected override void AwakeInMainThread()
         {
-            Component = gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
-            Component.triggers = _triggers._entries.list;
+            base.AwakeInMainThread();
+            Body.triggers = _triggers._entries.list;
         }
 
         /// <inheritdoc />

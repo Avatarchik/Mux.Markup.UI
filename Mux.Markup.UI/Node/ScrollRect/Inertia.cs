@@ -36,8 +36,8 @@ namespace Mux.Markup
     ///         </m:RectTransform>
     ///     </m:RectTransform>
     ///     <mu:ScrollRect
-    ///         Viewport="{Binding Path=Component, Source={x:Reference Name=viewport}}"
-    ///         Content="{Binding Path=Component, Source={x:Reference Name=content}}"
+    ///         Viewport="{Binding Path=Body, Source={x:Reference Name=viewport}}"
+    ///         Content="{Binding Path=Body, Source={x:Reference Name=content}}"
     ///         Inertia="{mu:Inertia}" />
     /// </m:RectTransform>
     /// ]]>
@@ -57,11 +57,11 @@ namespace Mux.Markup
 
         private static void OnDecelerationRateChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var component = ((Inertia)sender).Component;
+            var body = ((Inertia)sender).Body;
 
-            if (component != null)
+            if (body != null)
             {
-                Forms.mainThread.Send(state => component.decelerationRate = (float)state, newValue);
+                Forms.mainThread.Send(state => body.decelerationRate = (float)state, newValue);
             }
         }
 
@@ -81,9 +81,9 @@ namespace Mux.Markup
         }
 
         /// <inheritdoc />
-        protected sealed override void InitializeComponentInMainThread()
+        protected sealed override void InitializeBodyInMainThread()
         {
-            Component.decelerationRate = DecelerationRate;
+            Body.decelerationRate = DecelerationRate;
         }
     }
 }
