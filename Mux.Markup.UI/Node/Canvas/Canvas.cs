@@ -77,13 +77,23 @@ namespace Mux.Markup
             SetInheritedBindingContext(Render, BindingContext);
         }
 
+        /// <inhertidoc />
+        protected override void AddToInMainThread(UnityEngine.GameObject gameObject)
+        {
+            base.AddToInMainThread(gameObject);
+
+            // Setting renderMode of an enabled component causes properties of
+            // RectTransform modified. Therefore, those values must be set in
+            // AddToInMainThread.
+            Render.Body = Body;
+        }
+
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
             base.AwakeInMainThread();
 
             Body.additionalShaderChannels = AdditionalShaderChannels;
-            Render.Body = Body;
         }
 
         /// <inheritdoc />
