@@ -52,7 +52,7 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected sealed override void InitializeBodyInMainThread()
         {
-            Body.renderMode = UnityEngine.RenderMode.ScreenSpaceCamera;
+            Body.renderMode = UnityEngine.RenderMode.WorldSpace;
             base.InitializeBodyInMainThread();
             Body.worldCamera = WorldCamera;
             Body.sortingLayerID = SortingLayer;
