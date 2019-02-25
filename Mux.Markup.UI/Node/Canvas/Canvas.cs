@@ -29,9 +29,16 @@ namespace Mux.Markup
     public class Canvas : Component<UnityEngine.Canvas>
     {
         /// <summary>Backing store for the <see cref="Render" /> property.</summary>
-        public static readonly BindableProperty RenderProperty = CreateBindableModifierProperty(
+        public static readonly BindableProperty RenderProperty = BindableProperty.Create(
             "Render",
+            typeof(Render),
             typeof(Canvas),
+            null,
+            BindingMode.OneWay,
+            null,
+            OnRenderChanged,
+            null,
+            null,
             sender => new ScreenSpaceOverlay());
 
         /// <summary>Backing store for the <see cref="AdditionalShaderChannels" /> property.</summary>
@@ -41,13 +48,32 @@ namespace Mux.Markup
             (body, value) => body.additionalShaderChannels = value,
             UnityEngine.AdditionalCanvasShaderChannels.None);
 
+        private static void OnRenderChanged(BindableObject sender, object oldValue, object newValue)
+        {
+            ((Render)oldValue)?.DestroyMux();
+
+            if (newValue != null)
+            {
+                var body = ((Canvas)sender).Body;
+                var render = (Render)newValue;
+
+                if (body != null)
+                {
+                    body.renderMode = render.Mode;
+                    render.Body = body;
+                }
+
+                SetInheritedBindingContext(render, sender.BindingContext);
+            }
+        }
+
         /// <summary>A property that represents <see cref="T:UnityEngine.RenderMode.ScreenSpaceCamera" /> and its rendering properties.</summary>
-        /// <remarks>Setting <see cref="Component{T:UnityEngine.Canvas}.Modifier" /> to this property binds its lifetime to the lifetime of this object.</remarks>
-        public Modifier Render
+        /// <remarks>Setting <see cref="Render" /> to this property binds its lifetime to the lifetime of this object.</remarks>
+        public Render Render
         {
             get
             {
-                return (Modifier)GetValue(RenderProperty);
+                return (Render)GetValue(RenderProperty);
             }
 
             set
@@ -82,10 +108,12 @@ namespace Mux.Markup
         {
             base.AddToInMainThread(gameObject);
 
-            // Setting renderMode of an enabled component causes properties of
-            // RectTransform modified. Therefore, those values must be set in
-            // AddToInMainThread.
-            Render.Body = Body;
+            if (Render != null)
+            {
+                // Setting renderMode of an enabled component causes properties of
+                // RectTransform modified. Therefore, it must be set in AddToInMainThread.
+                Body.renderMode = Render.Mode;
+            }
         }
 
         /// <inheritdoc />
@@ -94,6 +122,7 @@ namespace Mux.Markup
             base.AwakeInMainThread();
 
             Body.additionalShaderChannels = AdditionalShaderChannels;
+            Render.Body = Body;
         }
 
         /// <inheritdoc />

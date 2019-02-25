@@ -109,10 +109,11 @@ namespace Mux.Markup
             }
         }
 
+        internal sealed override UnityEngine.RenderMode Mode => UnityEngine.RenderMode.ScreenSpaceCamera;
+
         /// <inheritdoc />
         protected sealed override void InitializeBodyInMainThread()
         {
-            Body.renderMode = UnityEngine.RenderMode.ScreenSpaceCamera;
             base.InitializeBodyInMainThread();
             Body.pixelPerfect = PixelPerfect;
             Body.overridePixelPerfect = OverridePixelPerfect;

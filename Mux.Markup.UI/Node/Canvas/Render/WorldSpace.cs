@@ -49,10 +49,11 @@ namespace Mux.Markup
             }
         }
 
+        internal sealed override UnityEngine.RenderMode Mode => UnityEngine.RenderMode.WorldSpace;
+
         /// <inheritdoc />
         protected sealed override void InitializeBodyInMainThread()
         {
-            Body.renderMode = UnityEngine.RenderMode.WorldSpace;
             base.InitializeBodyInMainThread();
             Body.worldCamera = WorldCamera;
             Body.sortingLayerID = SortingLayer;

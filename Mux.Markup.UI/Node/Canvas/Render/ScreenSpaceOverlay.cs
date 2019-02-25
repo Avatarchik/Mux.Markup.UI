@@ -48,10 +48,11 @@ namespace Mux.Markup
             }
         }
 
+        internal sealed override UnityEngine.RenderMode Mode => UnityEngine.RenderMode.ScreenSpaceOverlay;
+
         /// <inheritdoc />
         protected sealed override void InitializeBodyInMainThread()
         {
-            Body.renderMode = UnityEngine.RenderMode.ScreenSpaceOverlay;
             base.InitializeBodyInMainThread();
             Body.pixelPerfect = PixelPerfect;
             Body.overridePixelPerfect = OverridePixelPerfect;

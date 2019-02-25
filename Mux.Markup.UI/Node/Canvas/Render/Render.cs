@@ -240,6 +240,8 @@ namespace Mux.Markup
             }
         }
 
+        internal abstract UnityEngine.RenderMode Mode { get; }
+
         /// <inheritdoc />
         protected override void InitializeBodyInMainThread()
         {
