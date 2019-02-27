@@ -617,8 +617,8 @@ namespace Mux.Markup
             Body.itemText = ItemText;
             Body.itemImage = ItemImage;
             Body.onValueChanged.AddListener(value => SetValueCore(ValueProperty, value));
-            Body.value = Value;
             Body.options = _options.data.list;
+            Body.value = Value;
             Body.RefreshShownValue();
         }
     }
