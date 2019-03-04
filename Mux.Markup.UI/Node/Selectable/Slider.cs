@@ -47,10 +47,10 @@ namespace Mux.Markup
         [StructLayout(LayoutKind.Auto)]
         private readonly struct BuiltinPrefabs
         {
-            public readonly UnityEngine.Object fillArea;
-            public readonly UnityEngine.Object handleSlideArea;
+            public readonly UnityEngine.GameObject fillArea;
+            public readonly UnityEngine.GameObject handleSlideArea;
 
-            public BuiltinPrefabs(UnityEngine.Object fillArea, UnityEngine.Object handleSlideArea)
+            public BuiltinPrefabs(UnityEngine.GameObject fillArea, UnityEngine.GameObject handleSlideArea)
             {
                 this.fillArea = fillArea;
                 this.handleSlideArea = handleSlideArea;
@@ -62,8 +62,8 @@ namespace Mux.Markup
         private static BuiltinPrefabs LoadBuiltinPrefabs()
         {
             return new BuiltinPrefabs(
-                UnityEngine.Resources.Load<UnityEngine.Object>("Mux/Slider/Fill Area"),
-                UnityEngine.Resources.Load<UnityEngine.Object>("Mux/Slider/Handle Slide Area"));
+                UnityEngine.Resources.Load<UnityEngine.GameObject>("Mux/Slider/Fill Area"),
+                UnityEngine.Resources.Load<UnityEngine.GameObject>("Mux/Slider/Handle Slide Area"));
         }
 
         private UnityEngine.GameObject _builtinFillArea;
@@ -312,8 +312,8 @@ namespace Mux.Markup
         {
             Forms.mainThread.Send(state =>
             {
-                _builtinFillArea = (UnityEngine.GameObject)UnityEngine.Object.Instantiate(s_builtinPrefabs.Value.fillArea);
-                _builtinHandleSlideArea = (UnityEngine.GameObject)UnityEngine.Object.Instantiate(s_builtinPrefabs.Value.handleSlideArea);
+                _builtinFillArea = UnityEngine.Object.Instantiate(s_builtinPrefabs.Value.fillArea);
+                _builtinHandleSlideArea = UnityEngine.Object.Instantiate(s_builtinPrefabs.Value.handleSlideArea);
                 SetValueCore(FillRectProperty, (UnityEngine.RectTransform)_builtinFillArea.transform.GetChild(0));
                 SetValueCore(HandleRectProperty, (UnityEngine.RectTransform)_builtinHandleSlideArea.transform.GetChild(0));
                 SetValueCore(TargetGraphicProperty, _builtinHandleSlideArea.GetComponentInChildren<UnityEngine.UI.Image>());
