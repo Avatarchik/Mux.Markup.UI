@@ -82,7 +82,12 @@ namespace Mux.Markup.Extras
                 notifyingNew.CollectionChanged += item._collectionHandler;
             }
 
-            item.mesh?.Body?.SetVerticesDirty();
+            var body = item.mesh?.Body;
+
+            if (body != null)
+            {
+                body.SetVerticesDirty();
+            }
         }
 
         private readonly NotifyCollectionChangedEventHandler _collectionHandler;
@@ -98,7 +103,12 @@ namespace Mux.Markup.Extras
 
                 if (weak.TryGetTarget(out strong))
                 {
-                    strong.mesh?.Body?.SetVerticesDirty();
+                    var body = strong.mesh?.Body;
+
+                    if (body != null)
+                    {
+                        body.SetVerticesDirty();
+                    }
                 }
                 else
                 {
@@ -425,7 +435,12 @@ namespace Mux.Markup.Extras
 
         private static void OnIndicesChanged(BindableObject sender, object oldValue, object newValue)
         {
-            ((Triangle)sender).mesh?.Body?.SetVerticesDirty();
+            var body = ((Triangle)sender).mesh?.Body;
+
+            if (body != null)
+            {
+                body.SetVerticesDirty();
+            }
         }
 
         /// <summary>Indicies into the positions array.</summary>
@@ -496,7 +511,12 @@ namespace Mux.Markup.Extras
 
         private static void OnValueChanged(BindableObject sender, object oldValue, object newValue)
         {
-            ((Vert)sender).mesh?.Body?.SetVerticesDirty();
+            var body = ((Vert)sender).mesh?.Body;
+
+            if (body != null)
+            {
+                body.SetVerticesDirty();
+            }
         }
 
         /// <summary>A property that represents a vertex.</summary>
