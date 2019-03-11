@@ -304,8 +304,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.text = Content;
             Body.font = Font;
             Body.fontSize = FontSize;
@@ -319,6 +317,8 @@ namespace Mux.Markup
             Body.horizontalOverflow = HorizontalOverflow;
             Body.verticalOverflow = VerticalOverflow;
             Body.lineSpacing = LineSpacing;
+
+            base.AwakeInMainThread();
         }
     }
 }

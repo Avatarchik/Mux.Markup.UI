@@ -2,7 +2,7 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.Mask" />.</summary>
+    /// <summary>A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.Mask" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -26,7 +26,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class Mask : Component<UnityEngine.UI.Mask>
+    public class Mask : Behaviour<UnityEngine.UI.Mask>
     {
         /// <summary>Backing store for the <see cref="ShowMaskGraphic" /> property.</summary>
         public static readonly BindableProperty ShowMaskGraphicProperty = CreateBindableBodyProperty<bool>(
@@ -52,8 +52,8 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
             Body.showMaskGraphic = ShowMaskGraphic;
+            base.AwakeInMainThread();
         }
     }
 }

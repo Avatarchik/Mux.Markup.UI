@@ -3,7 +3,7 @@
 namespace Mux.Markup
 {
     /// <summary>
-    /// A <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.ToggleGroup" />.
+    /// A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.ToggleGroup" />.
     /// </summary>
     /// <example>
     /// <code language="xaml">
@@ -35,7 +35,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class ToggleGroup : Component<UnityEngine.UI.ToggleGroup>
+    public class ToggleGroup : Behaviour<UnityEngine.UI.ToggleGroup>
     {
         /// <summary>Backing store for the <see cref="AllowSwitchOff" /> property.</summary>
         public static readonly BindableProperty AllowSwitchOffProperty = CreateBindableBodyProperty<bool>(
@@ -63,8 +63,8 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
             Body.allowSwitchOff = AllowSwitchOff;
+            base.AwakeInMainThread();
         }
     }
 }

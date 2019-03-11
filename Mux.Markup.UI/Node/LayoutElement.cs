@@ -2,8 +2,8 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.LayoutElement" />.</summary>
-    public class LayoutElement : Component<UnityEngine.UI.LayoutElement>
+    /// <summary>A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.LayoutElement" />.</summary>
+    public class LayoutElement : Behaviour<UnityEngine.UI.LayoutElement>
     {
         /// <summary>Backing store for the <see cref="IgnoreLayout" /> property.</summary>
         public static readonly BindableProperty IgnoreLayoutProperty = CreateBindableBodyProperty<bool>(
@@ -192,8 +192,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.ignoreLayout = IgnoreLayout;
             Body.minWidth = MinWidth;
             Body.minHeight = MinHeight;
@@ -202,6 +200,8 @@ namespace Mux.Markup
             Body.flexibleWidth = FlexibleWidth;
             Body.flexibleHeight = FlexibleHeight;
             Body.layoutPriority = LayoutPriority;
+
+            base.AwakeInMainThread();
         }
     }
 }

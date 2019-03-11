@@ -2,8 +2,8 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.EventSystems.EventSystem" />.</summary>
-    public class EventSystem : Component<UnityEngine.EventSystems.EventSystem>
+    /// <summary>A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.EventSystems.EventSystem" />.</summary>
+    public class EventSystem : Behaviour<UnityEngine.EventSystems.EventSystem>
     {
         /// <summary>Backing store for the <see cref="FirstSelectedGameObject" /> property.</summary>
         public static readonly BindableProperty FirstSelectedGameObjectProperty = CreateBindableBodyProperty<UnityEngine.GameObject>(
@@ -70,11 +70,11 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.firstSelectedGameObject = FirstSelectedGameObject;
             Body.sendNavigationEvents = SendNavigationEvents;
             Body.pixelDragThreshold = PixelDragThreshold;
+
+            base.AwakeInMainThread();
         }
     }
 }

@@ -529,8 +529,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             if (TextComponent == _builtinText.GetComponent<UnityEngine.UI.Text>())
             {
                 _builtinText.layer = Body.gameObject.layer;
@@ -577,6 +575,8 @@ namespace Mux.Markup
             // enabled/disabled state before changing the layout, and that is
             // whath this one line does.
             Body.ForceLabelUpdate();
+
+            base.AwakeInMainThread();
         }
     }
 }

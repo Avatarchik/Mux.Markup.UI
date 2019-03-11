@@ -3,7 +3,7 @@
 namespace Mux.Markup
 {
     /// <summary>
-    /// An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.RectMask2D" />.
+    /// A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.RectMask2D" />.
     /// </summary>
     /// <example>
     /// <code language="xaml">
@@ -38,7 +38,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public sealed class RectMask2D : Component<UnityEngine.UI.RectMask2D>
+    public sealed class RectMask2D : Behaviour<UnityEngine.UI.RectMask2D>
     {
     }
 }

@@ -194,8 +194,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             var builtinCheckmark = _builtinBackground.transform.GetChild(0).gameObject;
 
             if (Graphic == builtinCheckmark.GetComponent<UnityEngine.UI.Image>())
@@ -210,6 +208,8 @@ namespace Mux.Markup
             Body.group = Group;
             Body.isOn = IsOn;
             Body.onValueChanged.AddListener(value => SetValueCore(IsOnProperty, value));
+
+            base.AwakeInMainThread();
         }
 
         private void SetGraphicToBody(UnityEngine.UI.Graphic graphic)

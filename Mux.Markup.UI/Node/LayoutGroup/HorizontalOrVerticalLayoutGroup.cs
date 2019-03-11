@@ -123,13 +123,13 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.spacing = Spacing;
             Body.childForceExpandWidth = ChildForceExpandWidth;
             Body.childForceExpandHeight = ChildForceExpandHeight;
             Body.childControlWidth = ChildControlWidth;
             Body.childControlHeight = ChildControlHeight;
+
+            base.AwakeInMainThread();
         }
     }
 

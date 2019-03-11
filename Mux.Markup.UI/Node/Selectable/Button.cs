@@ -23,8 +23,8 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
             Body.onClick = _onClick;
+            base.AwakeInMainThread();
         }
     }
 }

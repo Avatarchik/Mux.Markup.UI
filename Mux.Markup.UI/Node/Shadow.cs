@@ -3,7 +3,7 @@
 namespace Mux.Markup
 {
     /// <summary>An abstract class that represents <see cref="T:UnityEngine.UI.Shadow" /> or its subclass.</summary>
-    public class Shadow<T> : Component<T> where T : UnityEngine.UI.Shadow
+    public class Shadow<T> : Behaviour<T> where T : UnityEngine.UI.Shadow
     {
         /// <summary>Backing store for the <see cref="EffectColor" /> property.</summary>
         public static readonly BindableProperty EffectColorProperty = CreateBindableBodyProperty<UnityEngine.Color>(
@@ -74,11 +74,11 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.effectColor = EffectColor;
             Body.effectDistance = EffectDistance;
             Body.useGraphicAlpha = UseGraphicAlpha;
+
+            base.AwakeInMainThread();
         }
     }
 

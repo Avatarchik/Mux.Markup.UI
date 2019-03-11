@@ -2,7 +2,7 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.AspectRatioFitter" />.</summary>
+    /// <summary>A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.AspectRatioFitter" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -25,7 +25,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class AspectRatioFitter : Component<UnityEngine.UI.AspectRatioFitter>
+    public class AspectRatioFitter : Behaviour<UnityEngine.UI.AspectRatioFitter>
     {
         /// <summary>Backing store for the <see cref="AspectMode" /> property.</summary>
         public static readonly BindableProperty AspectModeProperty = CreateBindableBodyProperty<UnityEngine.UI.AspectRatioFitter.AspectMode>(
@@ -72,10 +72,10 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.aspectMode = AspectMode;
             Body.aspectRatio = AspectRatio;
+
+            base.AwakeInMainThread();
         }
     }
 }

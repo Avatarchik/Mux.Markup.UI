@@ -2,8 +2,8 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.LayoutGroup" />.</summary>
-    public abstract class LayoutGroup<T> : Component<T> where T : UnityEngine.UI.LayoutGroup
+    /// <summary>A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.LayoutGroup" />.</summary>
+    public abstract class LayoutGroup<T> : Behaviour<T> where T : UnityEngine.UI.LayoutGroup
     {
         /// <summary>Backing store for the <see cref="PaddingLeft" /> property.</summary>
         public static readonly BindableProperty PaddingLeftProperty = CreateBindableBodyProperty<int>(
@@ -125,13 +125,13 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.padding.left = PaddingLeft;
             Body.padding.right = PaddingRight;
             Body.padding.top = PaddingTop;
             Body.padding.bottom = PaddingBottom;
             Body.childAlignment = ChildAlignment;
+
+            base.AwakeInMainThread();
         }
     }
 }

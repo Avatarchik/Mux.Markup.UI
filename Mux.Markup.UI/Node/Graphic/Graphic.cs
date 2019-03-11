@@ -3,7 +3,7 @@ using Xamarin.Forms;
 namespace Mux.Markup
 {
     /// <summary>An abstract class that represents <see cref="T:UnityEngine.UI.Graphic" />.</summary>
-    public abstract class Graphic<T> : Component<T> where T : UnityEngine.UI.Graphic
+    public abstract class Graphic<T> : Behaviour<T> where T : UnityEngine.UI.Graphic
     {
         /// <summary>Backing store for the <see cref="Color" /> property.</summary>
         public static readonly BindableProperty ColorProperty = CreateBindableBodyProperty<UnityEngine.Color>(
@@ -72,11 +72,11 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.color = Color;
             Body.material = Material;
             Body.raycastTarget = RaycastTarget;
+
+            base.AwakeInMainThread();
         }
     }
 }

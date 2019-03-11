@@ -323,8 +323,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             if (FillRect == _builtinFillArea.transform.GetChild(0))
             {
                 _builtinFillArea.transform.SetParent(Body.transform, false);
@@ -347,6 +345,8 @@ namespace Mux.Markup
             Body.wholeNumbers = WholeNumbers;
             Body.value = Value;
             Body.onValueChanged.AddListener(newValue => SetValueCore(ValueProperty, newValue));
+
+            base.AwakeInMainThread();
         }
     }
 }

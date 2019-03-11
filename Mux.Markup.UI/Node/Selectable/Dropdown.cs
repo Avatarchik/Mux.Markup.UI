@@ -600,8 +600,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             _builtinTemplate.layer = Body.gameObject.layer;
             _builtinTemplate.transform.SetParent(Body.transform, false);
 
@@ -620,6 +618,8 @@ namespace Mux.Markup
             Body.options = _options.data.list;
             Body.value = Value;
             Body.RefreshShownValue();
+
+            base.AwakeInMainThread();
         }
     }
 }

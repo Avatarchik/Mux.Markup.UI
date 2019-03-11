@@ -3,7 +3,7 @@
 namespace Mux.Markup
 {
     /// <summary>An abstract class to represent <see cref="T:UnityEngine.UI.Selectable" /> or its subclass.</summary>
-    public abstract class Selectable<T> : Component<T> where T : UnityEngine.UI.Selectable
+    public abstract class Selectable<T> : Behaviour<T> where T : UnityEngine.UI.Selectable
     {
         /// <summary>Backing store for the <see cref="Interactable" /> property.</summary>
         public static readonly BindableProperty InteractableProperty = CreateBindableBodyProperty<bool>(
@@ -158,8 +158,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.interactable = Interactable;
             Body.targetGraphic = TargetGraphic;
             Body.transition = Transition;
@@ -167,6 +165,8 @@ namespace Mux.Markup
             Body.spriteState = SpriteState;
             Body.animationTriggers = AnimationTriggers;
             Body.navigation = Navigation;
+
+            base.AwakeInMainThread();
         }
     }
 

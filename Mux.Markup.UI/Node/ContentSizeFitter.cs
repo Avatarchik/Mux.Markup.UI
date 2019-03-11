@@ -2,7 +2,7 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.ContentSizeFitter" />.</summary>
+    /// <summary>A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.ContentSizeFitter" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -28,7 +28,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class ContentSizeFitter : Component<UnityEngine.UI.ContentSizeFitter>
+    public class ContentSizeFitter : Behaviour<UnityEngine.UI.ContentSizeFitter>
     {
         /// <summary>Backing store for the <see cref="HorizontalFit" /> property.</summary>
         public static readonly BindableProperty HorizontalFitProperty = CreateBindableBodyProperty<UnityEngine.UI.ContentSizeFitter.FitMode>(
@@ -75,10 +75,10 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.horizontalFit = HorizontalFit;
             Body.verticalFit = VerticalFit;
+
+            base.AwakeInMainThread();
         }
     }
 }

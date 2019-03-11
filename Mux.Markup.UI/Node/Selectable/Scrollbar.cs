@@ -204,8 +204,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             if (HandleRect == _builtinSlidingArea.transform.GetChild(0))
             {
                 _builtinSlidingArea.transform.SetParent(Body.transform, false);
@@ -219,6 +217,8 @@ namespace Mux.Markup
             Body.size = Size;
             Body.numberOfSteps = NumberOfSteps;
             Body.onValueChanged.AddListener(newValue => SetValueCore(ValueProperty, newValue));
+
+            base.AwakeInMainThread();
         }
     }
 }

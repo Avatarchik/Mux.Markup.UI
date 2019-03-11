@@ -3,7 +3,7 @@
 namespace Mux.Markup
 {
     /// <summary>
-    /// An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.CanvasGroup" />.
+    /// A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.CanvasGroup" />.
     /// </summary>
     /// <example>
     /// <code language="xaml">
@@ -30,7 +30,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class CanvasGroup : Component<UnityEngine.CanvasGroup>
+    public class CanvasGroup : Behaviour<UnityEngine.CanvasGroup>
     {
         /// <summary>Backing store for the <see cref="Alpha" /> property.</summary>
         public static readonly BindableProperty AlphaProperty = CreateBindableBodyProperty<float>(
@@ -118,12 +118,12 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.alpha = Alpha;
             Body.interactable = Interactable;
             Body.blocksRaycasts = BlocksRaycasts;
             Body.ignoreParentGroups = IgnoreParentGroups;
+
+            base.AwakeInMainThread();
         }
     }
 }

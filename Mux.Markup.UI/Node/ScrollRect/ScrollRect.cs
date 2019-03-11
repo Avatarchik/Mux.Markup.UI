@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.ScrollRect" />.</summary>
+    /// <summary>A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.ScrollRect" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -52,7 +52,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class ScrollRect : Component<UnityEngine.UI.ScrollRect>
+    public class ScrollRect : Behaviour<UnityEngine.UI.ScrollRect>
     {
         [StructLayout(LayoutKind.Auto)]
         private readonly struct BuiltinScrollbarPrefabs
@@ -565,8 +565,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.horizontal = Horizontal;
             Body.vertical = Vertical;
             Body.inertia = Inertia != null;
@@ -612,6 +610,7 @@ namespace Mux.Markup
             }
 
             UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(Body);
+            base.AwakeInMainThread();
         }
 
         /// <inheritdoc />

@@ -2,7 +2,7 @@
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.Canvas" />.</summary>
+    /// <summary>An <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.Canvas" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -26,7 +26,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class Canvas : Component<UnityEngine.Canvas>
+    public class Canvas : Behaviour<UnityEngine.Canvas>
     {
         /// <summary>Backing store for the <see cref="Render" /> property.</summary>
         public static readonly BindableProperty RenderProperty = BindableProperty.Create(
@@ -119,10 +119,10 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.additionalShaderChannels = AdditionalShaderChannels;
             Render.Body = Body;
+
+            base.AwakeInMainThread();
         }
 
         /// <inheritdoc />

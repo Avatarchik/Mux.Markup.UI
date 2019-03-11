@@ -67,10 +67,10 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.texture = Texture;
             Body.uvRect = UvRect;
+
+            base.AwakeInMainThread();
         }
     }
 }

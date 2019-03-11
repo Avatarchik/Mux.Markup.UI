@@ -145,13 +145,13 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.cellSize = CellSize;
             Body.spacing = Spacing;
             Body.startCorner = StartCorner;
             Body.startAxis = StartAxis;
             Constraint.Body = Body;
+
+            base.AwakeInMainThread();
         }
 
         /// <inheritdoc />

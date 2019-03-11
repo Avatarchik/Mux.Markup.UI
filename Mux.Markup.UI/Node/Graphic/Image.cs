@@ -193,8 +193,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.sprite = Sprite;
             Body.type = Type;
             Body.fillCenter = FillCenter;
@@ -203,6 +201,8 @@ namespace Mux.Markup
             Body.fillClockwise = FillClockwise;
             Body.fillAmount = FillAmount;
             Body.preserveAspect = PreserveAspect;
+
+            base.AwakeInMainThread();
         }
     }
 }

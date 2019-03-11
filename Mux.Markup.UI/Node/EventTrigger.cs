@@ -66,10 +66,10 @@ namespace Mux.Markup
     }
 
     /// <summary>
-    /// An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.EventSystems.EventTrigger" />.
+    /// An <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.EventSystems.EventTrigger" />.
     /// </summary>
     [ContentProperty("Triggers")]
-    public class EventTrigger : Component<UnityEngine.EventSystems.EventTrigger>
+    public class EventTrigger : Behaviour<UnityEngine.EventSystems.EventTrigger>
     {
         private sealed class UnityTriggerCollection : TemplatableCollectionList<UnityEngine.EventSystems.EventTrigger.Entry>
         {
@@ -248,8 +248,8 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
             Body.triggers = _triggers._entries.list;
+            base.AwakeInMainThread();
         }
 
         /// <inheritdoc />

@@ -2,7 +2,7 @@ using Xamarin.Forms;
 
 namespace Mux.Markup
 {
-    /// <summary>An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.GraphicRaycaster" />.</summary>
+    /// <summary>A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.GraphicRaycaster" />.</summary>
     /// <example>
     /// <code language="xaml">
     /// <![CDATA[
@@ -30,7 +30,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class GraphicRaycaster : Component<UnityEngine.UI.GraphicRaycaster>
+    public class GraphicRaycaster : Behaviour<UnityEngine.UI.GraphicRaycaster>
     {
         /// <summary>Backing store for the <see cref="IgnoreReversedGraphics" /> property.</summary>
         public static readonly BindableProperty IgnoreReversedGraphicsProperty = CreateBindableBodyProperty<bool>(
@@ -77,10 +77,10 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.ignoreReversedGraphics = IgnoreReversedGraphics;
             Body.blockingObjects = BlockingObjects;
+
+            base.AwakeInMainThread();
         }
     }
 }

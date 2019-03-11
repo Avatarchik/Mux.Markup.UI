@@ -3,7 +3,7 @@
 namespace Mux.Markup
 {
     /// <summary>
-    /// An <see cref="Component{T}" /> that represents <see cref="T:UnityEngine.UI.CanvasScaler" />.
+    /// A <see cref="Behaviour{T}" /> that represents <see cref="T:UnityEngine.UI.CanvasScaler" />.
     /// </summary>
     /// <example>
     /// <code language="xaml">
@@ -28,7 +28,7 @@ namespace Mux.Markup
     /// ]]>
     /// </code>
     /// </example>
-    public class CanvasScaler : Component<UnityEngine.UI.CanvasScaler>
+    public class CanvasScaler : Behaviour<UnityEngine.UI.CanvasScaler>
     {
         /// <summary>Backing store for the <see cref="UiScale" /> property.</summary>
         public static readonly BindableProperty UiScaleProperty = CreateBindableModifierProperty(
@@ -87,10 +87,10 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            base.AwakeInMainThread();
-
             Body.referencePixelsPerUnit = ReferencePixelsPerUnit;
             UiScale.Body = Body;
+
+            base.AwakeInMainThread();
         }
 
         /// <inheritdoc />
