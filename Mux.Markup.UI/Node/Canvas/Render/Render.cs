@@ -60,7 +60,7 @@ namespace Mux.Markup
 
         private static void OnWorldCameraChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var body = ((ScreenSpaceCamera)sender).Body;
+            var body = ((Render)sender).Body;
 
             if (body != null)
             {
@@ -70,7 +70,7 @@ namespace Mux.Markup
 
         private static void OnPlaneDistanceChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var body = ((ScreenSpaceCamera)sender).Body;
+            var body = ((Render)sender).Body;
 
             if (body != null)
             {
@@ -80,7 +80,7 @@ namespace Mux.Markup
 
         private static void OnSortingLayerChanged(BindableObject sender, object oldValue, object newValue)
         {
-            var body = ((ScreenSpaceCamera)sender).Body;
+            var body = ((Render)sender).Body;
 
             if (body != null)
             {
