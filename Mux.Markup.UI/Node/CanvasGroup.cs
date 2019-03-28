@@ -36,7 +36,8 @@ namespace Mux.Markup
         public static readonly BindableProperty AlphaProperty = CreateBindableBodyProperty<float>(
             "Alpha",
             typeof(CanvasGroup),
-            (body, value) => body.alpha = value);
+            (body, value) => body.alpha = value,
+            1f);
 
         /// <summary>Backing store for the <see cref="Interactable" /> property.</summary>
         public static readonly BindableProperty InteractableProperty = CreateBindableBodyProperty<bool>(
