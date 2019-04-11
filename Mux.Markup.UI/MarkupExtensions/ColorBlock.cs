@@ -15,7 +15,7 @@ namespace Mux.Markup
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
     ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    ///     <m:StandaloneInputModule />
+    ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />

@@ -92,7 +92,7 @@ namespace Mux.Markup
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
     ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
     ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    ///     <m:StandaloneInputModule />
+    ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
@@ -117,7 +117,7 @@ namespace Mux.Markup
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
     ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
     ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    ///     <m:StandaloneInputModule />
+    ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
