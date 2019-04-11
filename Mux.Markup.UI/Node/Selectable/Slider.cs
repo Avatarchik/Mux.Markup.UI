@@ -29,8 +29,8 @@ namespace Mux.Markup
     ///         HandleRect="{Binding Path=Body, Source={x:Reference Name=handle}}"
     ///         TargetGraphic="{Binding Path=Body, Source={x:Reference Name=targetGraphic}}" />
     ///     <m:RectTransform X="{m:Stretch OffsetMin=2, OffsetMax=-2}">
-    ///         <m:RectTransform X="{m:Sized SizeDelta=4}" Y="{m:Stretch}">
-    ///             <mu:Image x:Name="fill" Color="{m:Color R=0, G=0, B=1}" />
+    ///         <m:RectTransform x:Name="fill" X="{m:Sized SizeDelta=4}" Y="{m:Stretch}">
+    ///             <mu:Image Color="{m:Color R=0, G=0, B=1}" />
     ///         </m:RectTransform>
     ///     </m:RectTransform>
     ///     <m:RectTransform X="{m:Stretch OffsetMin=4, OffsetMax=-4}">
