@@ -10,7 +10,6 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
     ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
