@@ -33,24 +33,11 @@ namespace Mux.Markup
     /// </example>
     public class Scrollbar : Selectable<UnityEngine.UI.Scrollbar>
     {
-        private static Lazy<UnityEngine.Object> s_builtinSlidingAreaPrefab = new Lazy<UnityEngine.Object>(LoadSlidingAreaPrefab, false);
-
-        private static UnityEngine.Object LoadSlidingAreaPrefab()
-        {
-            return UnityEngine.Resources.Load("Mux/Scrollbar/Sliding Area");
-        }
-
-        private UnityEngine.GameObject _builtinSlidingArea;
-
         /// <summary>Backing store for the <see cref="HandleRect" /> property.</summary>
-        public static readonly BindableProperty HandleRectProperty = BindableProperty.Create(
+        public static readonly BindableProperty HandleRectProperty = CreateBindableBodyProperty<UnityEngine.RectTransform>(
             "HandleRect",
-            typeof(UnityEngine.RectTransform),
             typeof(Scrollbar),
-            null,
-            Xamarin.Forms.BindingMode.OneWay,
-            null,
-            OnHandleRectChanged);
+            (body, value) => body.handleRect = value);
 
         /// <summary>Backing store for the <see cref="Direction" /> property.</summary>
         public static readonly BindableProperty DirectionProperty = CreateBindableBodyProperty<UnityEngine.UI.Scrollbar.Direction>(
@@ -80,43 +67,6 @@ namespace Mux.Markup
             typeof(Scrollbar),
             (body, value) => body.numberOfSteps = value,
             0);
-
-        private static void OnHandleRectChanged(BindableObject boxedScrollbar, object boxedOldValue, object boxedNewValue)
-        {
-            Forms.mainThread.Send(state =>
-            {
-                var scrollbar = (Scrollbar)state;
-                var builtinHandleRect = scrollbar._builtinSlidingArea.transform.GetChild(0);
-
-                if (scrollbar.HandleRect == builtinHandleRect)
-                {
-                    scrollbar._builtinSlidingArea.hideFlags = UnityEngine.HideFlags.None;
-
-                    if (scrollbar.Body != null)
-                    {
-                        scrollbar._builtinSlidingArea.transform.SetParent(scrollbar.Body.gameObject.transform, false);
-                        scrollbar._builtinSlidingArea.layer = scrollbar.Body.gameObject.layer;
-                        scrollbar.HandleRect.gameObject.layer = scrollbar._builtinSlidingArea.layer;
-                        scrollbar.Body.handleRect = scrollbar.HandleRect;
-                    }
-                }
-                else
-                {
-                    scrollbar._builtinSlidingArea.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
-
-                    if (scrollbar.TargetGraphic == builtinHandleRect.gameObject.GetComponent<UnityEngine.UI.Image>())
-                    {
-                        scrollbar.SetValueCore(TargetGraphicProperty, null);
-                    }
-
-                    if (scrollbar.Body != null)
-                    {
-                        scrollbar._builtinSlidingArea.transform.SetParent(null);
-                        scrollbar.Body.handleRect = scrollbar.HandleRect;
-                    }
-                }
-            }, boxedScrollbar);
-        }
 
         /// <summary>A property that represents <see cref="T:UnityEngine.UI.Scrollbar.handleRect" />.</summary>
         /// <seealso cref="RectTransform" />
@@ -190,27 +140,9 @@ namespace Mux.Markup
             }
         }
 
-        public Scrollbar()
-        {
-            Forms.mainThread.Send(state =>
-            {
-                _builtinSlidingArea = (UnityEngine.GameObject)UnityEngine.Object.Instantiate(s_builtinSlidingAreaPrefab.Value);
-                var builtinHandleRect = _builtinSlidingArea.transform.GetChild(0);
-                SetValueCore(HandleRectProperty, builtinHandleRect);
-                SetValueCore(TargetGraphicProperty, builtinHandleRect.gameObject.GetComponent<UnityEngine.UI.Image>());
-            }, null);
-        }
-
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            if (HandleRect == _builtinSlidingArea.transform.GetChild(0))
-            {
-                _builtinSlidingArea.transform.SetParent(Body.transform, false);
-                _builtinSlidingArea.layer = Body.gameObject.layer;
-                HandleRect.gameObject.layer = _builtinSlidingArea.layer;
-            }
-
             Body.handleRect = HandleRect;
             Body.direction = Direction;
             Body.value = Value;

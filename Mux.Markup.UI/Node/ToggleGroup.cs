@@ -12,7 +12,8 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playgroundMarkup="clr-namespace:Mux.Playground.Markup;assembly=Assembly-CSharp">
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
@@ -24,12 +25,12 @@ namespace Mux.Markup
     ///         only when you compile the interpreter with IL2CPP.
     ///         It is because ContentPropertyAttribute does not work with IL2CPP.
     ///     -->
-    ///     <m:RectTransform X="{m:Stretch AnchorMax=0.5}">
-    ///         <mu:Toggle Group="{Binding Path=Body, Source={x:Reference Name=group}}" />
-    ///     </m:RectTransform>
-    ///     <m:RectTransform X="{m:Stretch AnchorMin=0.5}">
-    ///         <mu:Toggle Group="{Binding Path=Body, Source={x:Reference Name=group}}" />
-    ///     </m:RectTransform>
+    ///     <playgroundMarkup:ToggleTransform
+    ///         Group="{Binding Path=Body, Source={x:Reference Name=group}}"
+    ///         X="{m:Stretch AnchorMax=0.5}" />
+    ///     <playgroundMarkup:ToggleTransform
+    ///         Group="{Binding Path=Body, Source={x:Reference Name=group}}"
+    ///         X="{m:Stretch AnchorMin=0.5}" />
     /// </m:RectTransform>
     /// ]]>
     /// </code>

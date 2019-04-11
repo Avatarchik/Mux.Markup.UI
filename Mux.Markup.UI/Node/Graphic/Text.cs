@@ -10,13 +10,27 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playground="clr-namespace:Mux.Playground;assembly=Assembly-CSharp"
+    ///     xmlns:DataType="playground:PlaygroundViewModel">
+    ///     <!--
+    ///       Note that you can use "using" scheme instead of "clr-namespace" to omit assembly
+    ///       specification if:
+    ///       - the referenced type is in an assembly already loaded. (interpreter)
+    ///       - the referenced type is in the assembly containing the compiled XAML. (compiler)
+    ///     -->
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
     ///     <mu:GraphicRaycaster />
-    ///     <mu:Text />
+    ///     <mu:Text Font="{Binding Path=Resources.Font}">
+    ///         <mu:Text.Content>
+    /// You have to give property name "Path" to Binding only when you compile
+    /// the interpreter with IL2CPP. It is because ContentPropertyAttribute does
+    /// not work with IL2CPP.
+    ///         </mu:Text.Content>
+    ///     </mu:Text>
     /// </m:RectTransform>
     /// ]]>
     /// </code>
@@ -34,8 +48,7 @@ namespace Mux.Markup
         public static readonly BindableProperty FontProperty = CreateBindableBodyProperty<UnityEngine.Font>(
             "Font",
             typeof(Text),
-            (body, value) => body.font = value,
-            UnityEngine.Resources.GetBuiltinResource<UnityEngine.Font>("Arial.ttf"));
+            (body, value) => body.font = value);
 
         /// <summary>Backing store for the <see cref="FontSize" /> property.</summary>
         public static readonly BindableProperty FontSizeProperty = CreateBindableBodyProperty<int>(

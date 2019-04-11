@@ -98,31 +98,28 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playgroundMarkup="clr-namespace:Mux.Playground.Markup;assembly=Assembly-CSharp">
+    ///     <!--
+    ///       Note that you can use "using" scheme instead of "clr-namespace" to omit assembly
+    ///       specification if:
+    ///       - the referenced type is in an assembly already loaded. (interpreter)
+    ///       - the referenced type is in the assembly containing the compiled XAML. (compiler)
+    ///     -->
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
     ///     <mu:GraphicRaycaster />
-    ///     <m:RectTransform>
+    ///     <playgroundMarkup:TextTransform TextComponent="{Binding Path=CaptionText, Source={x:Reference Name=dropdown}}">
     ///         <mu:ContentSizeFitter VerticalFit="PreferredSize" />
-    ///         <mu:Dropdown>
-    ///             <mu:Dropdown.Template>
-    ///                 <Binding Path="Body" Source="{x:Reference Name=template}" />
-    ///             </mu:Dropdown.Template>
-    ///             <mu:Dropdown.CaptionText>
-    ///                 <Binding Path="Body" Source="{x:Reference Name=captionText}" />
-    ///             </mu:Dropdown.CaptionText>
-    ///             <mu:Dropdown.ItemText>
-    ///                 <Binding Path="Body" Source="{x:Reference Name=itemText}" />
-    ///             </mu:Dropdown.ItemText>
+    ///         <mu:Dropdown x:Name="dropdown">
     ///             <mu:Dropdown.Options>
     ///                 <mu:DropdownOptionData Text="A" />
     ///                 <mu:DropdownOptionData Text="B" />
     ///             </mu:Dropdown.Options>
     ///         </mu:Dropdown>
-    ///         <mu:Text x:Name="captionText" />
-    ///         <m:RectTransform x:Name="template" ActiveSelf="False" X="{m:Stretch}" Y="{m:Sized AnchoredPosition=2, SizeDelta=150, Anchor=0, Pivot=1}">
+    ///         <m:RectTransform ActiveSelf="False" Body="{Binding Path=Template, Source={x:Reference Name=dropdown}}" X="{m:Stretch}" Y="{m:Sized AnchoredPosition=2, SizeDelta=150, Anchor=0, Pivot=1}">
     ///             <m:RectTransform x:Name="viewport" X="{m:Stretch Pivot=0, OffsetMax=-18}" Y="{m:Stretch Pivot=1}">
     ///                 <m:RectTransform x:Name="content" Y="{m:Sized SizeDelta=28, Anchor=1, Pivot=1}">
     ///                     <m:RectTransform X="{m:Stretch}" Y="{m:Sized SizeDelta=21}">
@@ -133,9 +130,10 @@ namespace Mux.Markup
     ///                         <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
     ///                             <mu:Image x:Name="itemGraphic" Color="{m:Color R=0, G=0, B=1, A=0.5}" />
     ///                         </m:RectTransform>
-    ///                         <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
-    ///                             <mu:Text x:Name="itemText" />
-    ///                         </m:RectTransform>
+    ///                         <playgroundMarkup:TextTransform
+    ///                             TextComponent="{Binding Path=ItemText, Source={x:Reference Name=dropdown}}"
+    ///                             X="{m:Stretch}"
+    ///                             Y="{m:Stretch}" />
     ///                     </m:RectTransform>
     ///                 </m:RectTransform>
     ///             </m:RectTransform>
@@ -143,7 +141,7 @@ namespace Mux.Markup
     ///                 Viewport="{Binding Path=Body, Source={x:Reference Name=viewport}}"
     ///                 Content="{Binding Path=Body, Source={x:Reference Name=content}}" />
     ///         </m:RectTransform>
-    ///     </m:RectTransform>
+    ///     </playgroundMarkup:TextTransform>
     /// </m:RectTransform>
     /// ]]>
     /// </code>
@@ -254,35 +252,17 @@ namespace Mux.Markup
             }
         }
 
-        private static Lazy<UnityEngine.Object> s_builtinTemplatePrefab = new Lazy<UnityEngine.Object>(LoadBuiltinTemplatePrefab, false);
-
-        private static UnityEngine.Object LoadBuiltinTemplatePrefab()
-        {
-            return UnityEngine.Resources.Load("Mux/Dropdown/Template");
-        }
-
-        private UnityEngine.GameObject _builtinTemplate;
-        private UnityEngine.GameObject _builtinCaption;
-
         /// <summary>Backing store for the <see cref="Template" /> property.</summary>
-        public static readonly BindableProperty TemplateProperty = BindableProperty.Create(
+        public static readonly BindableProperty TemplateProperty = CreateBindableBodyProperty<UnityEngine.RectTransform>(
             "Template",
-            typeof(UnityEngine.RectTransform),
             typeof(Dropdown),
-            null,
-            Xamarin.Forms.BindingMode.OneWay,
-            null,
-            OnTemplateChanged);
+            (body, value) => body.template = value);
 
         /// <summary>Backing store for the <see cref="CaptionText" /> property.</summary>
-        public static readonly BindableProperty CaptionTextProperty = BindableProperty.Create(
+        public static readonly BindableProperty CaptionTextProperty = CreateBindableBodyProperty<UnityEngine.UI.Text>(
             "CaptionText",
-            typeof(UnityEngine.UI.Text),
             typeof(Dropdown),
-            null,
-            Xamarin.Forms.BindingMode.OneWay,
-            null,
-            OnCaptionTextChanged);
+            (body, value) => body.captionText = value);
 
         /// <summary>Backing store for the <see cref="CaptionImage" /> property.</summary>
         public static readonly BindableProperty CaptionImageProperty = CreateBindableBodyProperty<UnityEngine.UI.Image>(
@@ -360,67 +340,6 @@ namespace Mux.Markup
             BindingMode.OneWay,
             null,
             OnOptionTemplateChanged);
-
-        private static void OnTemplateChanged(BindableObject boxedDropdown, object boxedOldValue, object boxedNewValue)
-        {
-            Forms.mainThread.Send(state =>
-            {
-                var dropdown = (Dropdown)state;
-
-                if (dropdown.Template == dropdown._builtinTemplate.GetComponent<UnityEngine.RectTransform>())
-                {
-                    dropdown._builtinTemplate.hideFlags = UnityEngine.HideFlags.None;
-
-                    if (dropdown.Body != null)
-                    {
-                        dropdown._builtinTemplate.layer = dropdown.Body.gameObject.layer;
-                        dropdown.Body.template = dropdown.Template;
-                    }
-                }
-                else
-                {
-                    dropdown._builtinTemplate.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
-
-                    if (dropdown.ItemText == dropdown._builtinTemplate.GetComponentInChildren<UnityEngine.UI.Text>())
-                    {
-                        dropdown.SetValueCore(ItemTextProperty, null);
-                    }
-
-                    if (dropdown.Body != null)
-                    {
-                        dropdown.Body.template = dropdown.Template;
-                    }
-                }
-            }, boxedDropdown);
-        }
-
-        private static void OnCaptionTextChanged(BindableObject boxedDropdown, object boxedOldValue, object boxedNewValue)
-        {
-            Forms.mainThread.Send(state =>
-            {
-                var dropdown = (Dropdown)state;
-
-                if (dropdown.CaptionText == dropdown._builtinCaption.GetComponent<UnityEngine.UI.Text>())
-                {
-                    dropdown._builtinCaption.hideFlags = UnityEngine.HideFlags.None;
-
-                    if (dropdown.Body != null)
-                    {
-                        dropdown.Body.captionText = dropdown.CaptionText;
-                    }
-                }
-                else
-                {
-                    dropdown._builtinCaption.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
-
-                    if (dropdown.Body != null)
-                    {
-                        dropdown._builtinCaption.transform.SetParent(null);
-                        dropdown.Body.captionText = dropdown.CaptionText;
-                    }
-                }
-            }, boxedDropdown);
-        }
 
         private static object CreateDefaultOptions(BindableObject sender)
         {
@@ -562,26 +481,6 @@ namespace Mux.Markup
 
         public Dropdown()
         {
-            Forms.mainThread.Send(state =>
-            {
-                _builtinTemplate = (UnityEngine.GameObject)UnityEngine.Object.Instantiate(s_builtinTemplatePrefab.Value);
-                _builtinCaption = new UnityEngine.GameObject("Mux Builtin Dropdown Caption");
-
-                SetValue(TemplateProperty, _builtinTemplate.GetComponent<UnityEngine.RectTransform>());
-                SetValue(ItemTextProperty, _builtinTemplate.GetComponentInChildren<UnityEngine.UI.Text>());
-
-                var builtinCaptionRect = _builtinCaption.AddComponent<UnityEngine.RectTransform>();
-                builtinCaptionRect.anchorMin = UnityEngine.Vector2.zero;
-                builtinCaptionRect.anchorMax = UnityEngine.Vector2.one;
-                builtinCaptionRect.offsetMin = new UnityEngine.Vector2(10, 6);
-                builtinCaptionRect.offsetMax = new UnityEngine.Vector2(-25, -7);
-
-                SetValue(CaptionTextProperty, _builtinCaption.AddComponent<UnityEngine.UI.Text>());
-                CaptionText.color = new UnityEngine.Color32(50, 50, 50, 255);
-                CaptionText.font = UnityEngine.Resources.GetBuiltinResource<UnityEngine.Font>("Arial.ttf");
-                CaptionText.alignment = UnityEngine.TextAnchor.MiddleLeft;
-            }, null);
-
             _options = new TemplatableOptionData(this);
             _options.ChangeSource(OptionsSource);
             _options.ChangeTemplate(OptionTemplate);
@@ -599,15 +498,6 @@ namespace Mux.Markup
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            _builtinTemplate.layer = Body.gameObject.layer;
-            _builtinTemplate.transform.SetParent(Body.transform, false);
-
-            if (CaptionText == _builtinCaption.GetComponent<UnityEngine.UI.Text>())
-            {
-                _builtinCaption.layer = Body.gameObject.layer;
-                _builtinCaption.transform.SetParent(Body.transform, false);
-            }
-
             Body.template = Template;
             Body.captionText = CaptionText;
             Body.captionImage = CaptionImage;

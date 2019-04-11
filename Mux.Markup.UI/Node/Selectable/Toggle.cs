@@ -23,9 +23,11 @@ namespace Mux.Markup
     ///         only when you compile the interpreter with IL2CPP.
     ///         It is because ContentPropertyAttribute does not work with IL2CPP.
     ///     -->
-    ///     <mu:Toggle Graphic="{Binding Path=Body, Source={x:Reference Name=graphic}}" />
-    ///     <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
-    ///         <mu:Image x:Name="graphic" Color="{m:Color R=0, G=0, B=1}" />
+    ///     <m:RectTransform>
+    ///         <mu:Toggle Graphic="{Binding Path=Body, Source={x:Reference Name=graphic}}" />
+    ///         <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
+    ///             <mu:Image x:Name="graphic" Color="{m:Color R=0, G=0, B=1}" />
+    ///         </m:RectTransform>
     ///     </m:RectTransform>
     /// </m:RectTransform>
     /// ]]>
@@ -33,15 +35,6 @@ namespace Mux.Markup
     /// </example>
     public class Toggle : Selectable<UnityEngine.UI.Toggle>
     {
-        private static Lazy<UnityEngine.Object> s_builtinBackgroundPrefab = new Lazy<UnityEngine.Object>(LoadBuiltinBackgroundPrefab, false);
-
-        private static UnityEngine.Object LoadBuiltinBackgroundPrefab()
-        {
-            return UnityEngine.Resources.Load("Mux/Toggle/Background");
-        }
-
-        private UnityEngine.GameObject _builtinBackground;
-
         /// <summary>Backing store for the <see cref="ToggleTransition" /> property.</summary>
         public static readonly BindableProperty ToggleTransitionProperty = CreateBindableBodyProperty<UnityEngine.UI.Toggle.ToggleTransition>(
             "ToggleTransition",
@@ -88,39 +81,20 @@ namespace Mux.Markup
 
         private static void OnGraphicChanged(BindableObject boxedToggle, object boxedOldValue, object boxedNewValue)
         {
+            var toggle = (Toggle)boxedToggle;
+
+            if (toggle.Body != null)
+            {
+                return;
+            }
+
             Forms.mainThread.Send(state =>
             {
-                var toggle = (Toggle)state;
-                var builtinCheckmark = toggle._builtinBackground.transform.GetChild(0).gameObject;
+                toggle.Body.graphic = toggle.Graphic;
 
-                if (toggle.Graphic == builtinCheckmark.GetComponent<UnityEngine.UI.Image>())
-                {
-                    toggle._builtinBackground.hideFlags = UnityEngine.HideFlags.None;
-
-                    if (toggle.Body != null)
-                    {
-                        toggle._builtinBackground.transform.parent?.SetParent(toggle.Body.transform, false);
-                        toggle._builtinBackground.layer = toggle.Body.gameObject.layer;
-                        builtinCheckmark.layer = toggle._builtinBackground.layer;
-                        toggle.SetGraphicToBody(toggle.Graphic);
-                    }
-                }
-                else
-                {
-                    toggle._builtinBackground.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
-
-                    if (toggle.TargetGraphic == toggle._builtinBackground.GetComponent<UnityEngine.UI.Image>())
-                    {
-                        toggle.SetValueCore(TargetGraphicProperty, null);
-                    }
-
-                    if (toggle.Body != null)
-                    {
-                        toggle._builtinBackground.transform.parent?.SetParent(null);
-                        toggle.SetGraphicToBody(toggle.Graphic);
-                    }
-                }
-            }, boxedToggle);
+                // This triggers an effect such as hiding graphic if off to be played.
+                toggle.Body.group = toggle.Group;
+            }, null);
         }
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.Toggle.toggleTransition" />.</summary>
@@ -181,28 +155,9 @@ namespace Mux.Markup
             }
         }
 
-        public Toggle()
-        {
-            Forms.mainThread.Send(state =>
-            {
-                _builtinBackground = (UnityEngine.GameObject)UnityEngine.Object.Instantiate(s_builtinBackgroundPrefab.Value);
-                SetValueCore(GraphicProperty, _builtinBackground.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Image>());
-                SetValueCore(TargetGraphicProperty, _builtinBackground.GetComponent<UnityEngine.UI.Image>());
-            }, null);
-        }
-
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            var builtinCheckmark = _builtinBackground.transform.GetChild(0).gameObject;
-
-            if (Graphic == builtinCheckmark.GetComponent<UnityEngine.UI.Image>())
-            {
-                _builtinBackground.transform.SetParent(Body.transform, false);
-                _builtinBackground.layer = Body.gameObject.layer;
-                builtinCheckmark.layer = _builtinBackground.layer;
-            }
-
             Body.toggleTransition = ToggleTransition;
             Body.graphic = Graphic;
             Body.group = Group;
@@ -210,14 +165,6 @@ namespace Mux.Markup
             Body.onValueChanged.AddListener(value => SetValueCore(IsOnProperty, value));
 
             base.AwakeInMainThread();
-        }
-
-        private void SetGraphicToBody(UnityEngine.UI.Graphic graphic)
-        {
-            Body.graphic = graphic;
-
-            // This triggers an effect such as hiding graphic if off to be played.
-            Body.group = Group;
         }
     }
 }

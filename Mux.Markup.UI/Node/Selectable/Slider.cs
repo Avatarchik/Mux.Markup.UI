@@ -44,50 +44,17 @@ namespace Mux.Markup
     /// </example>
     public class Slider : Selectable<UnityEngine.UI.Slider>
     {
-        [StructLayout(LayoutKind.Auto)]
-        private readonly struct BuiltinPrefabs
-        {
-            public readonly UnityEngine.GameObject fillArea;
-            public readonly UnityEngine.GameObject handleSlideArea;
-
-            public BuiltinPrefabs(UnityEngine.GameObject fillArea, UnityEngine.GameObject handleSlideArea)
-            {
-                this.fillArea = fillArea;
-                this.handleSlideArea = handleSlideArea;
-            }
-        }
-
-        private static Lazy<BuiltinPrefabs> s_builtinPrefabs = new Lazy<BuiltinPrefabs>(LoadBuiltinPrefabs, false);
-
-        private static BuiltinPrefabs LoadBuiltinPrefabs()
-        {
-            return new BuiltinPrefabs(
-                UnityEngine.Resources.Load<UnityEngine.GameObject>("Mux/Slider/Fill Area"),
-                UnityEngine.Resources.Load<UnityEngine.GameObject>("Mux/Slider/Handle Slide Area"));
-        }
-
-        private UnityEngine.GameObject _builtinFillArea;
-        private UnityEngine.GameObject _builtinHandleSlideArea;
-
         /// <summary>Backing store for the <see cref="FillRect" /> property.</summary>
-        public static readonly BindableProperty FillRectProperty = BindableProperty.Create(
+        public static readonly BindableProperty FillRectProperty = CreateBindableBodyProperty<UnityEngine.RectTransform>(
             "FillRect",
-            typeof(UnityEngine.RectTransform),
             typeof(Slider),
-            null,
-            Xamarin.Forms.BindingMode.OneWay,
-            null,
-            OnFillRectChanged);
+            (body, value) => body.fillRect = value);
 
         /// <summary>Backing store for the <see cref="HandleRect" /> property.</summary>
-        public static readonly BindableProperty HandleRectProperty = BindableProperty.Create(
+        public static readonly BindableProperty HandleRectProperty = CreateBindableBodyProperty<UnityEngine.RectTransform>(
             "HandleRect",
-            typeof(UnityEngine.RectTransform),
             typeof(Slider),
-            null,
-            Xamarin.Forms.BindingMode.OneWay,
-            null,
-            OnHandleRectChanged);
+            (body, value) => body.handleRect = value);
 
         /// <summary>Backing store for the <see cref="Direction" /> property.</summary>
         public static readonly BindableProperty DirectionProperty = CreateBindableBodyProperty<UnityEngine.UI.Slider.Direction>(
@@ -137,76 +104,6 @@ namespace Mux.Markup
             },
             0f,
             BindingMode.TwoWay);
-
-        private static void OnFillRectChanged(BindableObject boxedSlider, object boxedOldValue, object boxedNewValue)
-        {
-            Forms.mainThread.Send(state =>
-            {
-                var slider = (Slider)state;
-
-                if (slider.FillRect == slider._builtinFillArea.transform.GetChild(0))
-                {
-                    slider._builtinFillArea.hideFlags = UnityEngine.HideFlags.None;
-
-                    if (slider.Body != null)
-                    {
-                        slider._builtinFillArea.transform.SetParent(slider.Body.transform, false);
-                        slider._builtinFillArea.layer = slider.Body.gameObject.layer;
-                        slider.FillRect.gameObject.layer = slider._builtinFillArea.layer;
-                    }
-                }
-                else if (slider.FillRect != null)
-                {
-                    // This clause will only executed if the value is not null because
-                    // null causes NullReferenceException in uGUI.
-
-                    slider._builtinFillArea.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
-
-                    if (slider.Body != null)
-                    {
-                        slider._builtinFillArea.transform.SetParent(null);
-                        slider.Body.fillRect = slider.FillRect;
-                    }
-                }
-            }, boxedSlider);
-        }
-
-        private static void OnHandleRectChanged(BindableObject boxedSlider, object boxedOldValue, object boxedNewValue)
-        {
-            Forms.mainThread.Send(state =>
-            {
-                var slider = (Slider)state;
-                var builtinHandleRect = slider._builtinHandleSlideArea.transform.GetChild(0);
-
-                if (slider.HandleRect == builtinHandleRect)
-                {
-                    slider._builtinHandleSlideArea.hideFlags = UnityEngine.HideFlags.None;
-
-                    if (slider.Body != null)
-                    {
-                        slider._builtinHandleSlideArea.transform.SetParent(slider.Body.transform, false);
-                        slider._builtinHandleSlideArea.layer = slider.Body.gameObject.layer;
-                        slider.HandleRect.gameObject.layer = slider._builtinHandleSlideArea.layer;
-                        slider.Body.handleRect = slider.HandleRect;
-                    }
-                }
-                else
-                {
-                    slider._builtinHandleSlideArea.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
-
-                    if (slider.TargetGraphic == builtinHandleRect.gameObject.GetComponent<UnityEngine.UI.Image>())
-                    {
-                        slider.SetValueCore(TargetGraphicProperty, null);
-                    }
-
-                    if (slider.Body != null)
-                    {
-                        slider._builtinHandleSlideArea.transform.SetParent(null);
-                        slider.Body.handleRect = slider.HandleRect;
-                    }
-                }
-            }, boxedSlider);
-        }
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.Slider.fillRect" />.</summary>
         /// <seealso cref="RectTransform" />
@@ -308,35 +205,9 @@ namespace Mux.Markup
             }
         }
 
-        public Slider()
-        {
-            Forms.mainThread.Send(state =>
-            {
-                _builtinFillArea = UnityEngine.Object.Instantiate(s_builtinPrefabs.Value.fillArea);
-                _builtinHandleSlideArea = UnityEngine.Object.Instantiate(s_builtinPrefabs.Value.handleSlideArea);
-                SetValueCore(FillRectProperty, (UnityEngine.RectTransform)_builtinFillArea.transform.GetChild(0));
-                SetValueCore(HandleRectProperty, (UnityEngine.RectTransform)_builtinHandleSlideArea.transform.GetChild(0));
-                SetValueCore(TargetGraphicProperty, _builtinHandleSlideArea.GetComponentInChildren<UnityEngine.UI.Image>());
-            }, null);
-        }
-
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            if (FillRect == _builtinFillArea.transform.GetChild(0))
-            {
-                _builtinFillArea.transform.SetParent(Body.transform, false);
-                _builtinFillArea.layer = Body.gameObject.layer;
-                FillRect.gameObject.layer = _builtinFillArea.layer;
-            }
-
-            if (HandleRect == _builtinHandleSlideArea.transform.GetChild(0))
-            {
-                _builtinHandleSlideArea.transform.SetParent(Body.transform, false);
-                _builtinHandleSlideArea.layer = Body.gameObject.layer;
-                HandleRect.gameObject.layer = _builtinHandleSlideArea.layer;
-            }
-
             Body.fillRect = FillRect;
             Body.handleRect = HandleRect;
             Body.direction = Direction;

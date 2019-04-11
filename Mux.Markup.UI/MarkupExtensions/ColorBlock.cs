@@ -14,7 +14,14 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playgroundMarkup="clr-namespace:Mux.Playground.Markup;assembly=Assembly-CSharp">
+    ///     <!--
+    ///       Note that you can use "using" scheme instead of "clr-namespace" to omit assembly
+    ///       specification if:
+    ///       - the referenced type is in an assembly already loaded. (interpreter)
+    ///       - the referenced type is in the assembly containing the compiled XAML. (compiler)
+    ///     -->
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
@@ -37,9 +44,7 @@ namespace Mux.Markup
     ///         </mu:Selectable.Colors>
     ///     </mu:Selectable>
     ///     <mu:Image x:Name="targetGraphic" />
-    ///     <m:RectTransform>
-    ///         <mu:Text Content="See what happens if you click or change Interactive property of mu:Selectable!" />
-    ///     </m:RectTransform>
+    ///     <playgroundMarkup:TextTransform Text="See what happens if you click or change Interactive property of mu:Selectable!" />
     /// </m:RectTransform>
     /// ]]>
     /// </code>

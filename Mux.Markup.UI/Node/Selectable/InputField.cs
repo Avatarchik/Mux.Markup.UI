@@ -11,26 +11,33 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playgroundMarkup="clr-namespace:Mux.Playground.Markup;assembly=Assembly-CSharp">
+    ///     <!--
+    ///       Note that you can use "using" scheme instead of "clr-namespace" to omit assembly
+    ///       specification if:
+    ///       - the referenced type is in an assembly already loaded. (interpreter)
+    ///       - the referenced type is in the assembly containing the compiled XAML. (compiler)
+    ///     -->
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
     ///     <mu:GraphicRaycaster />
-    ///     <mu:InputField
-    ///         LineType="MultiLineNewline"
-    ///         Placeholder="{Binding Path=Body, Source={x:Reference Name=placeholder}}"
-    ///         TextComponent="{Binding Path=Body, Source={x:Reference Name=text}}">
+    ///     <mu:InputField x:Name="inputField" LineType="MultiLineNewline">
     ///         <mu:InputField.Text>
     /// You have to give property name "Path" to Binding and "Name" to x:Reference
     /// only when you compile the interpreter with IL2CPP.
     /// It is because ContentPropertyAttribute does not work with IL2CPP.
     ///         </mu:InputField.Text>
     ///     </mu:InputField>
-    ///     <mu:Image x:Name="placeholder" Color="{m:Color R=0, G=0, B=1}" />
-    ///     <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
-    ///         <mu:Text x:Name="text" />
-    ///     </m:RectTransform>
+    ///     <mu:Image
+    ///         Body="{Binding Path=Placeholder, Source={x:Reference Name=inputField}}"
+    ///         Color="{m:Color R=0, G=0, B=1}" />
+    ///     <playgroundMarkup:TextTransform
+    ///         TextComponent="{Binding Path=TextComponent, Source={x:Reference Name=inputField}}"
+    ///         X="{m:Stretch}"
+    ///         Y="{m:Stretch}" />
     /// </m:RectTransform>
     /// ]]>
     /// </code>
@@ -38,14 +45,10 @@ namespace Mux.Markup
     public class InputField : Selectable<UnityEngine.UI.InputField>
     {
         /// <summary>Backing store for the <see cref="TextComponent" /> property.</summary>
-        public static readonly BindableProperty TextComponentProperty = BindableProperty.Create(
+        public static readonly BindableProperty TextComponentProperty = CreateBindableBodyProperty<UnityEngine.UI.Text>(
             "TextComponent",
-            typeof(UnityEngine.UI.Text),
             typeof(InputField),
-            null,
-            BindingMode.OneWay,
-            null,
-            OnTextComponentChanged);
+            UpdateTextComponent);
 
         /// <summary>Backing store for the <see cref="Text" /> property.</summary>
         public static readonly BindableProperty TextProperty = CreateBindableBodyProperty<string>(
@@ -153,14 +156,10 @@ namespace Mux.Markup
             false);
 
         /// <summary>Backing store for the <see cref="Placeholder" /> property.</summary>
-        public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(
+        public static readonly BindableProperty PlaceholderProperty = CreateBindableBodyProperty<UnityEngine.UI.Graphic>(
             "Placeholder",
-            typeof(UnityEngine.UI.Graphic),
             typeof(InputField),
-            null,
-            Xamarin.Forms.BindingMode.OneWay,
-            null,
-            OnPlaceholderChanged);
+            (body, value) => body.placeholder = value);
 
         /// <summary>Backing store for the <see cref="ReadOnly" /> property.</summary>
         public static readonly BindableProperty ReadOnlyProperty = CreateBindableBodyProperty<bool>(
@@ -169,72 +168,13 @@ namespace Mux.Markup
             (body, value) => body.readOnly = value,
             false);
 
-        private static void OnTextComponentChanged(BindableObject boxedInputField, object boxedOldValue, object boxedNewValue)
+        private static void UpdateTextComponent(UnityEngine.UI.InputField body, UnityEngine.UI.Text value)
         {
-            Forms.mainThread.Send(state =>
-            {
-                var inputField = (InputField)state;
-
-                if (inputField.TextComponent == inputField._builtinText.GetComponent<UnityEngine.UI.Text>())
-                {
-                    inputField._builtinText.hideFlags = UnityEngine.HideFlags.None;
-
-                    if (inputField.Body != null)
-                    {
-                        inputField._builtinText.layer = inputField.Body.gameObject.layer;
-                        inputField._builtinText.transform.SetParent(inputField.Body.gameObject.transform, false);
-                        inputField.Body.textComponent = inputField.TextComponent;
-                        inputField.Body.ForceLabelUpdate();
-                    }
-                }
-                else
-                {
-                    inputField._builtinText.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
-
-                    if (inputField.Body != null)
-                    {
-                        inputField._builtinText.layer = inputField.Body.gameObject.layer;
-                        inputField._builtinText.transform.SetParent(inputField.Body.gameObject.transform, false);
-                        inputField.Body.textComponent = inputField.TextComponent;
-                        inputField.Body.ForceLabelUpdate();
-                    }
-                }
-            }, boxedInputField);
+            body.textComponent = value;
+            body.ForceLabelUpdate();
         }
 
-        private static void OnPlaceholderChanged(BindableObject boxedInputField, object boxedOldValue, object boxedNewValue)
-        {
-            Forms.mainThread.Send(state =>
-            {
-                var inputField = (InputField)state;
-
-                if (inputField.Placeholder == inputField._builtinPlaceholder.GetComponent<UnityEngine.UI.Text>())
-                {
-                    inputField._builtinPlaceholder.hideFlags = UnityEngine.HideFlags.None;
-
-                    if (inputField.Body != null)
-                    {
-                        inputField._builtinPlaceholder.layer = inputField.Body.gameObject.layer;
-                        inputField._builtinPlaceholder.transform.SetParent(inputField.Body.gameObject.transform, false);
-                        inputField.Body.placeholder = inputField.Placeholder;
-                    }
-                }
-                else
-                {
-                    inputField._builtinPlaceholder.hideFlags = UnityEngine.HideFlags.HideInHierarchy;
-
-                    if (inputField.Body != null)
-                    {
-                        inputField._builtinText.transform.SetParent(null);
-                        inputField.Body.placeholder = inputField.Placeholder;
-                    }
-                }
-            }, boxedInputField);
-        }
-
-        private UnityEngine.GameObject _builtinText;
-        private UnityEngine.GameObject _builtinPlaceholder;
-        private UnityEngine.UI.InputField.SubmitEvent _onEndEdit;
+        private readonly UnityEngine.UI.InputField.SubmitEvent _onEndEdit = new UnityEngine.UI.InputField.SubmitEvent();
 
         /// <summary>A property that represents <see cref="P:UnityEngine.UI.InputField.textComponent" />.</summary>
         /// <seealso cref="Text" />
@@ -485,61 +425,9 @@ namespace Mux.Markup
             }
         }
 
-        public InputField()
-        {
-            Forms.mainThread.Send(state =>
-            {
-                _builtinText = new UnityEngine.GameObject("Mux Builtin InputField Text");
-                _builtinPlaceholder = new UnityEngine.GameObject("Mux Builtin InputField Placeholder");
-                _onEndEdit = new UnityEngine.UI.InputField.SubmitEvent();
-
-                var builtinTextRect = _builtinText.AddComponent<UnityEngine.RectTransform>();
-                builtinTextRect.anchorMin = UnityEngine.Vector2.zero;
-                builtinTextRect.anchorMax = UnityEngine.Vector2.one;
-                builtinTextRect.sizeDelta = UnityEngine.Vector2.zero;
-                builtinTextRect.offsetMin = new UnityEngine.Vector2(10, 6);
-                builtinTextRect.offsetMax = new UnityEngine.Vector2(-10, -7);
-
-                var builtinTextComponent = _builtinText.AddComponent<UnityEngine.UI.Text>();
-                builtinTextComponent.color = new UnityEngine.Color32(50, 50, 50, 255);
-                builtinTextComponent.font = UnityEngine.Resources.GetBuiltinResource<UnityEngine.Font>("Arial.ttf");
-                builtinTextComponent.text = "";
-                builtinTextComponent.supportRichText = false;
-
-                var builtinPlaceholderRect = _builtinPlaceholder.AddComponent<UnityEngine.RectTransform>();
-                builtinPlaceholderRect.anchorMin = UnityEngine.Vector2.zero;
-                builtinPlaceholderRect.anchorMax = UnityEngine.Vector2.one;
-                builtinPlaceholderRect.sizeDelta = UnityEngine.Vector2.zero;
-                builtinPlaceholderRect.offsetMin = new UnityEngine.Vector2(10, 6);
-                builtinPlaceholderRect.offsetMax = new UnityEngine.Vector2(-10, -7);
-
-                var builtinPlaceholderComponent = _builtinPlaceholder.AddComponent<UnityEngine.UI.Text>();
-                builtinPlaceholderComponent.text = "Enter text...";
-                builtinPlaceholderComponent.fontStyle = UnityEngine.FontStyle.Italic;
-                var builtinPlaceholderColor = builtinTextComponent.color;
-                builtinPlaceholderColor.a *= 0.5f;
-                builtinPlaceholderComponent.color = builtinPlaceholderColor;
-
-                SetValue(TextComponentProperty, builtinTextComponent);
-                SetValue(PlaceholderProperty, builtinPlaceholderComponent);
-            }, null);
-        }
-
         /// <inheritdoc />
         protected override void AwakeInMainThread()
         {
-            if (TextComponent == _builtinText.GetComponent<UnityEngine.UI.Text>())
-            {
-                _builtinText.layer = Body.gameObject.layer;
-                _builtinText.transform.SetParent(Body.transform, false);
-            }
-
-            if (Placeholder == _builtinPlaceholder.GetComponent<UnityEngine.UI.Text>())
-            {
-                _builtinPlaceholder.layer = Body.gameObject.layer;
-                _builtinPlaceholder.transform.SetParent(Body.transform, false);
-            }
-
             Body.textComponent = TextComponent;
             Body.text = Text;
             Body.contentType = ContentType;

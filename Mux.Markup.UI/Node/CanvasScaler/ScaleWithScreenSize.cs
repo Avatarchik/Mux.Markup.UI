@@ -13,14 +13,26 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playground="clr-namespace:Mux.Playground;assembly=Assembly-CSharp"
+    ///     x:DataType="playground:PlaygroundViewModel">
+    ///     <!--
+    ///       Note that you can use "using" scheme instead of "clr-namespace" to omit assembly
+    ///       specification if:
+    ///       - the referenced type is in an assembly already loaded. (interpreter)
+    ///       - the referenced type is in the assembly containing the compiled XAML. (compiler)
+    ///     -->
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ScaleWithScreenSize}" />
     ///     <mu:GraphicRaycaster />
-    ///     <mu:Text>
+    ///     <mu:Text Font="{Binding Path=Resources.Font}">
     ///         <mu:Text.Content>
+    /// You have to give property name "Path" to Binding only when you compile
+    /// the interpreter with IL2CPP. It is because ContentPropertyAttribute does
+    /// not work with IL2CPP.
+    ///
     /// > Using the Scale With Screen Size mode, positions and sizes can be specified according to the pixels of a specified reference resolution.
     /// > If the current screen resolution is larger than the reference resolution, the Canvas will keep having only the resolution of the reference resolution,
     /// > but will scale up in order to fit the screen. If the current screen resolution is smaller than the reference resolution,

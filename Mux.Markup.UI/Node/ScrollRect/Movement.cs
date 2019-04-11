@@ -12,33 +12,20 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playgroundMarkup="clr-namespace:Mux.Playground.Markup;assembly=Assembly-CSharp">
+    ///     <!--
+    ///       Note that you can use "using" scheme instead of "clr-namespace" to omit assembly
+    ///       specification if:
+    ///       - the referenced type is in an assembly already loaded. (interpreter)
+    ///       - the referenced type is in the assembly containing the compiled XAML. (compiler)
+    ///     -->
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
     ///     <mu:GraphicRaycaster />
-    ///     <m:RectTransform x:Name="viewport">
-    ///         <mu:RectMask2D />
-    ///         <m:RectTransform x:Name="content" X="{m:Sized SizeDelta=999}" Y="{m:Sized SizeDelta=999}">
-    ///             <mue:UIMesh>
-    ///                 <mue:UIMesh.Items>
-    ///                     <mue:UIVertexTriangleStream>
-    ///                         <mue:UIVertexTriangleStream.Verts>
-    ///                             <m:UIVertex Color="{m:Color R=0, G=0, B=1}" Position="{m:Vector3 X=-0.5, Y=-0.5, Z=0}" />
-    ///                             <m:UIVertex Color="{m:Color R=0, G=1, B=0}" Position="{m:Vector3 X=0, Y=0.5, Z=0}" />
-    ///                             <m:UIVertex Color="{m:Color R=1, G=0, B=0}" Position="{m:Vector3 X=0.5, Y=-0.5, Z=0}" />
-    ///                         </mue:UIVertexTriangleStream.Verts>
-    ///                     </mue:UIVertexTriangleStream>
-    ///                 </mue:UIMesh.Items>
-    ///             </mue:UIMesh>
-    ///         </m:RectTransform>
-    ///     </m:RectTransform>
-    ///     <mu:ScrollRect
-    ///         Viewport="{Binding Path=Body, Source={x:Reference Name=viewport}}"
-    ///         Content="{Binding Path=Body, Source={x:Reference Name=content}}"
-    ///         Movement="{mu:Unrestricted}" />
+    ///     <playgroundMarkup:ScrollViewTransform Movement="{mu:Unrestricted}" />
     /// </m:RectTransform>
     /// ]]>
     /// </code>
@@ -62,33 +49,20 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playgroundMarkup="clr-namespace:Mux.Playground.Markup;assembly=Assembly-CSharp">
+    ///     <!--
+    ///       Note that you can use "using" scheme instead of "clr-namespace" to omit assembly
+    ///       specification if:
+    ///       - the referenced type is in an assembly already loaded. (interpreter)
+    ///       - the referenced type is in the assembly containing the compiled XAML. (compiler)
+    ///     -->
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
     ///     <mu:GraphicRaycaster />
-    ///     <m:RectTransform x:Name="viewport">
-    ///         <mu:RectMask2D />
-    ///         <m:RectTransform x:Name="content" X="{m:Sized SizeDelta=999}" Y="{m:Sized SizeDelta=999}">
-    ///             <mue:UIMesh>
-    ///                 <mue:UIMesh.Items>
-    ///                     <mue:UIVertexTriangleStream>
-    ///                         <mue:UIVertexTriangleStream.Verts>
-    ///                             <m:UIVertex Color="{m:Color R=0, G=0, B=1}" Position="{m:Vector3 X=-0.5, Y=-0.5, Z=0}" />
-    ///                             <m:UIVertex Color="{m:Color R=0, G=1, B=0}" Position="{m:Vector3 X=0, Y=0.5, Z=0}" />
-    ///                             <m:UIVertex Color="{m:Color R=1, G=0, B=0}" Position="{m:Vector3 X=0.5, Y=-0.5, Z=0}" />
-    ///                         </mue:UIVertexTriangleStream.Verts>
-    ///                     </mue:UIVertexTriangleStream>
-    ///                 </mue:UIMesh.Items>
-    ///             </mue:UIMesh>
-    ///         </m:RectTransform>
-    ///     </m:RectTransform>
-    ///     <mu:ScrollRect
-    ///         Viewport="{Binding Path=Body, Source={x:Reference Name=viewport}}"
-    ///         Content="{Binding Path=Body, Source={x:Reference Name=content}}"
-    ///         Movement="{mu:Elastic}" />
+    ///     <playgroundMarkup:ScrollViewTransform Movement="{mu:Elastic}" />
     /// </m:RectTransform>
     /// ]]>
     /// </code>
@@ -153,33 +127,20 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playgroundMarkup="clr-namespace:Mux.Playground.Markup;assembly=Assembly-CSharp">
+    ///     <!--
+    ///       Note that you can use "using" scheme instead of "clr-namespace" to omit assembly
+    ///       specification if:
+    ///       - the referenced type is in an assembly already loaded. (interpreter)
+    ///       - the referenced type is in the assembly containing the compiled XAML. (compiler)
+    ///     -->
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
     ///     <mu:GraphicRaycaster />
-    ///     <m:RectTransform x:Name="viewport">
-    ///         <mu:RectMask2D />
-    ///         <m:RectTransform x:Name="content" X="{m:Sized SizeDelta=999}" Y="{m:Sized SizeDelta=999}">
-    ///             <mue:UIMesh>
-    ///                 <mue:UIMesh.Items>
-    ///                     <mue:UIVertexTriangleStream>
-    ///                         <mue:UIVertexTriangleStream.Verts>
-    ///                             <m:UIVertex Color="{m:Color R=0, G=0, B=1}" Position="{m:Vector3 X=-0.5, Y=-0.5, Z=0}" />
-    ///                             <m:UIVertex Color="{m:Color R=0, G=1, B=0}" Position="{m:Vector3 X=0, Y=0.5, Z=0}" />
-    ///                             <m:UIVertex Color="{m:Color R=1, G=0, B=0}" Position="{m:Vector3 X=0.5, Y=-0.5, Z=0}" />
-    ///                         </mue:UIVertexTriangleStream.Verts>
-    ///                     </mue:UIVertexTriangleStream>
-    ///                 </mue:UIMesh.Items>
-    ///             </mue:UIMesh>
-    ///         </m:RectTransform>
-    ///     </m:RectTransform>
-    ///     <mu:ScrollRect
-    ///         Viewport="{Binding Path=Body, Source={x:Reference Name=viewport}}"
-    ///         Content="{Binding Path=Body, Source={x:Reference Name=content}}"
-    ///         Movement="{mu:Clamped}" />
+    ///     <playgroundMarkup:ScrollViewTransform Movement="{mu:Clamped}" />
     /// </m:RectTransform>
     /// ]]>
     /// </code>

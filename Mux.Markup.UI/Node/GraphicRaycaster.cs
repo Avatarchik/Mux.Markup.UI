@@ -11,21 +11,32 @@ namespace Mux.Markup
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
     ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playground="clr-namespace:Mux.Playground;assembly=Assembly-CSharp"
+    ///     xmlns:playgroundMarkup="clr-namespace:Mux.Playground.Markup;assembly=Assembly-CSharp"
+    //      x:DataType="playground:PlaygroundViewModel">
+    ///     <!--
+    ///       Note that you can use "using" scheme instead of "clr-namespace" to omit assembly
+    ///       specification if:
+    ///       - the referenced type is in an assembly already loaded. (interpreter)
+    ///       - the referenced type is in the assembly containing the compiled XAML. (compiler)
+    ///     -->
     ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
     ///     <mu:GraphicRaycaster />
-    ///     <mu:Text>
+    ///     <mu:Text Font="{Binding Path=Resources.Font}">
     ///         <mu:Text.Content>
+    /// You have to give property name "Path" to Binding only when you compile
+    /// the interpreter with IL2CPP. It is because ContentPropertyAttribute does
+    /// not work with IL2CPP.
+    ///
     /// mu:GraphicRaycaster is required for the interactive components.
     /// Remove mu:GraphicRaycaster and try to click the toggle!
     ///         </mu:Text.Content>
     ///     </mu:Text>
-    ///     <m:RectTransform>
-    ///         <mu:Toggle />
-    ///     </m:RectTransform>
+    ///     <playgroundMarkup:ToggleTransform />
     /// </m:RectTransform>
     /// ]]>
     /// </code>
