@@ -82,6 +82,11 @@ namespace Mux.Markup
         /// </summary>
         public UnityEngine.Color PressedColor { get; set; } = new UnityEngine.Color32(200, 200, 200, 255);
 
+        /// <summary>
+        /// A property that represents <see cref="P:UnityEngine.UI.ColorBlock.selectedColor" />.
+        /// </summary>
+        public UnityEngine.Color SelectedColor { get; set; } = new UnityEngine.Color32(245, 245, 245, 255);
+
         object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
         {
             return ProvideValue(serviceProvider);
@@ -96,7 +101,8 @@ namespace Mux.Markup
                 fadeDuration = FadeDuration,
                 highlightedColor = HighlightedColor,
                 normalColor = NormalColor,
-                pressedColor = PressedColor
+                pressedColor = PressedColor,
+                selectedColor = SelectedColor
             };
         }
     }
