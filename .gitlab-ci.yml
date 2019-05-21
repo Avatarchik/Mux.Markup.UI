@@ -10,10 +10,10 @@ format:
         - apt-get -o "dir::cache=$PWD/cache/apt" install -y git unzip
         - '[ -f cache/CodeFormatter_v1.0.0-alpha7.zip ] || curl -Lo cache/CodeFormatter_v1.0.0-alpha7.zip https://github.com/dotnet/codeformatter/releases/download/v1.0.0-alpha7/CodeFormatter.zip'
         - '[ -f cache/sqlitepclraw.core.1.1.11.nupkg ] || curl -Lo cache/sqlitepclraw.core.1.1.11.nupkg https://www.nuget.org/api/v2/package/SQLitePCLRaw.core/1.1.11'
-        - sha1sum -c .sha1sum
+        - sha1sum -c .gitlab-ci.sha1sum
         - unzip cache/CodeFormatter_v1.0.0-alpha7.zip
         - unzip -j cache/sqlitepclraw.core.1.1.11.nupkg lib/net45/SQLitePCLRaw.core.dll
-        - mono CodeFormatter.exe .CodeFormatter.rsp
+        - mono CodeFormatter.exe CodeFormatter.rsp
         - git diff --exit-code
 
 integration:
