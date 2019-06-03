@@ -83,7 +83,7 @@ namespace Mux.Markup
         {
             var toggle = (Toggle)boxedToggle;
 
-            if (toggle.Body != null)
+            if (toggle.Body == null)
             {
                 return;
             }
