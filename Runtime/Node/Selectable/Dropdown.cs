@@ -171,8 +171,8 @@ namespace Mux.Markup
 
         private sealed class TemplatableOptionData : TemplatableCollection<DropdownOptionData>
         {
-            private readonly ImmutableList<DropdownOptionData>.Builder _builder =
-                ImmutableList.CreateBuilder<DropdownOptionData>();
+            private readonly ImmutableList<TemplatedItem<DropdownOptionData>>.Builder _builder =
+                ImmutableList.CreateBuilder<TemplatedItem<DropdownOptionData>>();
 
             public readonly TemplatableUnityOptionData data = new TemplatableUnityOptionData();
 
@@ -180,7 +180,7 @@ namespace Mux.Markup
             {
             }
 
-            protected override IList<DropdownOptionData> GetList()
+            protected override IList<TemplatedItem<DropdownOptionData>> GetList()
             {
                 return _builder;
             }
@@ -192,15 +192,15 @@ namespace Mux.Markup
                 RefreshShownValue();
             }
 
-            public override void InsertListRange(int index, IEnumerable<DropdownOptionData> enumerable)
+            public override void InsertListRange(int index, IEnumerable<TemplatedItem<DropdownOptionData>> enumerable)
             {
-                foreach (var data in enumerable)
+                foreach (var item in enumerable)
                 {
-                    data.dropdown = (Dropdown)container;
+                    item.Content.dropdown = (Dropdown)container;
                 }
 
                 _builder.InsertRange(index, enumerable);
-                data.InsertListRange(index, enumerable.Select(item => item.data));
+                data.InsertListRange(index, enumerable.Select(item => item.Content.data));
                 RefreshShownValue();
             }
 
@@ -224,15 +224,15 @@ namespace Mux.Markup
                 RefreshShownValue();
             }
 
-            public override void ReplaceListRange(int index, int count, IEnumerable<DropdownOptionData> enumerable)
+            public override void ReplaceListRange(int index, int count, IEnumerable<TemplatedItem<DropdownOptionData>> enumerable)
             {
-                foreach (var data in enumerable)
+                foreach (var item in enumerable)
                 {
-                    data.dropdown = (Dropdown)container;
+                    item.Content.dropdown = (Dropdown)container;
                 }
 
                 base.ReplaceListRange(index, count, enumerable);
-                data.ReplaceListRange(index, count, enumerable.Select(item => item.data));
+                data.ReplaceListRange(index, count, enumerable.Select(item => item.Content.data));
                 RefreshShownValue();
             }
 
@@ -246,7 +246,7 @@ namespace Mux.Markup
                 }
             }
 
-            public ImmutableList<DropdownOptionData> ToImmutable()
+            public ImmutableList<TemplatedItem<DropdownOptionData>> ToImmutable()
             {
                 return _builder.ToImmutable();
             }
@@ -491,7 +491,7 @@ namespace Mux.Markup
         {
             foreach (var option in _options.ToImmutable())
             {
-                SetInheritedBindingContext(option, BindingContext);
+                SetInheritedBindingContext(option.Content, BindingContext);
             }
         }
 

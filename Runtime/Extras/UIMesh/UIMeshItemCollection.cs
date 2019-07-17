@@ -7,14 +7,14 @@ namespace Mux.Markup.Extras
 {
     internal sealed class UIMeshItemCollection : TemplatableCollection<UIMeshItem>
     {
-        private readonly ImmutableList<UIMeshItem>.Builder _builder =
-            ImmutableList.CreateBuilder<UIMeshItem>();
+        private readonly ImmutableList<TemplatedItem<UIMeshItem>>.Builder _builder =
+            ImmutableList.CreateBuilder<TemplatedItem<UIMeshItem>>();
 
         public UIMeshItemCollection(UIMesh container) : base(container)
         {
         }
 
-        protected override IList<UIMeshItem> GetList()
+        protected override IList<TemplatedItem<UIMeshItem>> GetList()
         {
             return _builder;
         }
@@ -23,14 +23,14 @@ namespace Mux.Markup.Extras
         {
             foreach (var item in _builder)
             {
-                item.Dispose();
+                item.Content.Dispose();
             }
 
             base.ClearList();
             ((UIMesh)container).Body?.SetVerticesDirty();
         }
 
-        public override void InsertListRange(int index, IEnumerable<UIMeshItem> enumerable)
+        public override void InsertListRange(int index, IEnumerable<TemplatedItem<UIMeshItem>> enumerable)
         {
             var mesh = (UIMesh)container;
             var oldCount = _builder.Count;
@@ -39,8 +39,8 @@ namespace Mux.Markup.Extras
 
             foreach (var item in _builder.Skip(oldCount))
             {
-                BindableObject.SetInheritedBindingContext(item, mesh.BindingContext);
-                item.mesh = mesh;
+                BindableObject.SetInheritedBindingContext(item.Content, mesh.BindingContext);
+                item.Content.mesh = mesh;
             }
 
             mesh.Body?.SetVerticesDirty();
@@ -56,34 +56,34 @@ namespace Mux.Markup.Extras
         {
             while (count > 0)
             {
-                _builder[index].Dispose();
+                _builder[index].Content.Dispose();
                 _builder.RemoveAt(index);
             }
 
             ((UIMesh)container).Body?.SetVerticesDirty();
         }
 
-        public override void ReplaceListRange(int index, int count, IEnumerable<UIMeshItem> enumerable)
+        public override void ReplaceListRange(int index, int count, IEnumerable<TemplatedItem<UIMeshItem>> enumerable)
         {
             var mesh = (UIMesh)container;
 
             foreach (var item in _builder.Skip(index).Take(count))
             {
-                item.Dispose();
+                item.Content.Dispose();
             }
 
             base.ReplaceListRange(index, count, enumerable);
 
             foreach (var item in _builder.Skip(index).Take(count))
             {
-                BindableObject.SetInheritedBindingContext(item, mesh.BindingContext);
-                item.mesh = mesh;
+                BindableObject.SetInheritedBindingContext(item.Content, mesh.BindingContext);
+                item.Content.mesh = mesh;
             }
 
             mesh.Body?.SetVerticesDirty();
         }
 
-        public ImmutableList<UIMeshItem> ToImmutable()
+        public ImmutableList<TemplatedItem<UIMeshItem>> ToImmutable()
         {
             return _builder.ToImmutable();
         }
