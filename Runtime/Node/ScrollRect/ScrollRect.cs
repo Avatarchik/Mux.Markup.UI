@@ -211,7 +211,7 @@ namespace Mux.Markup
             if (newValue != null)
             {
                 var modifier = (Modifier)newValue;
-                modifier.SetBinding(Modifier.BodyProperty, new Binding("Body"));
+                modifier.Body = body;
                 SetInheritedBindingContext(modifier, sender.BindingContext);
             }
         }
