@@ -13,22 +13,20 @@ namespace Mux.Markup
     ///     xmlns="http://xamarin.com/schemas/2014/forms"
     ///     xmlns:m="clr-namespace:Mux.Markup;assembly=Mux.Markup"
     ///     xmlns:mu="clr-namespace:Mux.Markup;assembly=Mux.Markup.UI"
-    ///     xmlns:mue="clr-namespace:Mux.Markup.Extras;assembly=Mux.Markup.UI"
-    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    ///     <m:StandaloneInputModule />
+    ///     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ///     xmlns:playgroundMarkup="clr-namespace:Mux.Playground.Markup;assembly=Assembly-CSharp">
+    ///     <mu:StandaloneInputModule />
     ///     <mu:EventSystem />
     ///     <mu:Canvas />
     ///     <mu:CanvasScaler UiScale="{mu:ConstantPhysicalSize}" />
     ///     <mu:GraphicRaycaster />
-    ///     <mu:Toggle />
-    ///     <m:RectTransform X="{m:Stretch}" Y="{m:Stretch}">
-    ///         <mu:Text Alignment="MiddleCenter">
-    ///             <mu:Text.Content>
+    ///     <playgroundMarkup:TextTransform X="{m:Stretch}" Y="{m:Stretch}">
+    ///         <playgroundMarkup:TextTransform.Text>
     /// You need StandaloneInputModule to get an interactive component such as a toggle work.
     /// Try to click the toggle with/without StandaloneInputModule!
-    ///             </mu:Text.Content>
-    ///         </mu:Text>
-    ///     </m:RectTransform>
+    ///         </playgroundMarkup:TextTransform.Text>
+    ///     </playgroundMarkup:TextTransform>
+    ///     <playgroundMarkup:ToggleTransform />
     /// </m:RectTransform>
     /// ]]>
     /// </code>
