@@ -1,0 +1,42 @@
+﻿# Copyright 2019 pixiv Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+version: 2.0
+jobs:
+  build:
+    docker:
+      - image: mono:6.4
+    steps:
+      - restore_cache:
+          key: format-0
+      - run: mkdir -p .cache
+      - run: ln -s "$PWD/.cache" ~/
+      - run: apt-get -o "dir::cache=$PWD/.cache/apt" update
+      - run: apt-get -o "dir::cache=$PWD/.cache/apt" -y install git unzip
+      - run: '[ -f CodeFormatter.zip ] || curl -LO https://github.com/akihikodaki/codeformatter/releases/download/v1.0.0-alpha7-aki-r0/CodeFormatter.zip'
+      - checkout:
+          path: project
+      - run: sha1sum -c project/.circleci/CodeFormatter.sha1sum
+      - run: nuget install SQLitePCLRaw.core -Version 1.1.12
+      - save_cache:
+          key: format-0
+          paths:
+            - .cache
+            - CodeFormatter.zip
+      - run: ln -s SQLitePCLRaw.core.1.1.12/lib/net45/* .
+      - run: unzip CodeFormatter.zip
+      - run:
+          command: mono ../CodeFormatter.exe /copyright:Copyright.txt CodeFormatter.rsp
+          working_directory: project
+      - run: git -C project diff --exit-code
